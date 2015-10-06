@@ -1,1 +1,1 @@
-<?php echo 'Tema Magnolia' ?>
+<?php echo 'Thomas More' ?>

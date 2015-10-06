@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'NeutraText-Light';
+  src: url('NeutraText-Light.eot?#iefix') format('embedded-opentype'),  url('NeutraText-Light.otf')  format('opentype'),
+	     url('NeutraText-Light.woff') format('woff'), url('NeutraText-Light.ttf')  format('truetype'), url('NeutraText-Light.svg#NeutraText-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
