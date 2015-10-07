@@ -24,6 +24,7 @@ function tm_valores() {
     'labels' => $labels,
     'public' => true,
     'has_archive' => true,
+    'show_ui' => true,
   );
 
   register_post_type( 'valores', $args );
@@ -62,5 +63,15 @@ function tm_productos_servicios() {
 }
 add_action( 'init', 'tm_productos_servicios' );
 
+add_filter('pll_get_post_types', 'my_pll_get_post_types');
+function my_pll_get_post_types($types) {
+  return array_merge($types, 
+    array(
+      'valores' => 'valores',
+      'equipo' => 'equipo',
+      'productosyservicios' => 'productosyservicios',
+    )
+  );
+}
 
 ?>

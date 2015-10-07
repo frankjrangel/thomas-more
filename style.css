@@ -74,6 +74,10 @@ h2 {
   letter-spacing: 0.18rem;
   color: #8c8c8c; }
 
+h3 {
+  font-weight: 600;
+  letter-spacing: 0.1rem; }
+
 h5 {
   font-size: 1.3rem;
   letter-spacing: 0.15rem;
@@ -159,6 +163,20 @@ p {
   background: #8c8c8c;
   margin: auto; }
 
+.flecha {
+  z-index: 100;
+  display: block;
+  background: #fafafa;
+  width: 30px;
+  height: 30px;
+  margin: 50px auto;
+  margin-top: -80px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg); }
+
 #que-hacemos {
   width: 100%;
   padding-left: 0;
@@ -175,19 +193,6 @@ p {
       background: rgba(0, 0, 0, 0.8);
       width: 80%;
       padding: 60px 10%; }
-    #que-hacemos #contenido-que-hacemos .flecha {
-      z-index: 100;
-      display: block;
-      background: #fafafa;
-      width: 30px;
-      height: 30px;
-      margin: 50px auto;
-      margin-top: -80px;
-      -webkit-transform: rotate(45deg);
-      -moz-transform: rotate(45deg);
-      -o-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg); }
     #que-hacemos #contenido-que-hacemos p {
       color: #fafafa; }
   #que-hacemos .separador {
@@ -215,5 +220,8 @@ p {
       background: #e7b262; }
       #nuestros-valores #contenido-nuestros-valores .valores-item p {
         color: #fafafa !important; }
+    #nuestros-valores #contenido-nuestros-valores .flecha {
+      margin-top: -40px;
+      margin-bottom: 20px; }
 
 /*# sourceMappingURL=style.css.map */

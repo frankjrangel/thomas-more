@@ -66,6 +66,7 @@
     ?>  
   </h2>
   <div id="contenido-nuestros-valores">
+  <div class="flecha"></div>
     <?php
     
     $query = new WP_Query( array( 'post_type' => 'valores' ) );  
