@@ -75,6 +75,51 @@ $azul-claro:rgb(55,48,82);
 $blanco:rgb(250,250,250);
 $gris:rgb(177,177,177);
 $gris-oscuro:rgb(140,140,140);
+$naranja:rgb(231,178,98);
+
+//******* HEADINGS *********
+
+h1
+{
+    font-size:1.8rem;
+    font-weight:bold;
+    letter-spacing:0.2rem;
+    color:$gris-oscuro;
+}
+
+h2
+{
+    font-size:1.6rem;
+    letter-spacing:0.18rem;
+    color:$gris-oscuro;
+}
+
+h5
+{
+    font-size:1.3rem;
+    letter-spacing:0.15rem;
+    font-weight:800;
+    margin-bottom:20px;
+    color:$gris-oscuro;
+}
+
+h6
+{
+    font-size:0.8rem;
+    font-style:italic;
+    color:$gris-oscuro;
+    margin-bottom:20px;
+}
+
+p
+{
+    font-size:1rem;
+    line-height:1.5rem;
+    margin-bottom:17px;
+    color:$gris-oscuro;
+}
+
+//******* HEADER **********
 
 #header-menu-container
 {
@@ -126,6 +171,135 @@ $gris-oscuro:rgb(140,140,140);
             height:20px;
             line-height:1;
             margin-top:20px;
+        }
+    }
+}
+
+//******* FRONT-PAGE ********
+
+.paneles{
+    width:80%;
+    padding: 50px 10%;
+    padding-bottom:40px;
+    text-align:center;
+}
+
+#front-welcome
+{
+    height:550px;
+    background:rgb(30,30,30);
+    background:url('imagenes/handshake.jpg') 0 -170px; 
+    background-size:cover;
+}
+
+.titulo-seccion{
+    width:200px;
+    padding:12px 10px;
+    margin:auto;
+    text-align:center;
+    border:3px solid $gris-oscuro;
+}
+
+.texto-seccion
+{
+    margin-top:30px;
+    color:$gris-oscuro;
+
+    p:last-child
+    {
+        margin-bottom:0;
+    }
+}
+
+.separador
+{
+    width:4%;
+    height:2px;
+    display:block;
+    background:$gris-oscuro;
+    margin:auto;
+}
+
+#que-hacemos{
+   
+    width:100%;
+    padding-left:0;
+    padding-right:0;
+
+    #titulo-que-hacemos
+    {
+        background:$blanco;
+        display:block;
+        z-index:500;
+        position:relative;
+    }
+
+    #contenido-que-hacemos
+    {
+        background:url('imagenes/laptop.jpg') center;
+        background-size:cover;
+
+        .filtro
+        {
+            background:rgba(0,0,0,0.8);
+            width:80%;
+            padding:60px 10%;
+        }
+
+        .flecha
+        {
+            z-index:100;
+            display:block;
+            background:$blanco;
+            width:30px;
+            height:30px;
+            margin:50px auto;
+            margin-top:-80px;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        p
+        {
+            color:$blanco;
+        }
+    }
+    
+    .separador
+    {
+        margin-top:60px;
+    }
+}
+
+#nuestros-valores
+{
+    width:100%;
+    padding-left:0;
+    padding-right:0;
+
+    h2{margin-bottom:35px;}
+
+    #contenido-nuestros-valores{
+        background:$naranja;
+        height:auto;
+        overflow:auto;
+        padding:20px 8%;
+
+        .valores-item
+        {
+            text-align:left;
+            width:19%;
+            padding: 20px 3%;
+            min-width:150px;
+            float:left;
+            height:200px;
+            color:$blanco;
+            background:$naranja;
+            
+            p{color:$blanco !important;}
         }
     }
 }
