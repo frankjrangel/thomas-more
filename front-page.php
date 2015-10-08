@@ -42,8 +42,8 @@
       $titulo_nosotros = $nosotros['label'];
       $texto_nosotros = $nosotros['value'];
        
-    endif; ?> 
-    <?php echo $titulo_que_hacemos; ?>
+    endif;  
+    echo $titulo_que_hacemos; ?>
   </h2>
   <div id="contenido-que-hacemos" class="texto-seccion">
     <div class="filtro"> 
@@ -56,34 +56,57 @@
 <div id="nuestros-valores" class="paneles">
   <h2 id="titulo-nuestros-valores" class="subtitulo-seccion">
     <?php
-    
-    if ( pll_current_language() == 'en' )
-      $titulo = 'OUR VALUES';
-    else 
-      $titulo = 'NUESTROS VALORES';
-    
-    echo $titulo;
+      if ( pll_current_language() == 'en' )
+        $titulo = 'OUR VALUES';
+      else 
+        $titulo = 'NUESTROS VALORES';
+      
+      echo $titulo;
     ?>  
   </h2>
   <div id="contenido-nuestros-valores">
   <div class="flecha"></div>
     <?php
-    
-    $query = new WP_Query( array( 'post_type' => 'valores' ) );  
+      $query = new WP_Query( array( 'post_type' => 'valores' ) );  
 
-    if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();  
-
+      if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();  
     ?>
-    <div class="valores-item">
-      <?php if ( get_field( 'icono-valores' ) ) { the_field( 'icono-valores' ); } ?> 
-      <h3><?php the_title(); ?></h3>
-      <?php the_content(); ?>
-    </div>
-    <?php endwhile; endif; ?>
+      <div class="valores-item">
+        <?php if ( get_field( 'icono-valores' ) ) : ?> 
+             
+          <img src="<?php the_field( 'icono-valores' ); ?>" /> 
+            
+        <?php endif; ?> 
+        <h3><?php the_title(); ?></h3>
+        <?php the_content(); ?>
+      </div>
+    <?php endwhile; endif; wp_reset_query(); ?>
   </div>
 </div>
 <div id="equipo" class="paneles">
-
+  <span class="separador"></span>
+  <h2>
+    <?php
+      if ( pll_current_language() == 'en' )
+        $titulo = 'OUR TEAM';
+      else 
+        $titulo = 'NUESTRO EQUIPO';
+      
+      echo $titulo;
+    ?>  
+  </h2>
+  <?php
+    $query = new WP_Query( array( 'post_type' => 'equipo' ) );
+    if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
+  ?>
+    <div class="equipo-item">
+      <?php if ( has_post_thumbnail() )
+      the_post_thumbnail('medium'); ?> 
+      <h3><?php the_title(); ?></h3>
+      <h4><?php the_field('cargo'); ?></h4>
+      <p><?php the_content(); ?></p>
+    </div>
+  <?php endwhile; endif; wp_reset_query(); ?> 
 </div>
 <div id="servicios" class="paneles">
 

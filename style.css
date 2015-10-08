@@ -201,7 +201,8 @@ p {
 #nuestros-valores {
   width: 100%;
   padding-left: 0;
-  padding-right: 0; }
+  padding-right: 0;
+  padding-bottom: 0; }
   #nuestros-valores h2 {
     margin-bottom: 35px; }
   #nuestros-valores #contenido-nuestros-valores {
@@ -220,8 +221,20 @@ p {
       background: #e7b262; }
       #nuestros-valores #contenido-nuestros-valores .valores-item p {
         color: #fafafa !important; }
+    #nuestros-valores #contenido-nuestros-valores img {
+      margin-bottom: 15px; }
+    #nuestros-valores #contenido-nuestros-valores h3 {
+      margin-bottom: 5px; }
     #nuestros-valores #contenido-nuestros-valores .flecha {
       margin-top: -40px;
       margin-bottom: 20px; }
+
+#equipo {
+  background: #6e6e6e; }
+  #equipo .separador {
+    margin-top: 10px;
+    margin-bottom: 30px; }
+  #equipo .equipo-item {
+    background: rgba(0, 0, 0, 0.1); }
 
 /*# sourceMappingURL=style.css.map */

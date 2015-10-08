@@ -1,4 +1,6 @@
 <?php
+add_theme_support('post-thumbnails');
+
 function remove_menus() {
   remove_menu_page( 'edit-comments.php' );
 }
@@ -24,7 +26,6 @@ function tm_valores() {
     'labels' => $labels,
     'public' => true,
     'has_archive' => true,
-    'show_ui' => true,
   );
 
   register_post_type( 'valores', $args );
@@ -41,6 +42,7 @@ function tm_equipo() {
     'labels' => $labels,
     'public' => true,
     'has_archive' => true,
+    'supports' => array( 'title', 'editor', 'thumbnail'),
   );
 
   register_post_type( 'equipo', $args );
