@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 <div id="front-welcome">
+
 </div>
 <div id="nosotros" class="paneles">
   
