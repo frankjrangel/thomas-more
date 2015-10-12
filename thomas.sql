@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.12deb2
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 11, 2015 at 01:02 AM
--- Server version: 5.5.44-0+deb8u1
--- PHP Version: 5.6.12-0+deb8u1
+-- Generation Time: Oct 11, 2015 at 09:31 PM
+-- Server version: 5.5.44-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `thomasmore`
+-- Database: `thomas`
 --
 
 -- --------------------------------------------------------
@@ -28,11 +28,14 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `wp_commentmeta`;
 CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
-`meta_id` bigint(20) unsigned NOT NULL,
+  `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `comment_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `comment_id` (`comment_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -42,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
 
 DROP TABLE IF EXISTS `wp_comments`;
 CREATE TABLE IF NOT EXISTS `wp_comments` (
-`comment_ID` bigint(20) unsigned NOT NULL,
+  `comment_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `comment_post_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
   `comment_author` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
   `comment_author_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -56,8 +59,14 @@ CREATE TABLE IF NOT EXISTS `wp_comments` (
   `comment_agent` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_parent` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`comment_ID`),
+  KEY `comment_post_ID` (`comment_post_ID`),
+  KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
+  KEY `comment_date_gmt` (`comment_date_gmt`),
+  KEY `comment_parent` (`comment_parent`),
+  KEY `comment_author_email` (`comment_author_email`(10))
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `wp_comments`
@@ -74,7 +83,7 @@ INSERT INTO `wp_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `c
 
 DROP TABLE IF EXISTS `wp_links`;
 CREATE TABLE IF NOT EXISTS `wp_links` (
-`link_id` bigint(20) unsigned NOT NULL,
+  `link_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `link_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -86,8 +95,10 @@ CREATE TABLE IF NOT EXISTS `wp_links` (
   `link_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `link_rel` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_notes` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link_rss` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `link_rss` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`link_id`),
+  KEY `link_visible` (`link_visible`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -97,11 +108,13 @@ CREATE TABLE IF NOT EXISTS `wp_links` (
 
 DROP TABLE IF EXISTS `wp_options`;
 CREATE TABLE IF NOT EXISTS `wp_options` (
-`option_id` bigint(20) unsigned NOT NULL,
+  `option_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `option_name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `option_value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes'
-) ENGINE=InnoDB AUTO_INCREMENT=331 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes',
+  PRIMARY KEY (`option_id`),
+  UNIQUE KEY `option_name` (`option_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=371 ;
 
 --
 -- Dumping data for table `wp_options`
@@ -204,8 +217,8 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (94, 'widget_archives', 'a:2:{i:2;a:3:{s:5:"title";s:0:"";s:5:"count";i:0;s:8:"dropdown";i:0;}s:12:"_multiwidget";i:1;}', 'yes'),
 (95, 'widget_meta', 'a:2:{i:2;a:1:{s:5:"title";s:0:"";}s:12:"_multiwidget";i:1;}', 'yes'),
 (96, 'sidebars_widgets', 'a:3:{s:19:"wp_inactive_widgets";a:0:{}s:18:"orphaned_widgets_1";a:6:{i:0;s:8:"search-2";i:1;s:14:"recent-posts-2";i:2;s:17:"recent-comments-2";i:3;s:10:"archives-2";i:4;s:12:"categories-2";i:5;s:6:"meta-2";}s:13:"array_version";i:3;}', 'yes'),
-(99, 'cron', 'a:5:{i:1444546920;a:1:{s:20:"wp_maybe_auto_update";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}}i:1444561345;a:3:{s:16:"wp_version_check";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}s:17:"wp_update_plugins";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}s:16:"wp_update_themes";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}}i:1444604556;a:1:{s:19:"wp_scheduled_delete";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:5:"daily";s:4:"args";a:0:{}s:8:"interval";i:86400;}}}i:1444610717;a:1:{s:30:"wp_scheduled_auto_draft_delete";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:5:"daily";s:4:"args";a:0:{}s:8:"interval";i:86400;}}}s:7:"version";i:2;}', 'yes'),
-(101, '_transient_random_seed', '6af7d429f1c9e72eb7cebff33b92ce65', 'yes'),
+(99, 'cron', 'a:5:{i:1444633320;a:1:{s:20:"wp_maybe_auto_update";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}}i:1444647745;a:3:{s:16:"wp_version_check";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}s:17:"wp_update_plugins";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}s:16:"wp_update_themes";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}}i:1444690956;a:1:{s:19:"wp_scheduled_delete";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:5:"daily";s:4:"args";a:0:{}s:8:"interval";i:86400;}}}i:1444697117;a:1:{s:30:"wp_scheduled_auto_draft_delete";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:5:"daily";s:4:"args";a:0:{}s:8:"interval";i:86400;}}}s:7:"version";i:2;}', 'yes'),
+(101, '_transient_random_seed', '90223b9c1f3499c0826a04854e1a13c0', 'yes'),
 (102, 'nonce_key', '(O2E+C]=zrV3GoIa/=R+tjW^qL;hHMD-~2Igo0IF,u,MD#GNq.F?beT>[ysspKe&', 'yes'),
 (103, 'nonce_salt', '!pU|S(WKe?)[G8CYO,u5Ka3 9vr^Q6uY=Ny3mn16&ii xv&p@W] |!&@5uu[>yF!', 'yes'),
 (113, 'auth_key', 'lX h*f(l*>Vjx;me1aQ0&?zJeiUoFmXl?V8Nx}f)ZQEfHlb>9qV@ZiJ^M0Mj9&NT', 'yes'),
@@ -214,7 +227,7 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (116, 'logged_in_salt', 'CsTnk_>1v) )Q(#ou?<1}bhog<*)uaYf|..>j>JW?VugeThuz^U7?uiQ.Ul2:][R', 'yes'),
 (120, '_site_transient_timeout_browser_c2b3538484c09500dbf83fdb5841127d', '1444690952', 'yes'),
 (121, '_site_transient_browser_c2b3538484c09500dbf83fdb5841127d', 'a:9:{s:8:"platform";s:5:"Linux";s:4:"name";s:7:"Firefox";s:7:"version";s:4:"38.0";s:10:"update_url";s:23:"http://www.firefox.com/";s:7:"img_src";s:50:"http://s.wordpress.org/images/browsers/firefox.png";s:11:"img_src_ssl";s:49:"https://wordpress.org/images/browsers/firefox.png";s:15:"current_version";s:2:"16";s:7:"upgrade";b:0;s:8:"insecure";b:0;}', 'yes'),
-(138, '_transient_timeout_plugin_slugs', '1444194752', 'no'),
+(138, '_transient_timeout_plugin_slugs', '1444693959', 'no'),
 (139, '_transient_plugin_slugs', 'a:4:{i:0;s:30:"advanced-custom-fields/acf.php";i:1;s:19:"akismet/akismet.php";i:2;s:9:"hello.php";i:3;s:21:"polylang/polylang.php";}', 'no'),
 (140, '_transient_timeout_dash_4077549d03da2e451c8b5f002294ff51', '1444129358', 'no'),
 (141, '_transient_dash_4077549d03da2e451c8b5f002294ff51', '<div class="rss-widget"><ul><li><a class=''rsswidget'' href=''https://es.wordpress.org/2015/09/15/wordpress-4-3-1-actualizacion-de-mantenimiento-y-seguridad/''>WordPress 4.3.1 Actualización de mantenimiento y seguridad</a> <span class="rss-date">15 septiembre, 2015</span><div class="rssSummary">WordPress 4.3.1 está ya disponible. Esta es una actualización de seguridad para todas las versiones anteriores así que es importante que actualices tus sitios de inmediato. Esta versión soluciona tres problemas, incluidas dos vulnerabilidades de scripts cruzados (XSS) y un escalado potencial de privilegios Las versiones de WordPress 4.3 y anteriores son vulnerables a una vulnerabilidad XSS [&hellip;]</div></li></ul></div><div class="rss-widget"><ul><li><a class=''rsswidget'' href=''http://wptavern.com/tom-nowell-on-how-automattic-keeps-workers-healthy-and-happy''>WPTavern: Tom Nowell on How Automattic Keeps Workers Healthy and Happy</a></li><li><a class=''rsswidget'' href=''https://poststatus.com/how-wordpress-core-development-happens-draft-podcast/''>Post Status: How WordPress core development happens — Draft podcast</a></li><li><a class=''rsswidget'' href=''http://wptavern.com/wp101-founded-by-shawn-hesketh-turns-7-years-old''>WPTavern: WP101 Founded by Shawn Hesketh Turns 7 Years Old</a></li></ul></div><div class="rss-widget"><ul><li class=''dashboard-news-plugin''><span>Plugin popular:</span> <a href=''https://wordpress.org/plugins/ml-slider/'' class=''dashboard-news-plugin-link''>Meta Slider</a>&nbsp;<span>(<a href=''plugin-install.php?tab=plugin-information&amp;plugin=ml-slider&amp;_wpnonce=fd9fc605ac&amp;TB_iframe=true&amp;width=600&amp;height=800'' class=''thickbox'' title=''Meta Slider''>Instalar</a>)</span></li></ul></div>', 'no'),
@@ -225,7 +238,7 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (155, 'theme_switched', '', 'yes'),
 (156, 'finished_splitting_shared_terms', '1', 'yes'),
 (157, 'db_upgraded', '', 'yes'),
-(159, '_site_transient_update_core', 'O:8:"stdClass":4:{s:7:"updates";a:1:{i:0;O:8:"stdClass":10:{s:8:"response";s:6:"latest";s:8:"download";s:65:"https://downloads.wordpress.org/release/es_ES/wordpress-4.3.1.zip";s:6:"locale";s:5:"es_ES";s:8:"packages";O:8:"stdClass":5:{s:4:"full";s:65:"https://downloads.wordpress.org/release/es_ES/wordpress-4.3.1.zip";s:10:"no_content";b:0;s:11:"new_bundled";b:0;s:7:"partial";b:0;s:8:"rollback";b:0;}s:7:"current";s:5:"4.3.1";s:7:"version";s:5:"4.3.1";s:11:"php_version";s:5:"5.2.4";s:13:"mysql_version";s:3:"5.0";s:11:"new_bundled";s:3:"4.1";s:15:"partial_version";s:0:"";}}s:12:"last_checked";i:1444523037;s:15:"version_checked";s:5:"4.3.1";s:12:"translations";a:0:{}}', 'yes'),
+(159, '_site_transient_update_core', 'O:8:"stdClass":4:{s:7:"updates";a:1:{i:0;O:8:"stdClass":10:{s:8:"response";s:6:"latest";s:8:"download";s:65:"https://downloads.wordpress.org/release/es_ES/wordpress-4.3.1.zip";s:6:"locale";s:5:"es_ES";s:8:"packages";O:8:"stdClass":5:{s:4:"full";s:65:"https://downloads.wordpress.org/release/es_ES/wordpress-4.3.1.zip";s:10:"no_content";b:0;s:11:"new_bundled";b:0;s:7:"partial";b:0;s:8:"rollback";b:0;}s:7:"current";s:5:"4.3.1";s:7:"version";s:5:"4.3.1";s:11:"php_version";s:5:"5.2.4";s:13:"mysql_version";s:3:"5.0";s:11:"new_bundled";s:3:"4.1";s:15:"partial_version";s:0:"";}}s:12:"last_checked";i:1444607523;s:15:"version_checked";s:5:"4.3.1";s:12:"translations";a:0:{}}', 'yes'),
 (163, 'can_compress_scripts', '0', 'yes'),
 (166, 'recently_activated', 'a:0:{}', 'yes'),
 (168, 'widget_calendar', 'a:2:{i:1;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
@@ -235,7 +248,6 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (175, 'nav_menu_options', 'a:2:{i:0;b:0;s:8:"auto_add";a:0:{}}', 'yes'),
 (186, '_site_transient_timeout_poptags_40cd750bba9870f18aada2478b24840a', '1444104429', 'yes'),
 (187, '_site_transient_poptags_40cd750bba9870f18aada2478b24840a', 'a:100:{s:6:"widget";a:3:{s:4:"name";s:6:"widget";s:4:"slug";s:6:"widget";s:5:"count";s:4:"5472";}s:4:"post";a:3:{s:4:"name";s:4:"Post";s:4:"slug";s:4:"post";s:5:"count";s:4:"3428";}s:6:"plugin";a:3:{s:4:"name";s:6:"plugin";s:4:"slug";s:6:"plugin";s:5:"count";s:4:"3390";}s:5:"admin";a:3:{s:4:"name";s:5:"admin";s:4:"slug";s:5:"admin";s:5:"count";s:4:"2884";}s:5:"posts";a:3:{s:4:"name";s:5:"posts";s:4:"slug";s:5:"posts";s:5:"count";s:4:"2640";}s:7:"sidebar";a:3:{s:4:"name";s:7:"sidebar";s:4:"slug";s:7:"sidebar";s:5:"count";s:4:"2101";}s:9:"shortcode";a:3:{s:4:"name";s:9:"shortcode";s:4:"slug";s:9:"shortcode";s:5:"count";s:4:"2061";}s:6:"google";a:3:{s:4:"name";s:6:"google";s:4:"slug";s:6:"google";s:5:"count";s:4:"1937";}s:7:"twitter";a:3:{s:4:"name";s:7:"twitter";s:4:"slug";s:7:"twitter";s:5:"count";s:4:"1892";}s:6:"images";a:3:{s:4:"name";s:6:"images";s:4:"slug";s:6:"images";s:5:"count";s:4:"1872";}s:4:"page";a:3:{s:4:"name";s:4:"page";s:4:"slug";s:4:"page";s:5:"count";s:4:"1855";}s:8:"comments";a:3:{s:4:"name";s:8:"comments";s:4:"slug";s:8:"comments";s:5:"count";s:4:"1826";}s:5:"image";a:3:{s:4:"name";s:5:"image";s:4:"slug";s:5:"image";s:5:"count";s:4:"1730";}s:8:"facebook";a:3:{s:4:"name";s:8:"Facebook";s:4:"slug";s:8:"facebook";s:5:"count";s:4:"1534";}s:3:"seo";a:3:{s:4:"name";s:3:"seo";s:4:"slug";s:3:"seo";s:5:"count";s:4:"1449";}s:9:"wordpress";a:3:{s:4:"name";s:9:"wordpress";s:4:"slug";s:9:"wordpress";s:5:"count";s:4:"1411";}s:6:"social";a:3:{s:4:"name";s:6:"social";s:4:"slug";s:6:"social";s:5:"count";s:4:"1248";}s:5:"links";a:3:{s:4:"name";s:5:"links";s:4:"slug";s:5:"links";s:5:"count";s:4:"1230";}s:11:"woocommerce";a:3:{s:4:"name";s:11:"woocommerce";s:4:"slug";s:11:"woocommerce";s:5:"count";s:4:"1217";}s:7:"gallery";a:3:{s:4:"name";s:7:"gallery";s:4:"slug";s:7:"gallery";s:5:"count";s:4:"1198";}s:5:"email";a:3:{s:4:"name";s:5:"email";s:4:"slug";s:5:"email";s:5:"count";s:4:"1091";}s:7:"widgets";a:3:{s:4:"name";s:7:"widgets";s:4:"slug";s:7:"widgets";s:5:"count";s:4:"1034";}s:5:"pages";a:3:{s:4:"name";s:5:"pages";s:4:"slug";s:5:"pages";s:5:"count";s:3:"993";}s:6:"jquery";a:3:{s:4:"name";s:6:"jquery";s:4:"slug";s:6:"jquery";s:5:"count";s:3:"949";}s:5:"media";a:3:{s:4:"name";s:5:"media";s:4:"slug";s:5:"media";s:5:"count";s:3:"906";}s:3:"rss";a:3:{s:4:"name";s:3:"rss";s:4:"slug";s:3:"rss";s:5:"count";s:3:"890";}s:4:"ajax";a:3:{s:4:"name";s:4:"AJAX";s:4:"slug";s:4:"ajax";s:5:"count";s:3:"846";}s:5:"video";a:3:{s:4:"name";s:5:"video";s:4:"slug";s:5:"video";s:5:"count";s:3:"837";}s:9:"ecommerce";a:3:{s:4:"name";s:9:"ecommerce";s:4:"slug";s:9:"ecommerce";s:5:"count";s:3:"824";}s:7:"content";a:3:{s:4:"name";s:7:"content";s:4:"slug";s:7:"content";s:5:"count";s:3:"820";}s:5:"login";a:3:{s:4:"name";s:5:"login";s:4:"slug";s:5:"login";s:5:"count";s:3:"808";}s:10:"javascript";a:3:{s:4:"name";s:10:"javascript";s:4:"slug";s:10:"javascript";s:5:"count";s:3:"772";}s:10:"buddypress";a:3:{s:4:"name";s:10:"buddypress";s:4:"slug";s:10:"buddypress";s:5:"count";s:3:"744";}s:5:"photo";a:3:{s:4:"name";s:5:"photo";s:4:"slug";s:5:"photo";s:5:"count";s:3:"716";}s:4:"feed";a:3:{s:4:"name";s:4:"feed";s:4:"slug";s:4:"feed";s:5:"count";s:3:"705";}s:4:"link";a:3:{s:4:"name";s:4:"link";s:4:"slug";s:4:"link";s:5:"count";s:3:"698";}s:8:"security";a:3:{s:4:"name";s:8:"security";s:4:"slug";s:8:"security";s:5:"count";s:3:"696";}s:7:"youtube";a:3:{s:4:"name";s:7:"youtube";s:4:"slug";s:7:"youtube";s:5:"count";s:3:"693";}s:4:"spam";a:3:{s:4:"name";s:4:"spam";s:4:"slug";s:4:"spam";s:5:"count";s:3:"683";}s:5:"share";a:3:{s:4:"name";s:5:"Share";s:4:"slug";s:5:"share";s:5:"count";s:3:"681";}s:10:"responsive";a:3:{s:4:"name";s:10:"responsive";s:4:"slug";s:10:"responsive";s:5:"count";s:3:"672";}s:6:"photos";a:3:{s:4:"name";s:6:"photos";s:4:"slug";s:6:"photos";s:5:"count";s:3:"660";}s:10:"e-commerce";a:3:{s:4:"name";s:10:"e-commerce";s:4:"slug";s:10:"e-commerce";s:5:"count";s:3:"654";}s:8:"category";a:3:{s:4:"name";s:8:"category";s:4:"slug";s:8:"category";s:5:"count";s:3:"650";}s:5:"embed";a:3:{s:4:"name";s:5:"embed";s:4:"slug";s:5:"embed";s:5:"count";s:3:"627";}s:9:"analytics";a:3:{s:4:"name";s:9:"analytics";s:4:"slug";s:9:"analytics";s:5:"count";s:3:"613";}s:3:"css";a:3:{s:4:"name";s:3:"CSS";s:4:"slug";s:3:"css";s:5:"count";s:3:"610";}s:6:"search";a:3:{s:4:"name";s:6:"search";s:4:"slug";s:6:"search";s:5:"count";s:3:"605";}s:9:"slideshow";a:3:{s:4:"name";s:9:"slideshow";s:4:"slug";s:9:"slideshow";s:5:"count";s:3:"601";}s:4:"form";a:3:{s:4:"name";s:4:"form";s:4:"slug";s:4:"form";s:5:"count";s:3:"598";}s:5:"stats";a:3:{s:4:"name";s:5:"stats";s:4:"slug";s:5:"stats";s:5:"count";s:3:"586";}s:7:"comment";a:3:{s:4:"name";s:7:"comment";s:4:"slug";s:7:"comment";s:5:"count";s:3:"572";}s:6:"custom";a:3:{s:4:"name";s:6:"custom";s:4:"slug";s:6:"custom";s:5:"count";s:3:"571";}s:5:"theme";a:3:{s:4:"name";s:5:"theme";s:4:"slug";s:5:"theme";s:5:"count";s:3:"557";}s:4:"tags";a:3:{s:4:"name";s:4:"tags";s:4:"slug";s:4:"tags";s:5:"count";s:3:"556";}s:4:"menu";a:3:{s:4:"name";s:4:"menu";s:4:"slug";s:4:"menu";s:5:"count";s:3:"555";}s:6:"button";a:3:{s:4:"name";s:6:"button";s:4:"slug";s:6:"button";s:5:"count";s:3:"555";}s:6:"slider";a:3:{s:4:"name";s:6:"slider";s:4:"slug";s:6:"slider";s:5:"count";s:3:"552";}s:9:"dashboard";a:3:{s:4:"name";s:9:"dashboard";s:4:"slug";s:9:"dashboard";s:5:"count";s:3:"543";}s:10:"categories";a:3:{s:4:"name";s:10:"categories";s:4:"slug";s:10:"categories";s:5:"count";s:3:"541";}s:10:"statistics";a:3:{s:4:"name";s:10:"statistics";s:4:"slug";s:10:"statistics";s:5:"count";s:3:"533";}s:3:"ads";a:3:{s:4:"name";s:3:"ads";s:4:"slug";s:3:"ads";s:5:"count";s:3:"511";}s:6:"mobile";a:3:{s:4:"name";s:6:"mobile";s:4:"slug";s:6:"mobile";s:5:"count";s:3:"507";}s:6:"editor";a:3:{s:4:"name";s:6:"editor";s:4:"slug";s:6:"editor";s:5:"count";s:3:"496";}s:7:"picture";a:3:{s:4:"name";s:7:"picture";s:4:"slug";s:7:"picture";s:5:"count";s:3:"495";}s:4:"user";a:3:{s:4:"name";s:4:"user";s:4:"slug";s:4:"user";s:5:"count";s:3:"495";}s:5:"users";a:3:{s:4:"name";s:5:"users";s:4:"slug";s:5:"users";s:5:"count";s:3:"489";}s:4:"list";a:3:{s:4:"name";s:4:"list";s:4:"slug";s:4:"list";s:5:"count";s:3:"486";}s:7:"plugins";a:3:{s:4:"name";s:7:"plugins";s:4:"slug";s:7:"plugins";s:5:"count";s:3:"475";}s:9:"affiliate";a:3:{s:4:"name";s:9:"affiliate";s:4:"slug";s:9:"affiliate";s:5:"count";s:3:"471";}s:9:"multisite";a:3:{s:4:"name";s:9:"multisite";s:4:"slug";s:9:"multisite";s:5:"count";s:3:"460";}s:6:"simple";a:3:{s:4:"name";s:6:"simple";s:4:"slug";s:6:"simple";s:5:"count";s:3:"457";}s:8:"pictures";a:3:{s:4:"name";s:8:"pictures";s:4:"slug";s:8:"pictures";s:5:"count";s:3:"448";}s:7:"contact";a:3:{s:4:"name";s:7:"contact";s:4:"slug";s:7:"contact";s:5:"count";s:3:"433";}s:12:"contact-form";a:3:{s:4:"name";s:12:"contact form";s:4:"slug";s:12:"contact-form";s:5:"count";s:3:"431";}s:12:"social-media";a:3:{s:4:"name";s:12:"social media";s:4:"slug";s:12:"social-media";s:5:"count";s:3:"430";}s:10:"navigation";a:3:{s:4:"name";s:10:"navigation";s:4:"slug";s:10:"navigation";s:5:"count";s:3:"422";}s:5:"flash";a:3:{s:4:"name";s:5:"flash";s:4:"slug";s:5:"flash";s:5:"count";s:3:"420";}s:3:"url";a:3:{s:4:"name";s:3:"url";s:4:"slug";s:3:"url";s:5:"count";s:3:"415";}s:4:"html";a:3:{s:4:"name";s:4:"html";s:4:"slug";s:4:"html";s:5:"count";s:3:"408";}s:4:"meta";a:3:{s:4:"name";s:4:"meta";s:4:"slug";s:4:"meta";s:5:"count";s:3:"393";}s:10:"newsletter";a:3:{s:4:"name";s:10:"newsletter";s:4:"slug";s:10:"newsletter";s:5:"count";s:3:"391";}s:3:"api";a:3:{s:4:"name";s:3:"api";s:4:"slug";s:3:"api";s:5:"count";s:3:"390";}s:4:"news";a:3:{s:4:"name";s:4:"News";s:4:"slug";s:4:"news";s:5:"count";s:3:"389";}s:3:"tag";a:3:{s:4:"name";s:3:"tag";s:4:"slug";s:3:"tag";s:5:"count";s:3:"380";}s:4:"shop";a:3:{s:4:"name";s:4:"shop";s:4:"slug";s:4:"shop";s:5:"count";s:3:"380";}s:6:"events";a:3:{s:4:"name";s:6:"events";s:4:"slug";s:6:"events";s:5:"count";s:3:"376";}s:9:"marketing";a:3:{s:4:"name";s:9:"marketing";s:4:"slug";s:9:"marketing";s:5:"count";s:3:"374";}s:4:"text";a:3:{s:4:"name";s:4:"text";s:4:"slug";s:4:"text";s:5:"count";s:3:"373";}s:9:"thumbnail";a:3:{s:4:"name";s:9:"thumbnail";s:4:"slug";s:9:"thumbnail";s:5:"count";s:3:"372";}s:4:"code";a:3:{s:4:"name";s:4:"code";s:4:"slug";s:4:"code";s:5:"count";s:3:"368";}s:8:"tracking";a:3:{s:4:"name";s:8:"tracking";s:4:"slug";s:8:"tracking";s:5:"count";s:3:"367";}s:11:"advertising";a:3:{s:4:"name";s:11:"advertising";s:4:"slug";s:11:"advertising";s:5:"count";s:3:"366";}s:9:"automatic";a:3:{s:4:"name";s:9:"automatic";s:4:"slug";s:9:"automatic";s:5:"count";s:3:"366";}s:8:"calendar";a:3:{s:4:"name";s:8:"calendar";s:4:"slug";s:8:"calendar";s:5:"count";s:3:"364";}s:6:"upload";a:3:{s:4:"name";s:6:"upload";s:4:"slug";s:6:"upload";s:5:"count";s:3:"364";}s:7:"sharing";a:3:{s:4:"name";s:7:"sharing";s:4:"slug";s:7:"sharing";s:5:"count";s:3:"361";}s:7:"profile";a:3:{s:4:"name";s:7:"profile";s:4:"slug";s:7:"profile";s:5:"count";s:3:"357";}s:14:"administration";a:3:{s:4:"name";s:14:"administration";s:4:"slug";s:14:"administration";s:5:"count";s:3:"356";}s:8:"lightbox";a:3:{s:4:"name";s:8:"lightbox";s:4:"slug";s:8:"lightbox";s:5:"count";s:3:"356";}}', 'yes'),
-(188, '_site_transient_update_plugins', 'O:8:"stdClass":4:{s:12:"last_checked";i:1444523043;s:8:"response";a:0:{}s:12:"translations";a:0:{}s:9:"no_update";a:4:{s:30:"advanced-custom-fields/acf.php";O:8:"stdClass":6:{s:2:"id";s:5:"21367";s:4:"slug";s:22:"advanced-custom-fields";s:6:"plugin";s:30:"advanced-custom-fields/acf.php";s:11:"new_version";s:5:"4.4.3";s:3:"url";s:53:"https://wordpress.org/plugins/advanced-custom-fields/";s:7:"package";s:71:"https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.3.zip";}s:19:"akismet/akismet.php";O:8:"stdClass":6:{s:2:"id";s:2:"15";s:4:"slug";s:7:"akismet";s:6:"plugin";s:19:"akismet/akismet.php";s:11:"new_version";s:5:"3.1.4";s:3:"url";s:38:"https://wordpress.org/plugins/akismet/";s:7:"package";s:56:"https://downloads.wordpress.org/plugin/akismet.3.1.4.zip";}s:9:"hello.php";O:8:"stdClass":6:{s:2:"id";s:4:"3564";s:4:"slug";s:11:"hello-dolly";s:6:"plugin";s:9:"hello.php";s:11:"new_version";s:3:"1.6";s:3:"url";s:42:"https://wordpress.org/plugins/hello-dolly/";s:7:"package";s:58:"https://downloads.wordpress.org/plugin/hello-dolly.1.6.zip";}s:21:"polylang/polylang.php";O:8:"stdClass":6:{s:2:"id";s:5:"25780";s:4:"slug";s:8:"polylang";s:6:"plugin";s:21:"polylang/polylang.php";s:11:"new_version";s:6:"1.7.10";s:3:"url";s:39:"https://wordpress.org/plugins/polylang/";s:7:"package";s:58:"https://downloads.wordpress.org/plugin/polylang.1.7.10.zip";}}}', 'yes'),
 (189, 'acf_version', '4.4.3', 'yes'),
 (190, 'polylang', 'a:13:{s:7:"browser";i:1;s:7:"rewrite";i:1;s:12:"hide_default";i:0;s:10:"force_lang";i:1;s:13:"redirect_lang";i:1;s:13:"media_support";i:1;s:4:"sync";a:0:{}s:10:"post_types";a:0:{}s:10:"taxonomies";a:0:{}s:7:"domains";a:0:{}s:7:"version";s:6:"1.7.10";s:12:"default_lang";s:2:"es";s:9:"nav_menus";a:1:{s:11:"thomas-more";a:3:{s:9:"principal";a:1:{s:2:"es";i:2;}s:24:"menu-principal-izquierdo";a:2:{s:2:"es";i:2;s:2:"en";i:11;}s:22:"menu-principal-derecho";a:2:{s:2:"es";i:3;s:2:"en";i:12;}}}}', 'yes'),
 (202, 'category_children', 'a:0:{}', 'yes'),
@@ -261,10 +273,11 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (261, '_site_transient_timeout_available_translations', '1444175867', 'yes');
 INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
 (262, '_site_transient_available_translations', 'a:65:{s:2:"ar";a:8:{s:8:"language";s:2:"ar";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 00:32:07";s:12:"english_name";s:6:"Arabic";s:11:"native_name";s:14:"العربية";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/ar.zip";s:3:"iso";a:2:{i:1;s:2:"ar";i:2;s:3:"ara";}s:7:"strings";a:1:{s:8:"continue";s:16:"المتابعة";}}s:3:"ary";a:8:{s:8:"language";s:3:"ary";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-12 20:42:00";s:12:"english_name";s:15:"Moroccan Arabic";s:11:"native_name";s:31:"العربية المغربية";s:7:"package";s:62:"https://downloads.wordpress.org/translation/core/4.3.1/ary.zip";s:3:"iso";a:2:{i:1;s:5:"ar_MA";i:3;s:3:"ary";}s:7:"strings";a:1:{s:8:"continue";s:16:"المتابعة";}}s:2:"az";a:8:{s:8:"language";s:2:"az";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-22 14:16:17";s:12:"english_name";s:11:"Azerbaijani";s:11:"native_name";s:16:"Azərbaycan dili";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/az.zip";s:3:"iso";a:2:{i:1;s:2:"az";i:2;s:3:"aze";}s:7:"strings";a:1:{s:8:"continue";s:5:"Davam";}}s:5:"bg_BG";a:8:{s:8:"language";s:5:"bg_BG";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-17 10:33:13";s:12:"english_name";s:9:"Bulgarian";s:11:"native_name";s:18:"Български";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/bg_BG.zip";s:3:"iso";a:2:{i:1;s:2:"bg";i:2;s:3:"bul";}s:7:"strings";a:1:{s:8:"continue";s:22:"Продължение";}}s:5:"bn_BD";a:8:{s:8:"language";s:5:"bn_BD";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-16 05:09:40";s:12:"english_name";s:7:"Bengali";s:11:"native_name";s:15:"বাংলা";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/bn_BD.zip";s:3:"iso";a:1:{i:1;s:2:"bn";}s:7:"strings";a:1:{s:8:"continue";s:23:"এগিয়ে চল.";}}s:5:"bs_BA";a:8:{s:8:"language";s:5:"bs_BA";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 21:20:44";s:12:"english_name";s:7:"Bosnian";s:11:"native_name";s:8:"Bosanski";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/bs_BA.zip";s:3:"iso";a:2:{i:1;s:2:"bs";i:2;s:3:"bos";}s:7:"strings";a:1:{s:8:"continue";s:7:"Nastavi";}}s:2:"ca";a:8:{s:8:"language";s:2:"ca";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 04:19:00";s:12:"english_name";s:7:"Catalan";s:11:"native_name";s:7:"Català";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/ca.zip";s:3:"iso";a:2:{i:1;s:2:"ca";i:2;s:3:"cat";}s:7:"strings";a:1:{s:8:"continue";s:8:"Continua";}}s:2:"cy";a:8:{s:8:"language";s:2:"cy";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-19 09:17:13";s:12:"english_name";s:5:"Welsh";s:11:"native_name";s:7:"Cymraeg";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/cy.zip";s:3:"iso";a:2:{i:1;s:2:"cy";i:2;s:3:"cym";}s:7:"strings";a:1:{s:8:"continue";s:6:"Parhau";}}s:5:"da_DK";a:8:{s:8:"language";s:5:"da_DK";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 19:34:34";s:12:"english_name";s:6:"Danish";s:11:"native_name";s:5:"Dansk";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/da_DK.zip";s:3:"iso";a:2:{i:1;s:2:"da";i:2;s:3:"dan";}s:7:"strings";a:1:{s:8:"continue";s:12:"Forts&#230;t";}}s:12:"de_DE_formal";a:8:{s:8:"language";s:12:"de_DE_formal";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-30 07:31:54";s:12:"english_name";s:15:"German (Formal)";s:11:"native_name";s:13:"Deutsch (Sie)";s:7:"package";s:71:"https://downloads.wordpress.org/translation/core/4.3.1/de_DE_formal.zip";s:3:"iso";a:1:{i:1;s:2:"de";}s:7:"strings";a:1:{s:8:"continue";s:10:"Fortfahren";}}s:5:"de_DE";a:8:{s:8:"language";s:5:"de_DE";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-30 07:30:55";s:12:"english_name";s:6:"German";s:11:"native_name";s:7:"Deutsch";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/de_DE.zip";s:3:"iso";a:1:{i:1;s:2:"de";}s:7:"strings";a:1:{s:8:"continue";s:10:"Fortfahren";}}s:5:"de_CH";a:8:{s:8:"language";s:5:"de_CH";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-10-02 05:19:03";s:12:"english_name";s:20:"German (Switzerland)";s:11:"native_name";s:17:"Deutsch (Schweiz)";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/de_CH.zip";s:3:"iso";a:1:{i:1;s:2:"de";}s:7:"strings";a:1:{s:8:"continue";s:10:"Fortfahren";}}s:2:"el";a:8:{s:8:"language";s:2:"el";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-03 22:30:30";s:12:"english_name";s:5:"Greek";s:11:"native_name";s:16:"Ελληνικά";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/el.zip";s:3:"iso";a:2:{i:1;s:2:"el";i:2;s:3:"ell";}s:7:"strings";a:1:{s:8:"continue";s:16:"Συνέχεια";}}s:5:"en_GB";a:8:{s:8:"language";s:5:"en_GB";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-17 20:57:21";s:12:"english_name";s:12:"English (UK)";s:11:"native_name";s:12:"English (UK)";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/en_GB.zip";s:3:"iso";a:3:{i:1;s:2:"en";i:2;s:3:"eng";i:3;s:3:"eng";}s:7:"strings";a:1:{s:8:"continue";s:8:"Continue";}}s:5:"en_AU";a:8:{s:8:"language";s:5:"en_AU";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-13 23:56:05";s:12:"english_name";s:19:"English (Australia)";s:11:"native_name";s:19:"English (Australia)";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/en_AU.zip";s:3:"iso";a:3:{i:1;s:2:"en";i:2;s:3:"eng";i:3;s:3:"eng";}s:7:"strings";a:1:{s:8:"continue";s:8:"Continue";}}s:5:"en_NZ";a:8:{s:8:"language";s:5:"en_NZ";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-17 22:20:50";s:12:"english_name";s:21:"English (New Zealand)";s:11:"native_name";s:21:"English (New Zealand)";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/en_NZ.zip";s:3:"iso";a:3:{i:1;s:2:"en";i:2;s:3:"eng";i:3;s:3:"eng";}s:7:"strings";a:1:{s:8:"continue";s:8:"Continue";}}s:5:"en_CA";a:8:{s:8:"language";s:5:"en_CA";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-14 00:38:16";s:12:"english_name";s:16:"English (Canada)";s:11:"native_name";s:16:"English (Canada)";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/en_CA.zip";s:3:"iso";a:3:{i:1;s:2:"en";i:2;s:3:"eng";i:3;s:3:"eng";}s:7:"strings";a:1:{s:8:"continue";s:8:"Continue";}}s:2:"eo";a:8:{s:8:"language";s:2:"eo";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-16 10:50:33";s:12:"english_name";s:9:"Esperanto";s:11:"native_name";s:9:"Esperanto";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/eo.zip";s:3:"iso";a:2:{i:1;s:2:"eo";i:2;s:3:"epo";}s:7:"strings";a:1:{s:8:"continue";s:8:"Daŭrigi";}}s:5:"es_PE";a:8:{s:8:"language";s:5:"es_PE";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-19 14:33:57";s:12:"english_name";s:14:"Spanish (Peru)";s:11:"native_name";s:17:"Español de Perú";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/es_PE.zip";s:3:"iso";a:2:{i:1;s:2:"es";i:2;s:3:"spa";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuar";}}s:5:"es_MX";a:8:{s:8:"language";s:5:"es_MX";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-30 19:20:19";s:12:"english_name";s:16:"Spanish (Mexico)";s:11:"native_name";s:19:"Español de México";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/es_MX.zip";s:3:"iso";a:2:{i:1;s:2:"es";i:2;s:3:"spa";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuar";}}s:5:"es_ES";a:8:{s:8:"language";s:5:"es_ES";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-26 22:31:40";s:12:"english_name";s:15:"Spanish (Spain)";s:11:"native_name";s:8:"Español";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/es_ES.zip";s:3:"iso";a:1:{i:1;s:2:"es";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuar";}}s:5:"es_CO";a:8:{s:8:"language";s:5:"es_CO";s:7:"version";s:6:"4.3-RC";s:7:"updated";s:19:"2015-08-04 06:10:33";s:12:"english_name";s:18:"Spanish (Colombia)";s:11:"native_name";s:20:"Español de Colombia";s:7:"package";s:65:"https://downloads.wordpress.org/translation/core/4.3-RC/es_CO.zip";s:3:"iso";a:2:{i:1;s:2:"es";i:2;s:3:"spa";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuar";}}s:5:"es_CL";a:8:{s:8:"language";s:5:"es_CL";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-10-05 16:54:49";s:12:"english_name";s:15:"Spanish (Chile)";s:11:"native_name";s:17:"Español de Chile";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/es_CL.zip";s:3:"iso";a:2:{i:1;s:2:"es";i:2;s:3:"spa";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuar";}}s:2:"et";a:8:{s:8:"language";s:2:"et";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-05 16:34:02";s:12:"english_name";s:8:"Estonian";s:11:"native_name";s:5:"Eesti";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/et.zip";s:3:"iso";a:2:{i:1;s:2:"et";i:2;s:3:"est";}s:7:"strings";a:1:{s:8:"continue";s:6:"Jätka";}}s:2:"eu";a:8:{s:8:"language";s:2:"eu";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-25 13:32:40";s:12:"english_name";s:6:"Basque";s:11:"native_name";s:7:"Euskara";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/eu.zip";s:3:"iso";a:2:{i:1;s:2:"eu";i:2;s:3:"eus";}s:7:"strings";a:1:{s:8:"continue";s:8:"Jarraitu";}}s:5:"fa_IR";a:8:{s:8:"language";s:5:"fa_IR";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-20 13:36:08";s:12:"english_name";s:7:"Persian";s:11:"native_name";s:10:"فارسی";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/fa_IR.zip";s:3:"iso";a:2:{i:1;s:2:"fa";i:2;s:3:"fas";}s:7:"strings";a:1:{s:8:"continue";s:10:"ادامه";}}s:2:"fi";a:8:{s:8:"language";s:2:"fi";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-15 15:41:04";s:12:"english_name";s:7:"Finnish";s:11:"native_name";s:5:"Suomi";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/fi.zip";s:3:"iso";a:2:{i:1;s:2:"fi";i:2;s:3:"fin";}s:7:"strings";a:1:{s:8:"continue";s:5:"Jatka";}}s:5:"fr_BE";a:8:{s:8:"language";s:5:"fr_BE";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-06 20:37:24";s:12:"english_name";s:16:"French (Belgium)";s:11:"native_name";s:21:"Français de Belgique";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/fr_BE.zip";s:3:"iso";a:2:{i:1;s:2:"fr";i:2;s:3:"fra";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuer";}}s:5:"fr_FR";a:8:{s:8:"language";s:5:"fr_FR";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-17 08:31:03";s:12:"english_name";s:15:"French (France)";s:11:"native_name";s:9:"Français";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/fr_FR.zip";s:3:"iso";a:1:{i:1;s:2:"fr";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuer";}}s:2:"gd";a:8:{s:8:"language";s:2:"gd";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-24 15:25:30";s:12:"english_name";s:15:"Scottish Gaelic";s:11:"native_name";s:9:"Gàidhlig";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/gd.zip";s:3:"iso";a:3:{i:1;s:2:"gd";i:2;s:3:"gla";i:3;s:3:"gla";}s:7:"strings";a:1:{s:8:"continue";s:15:"Lean air adhart";}}s:5:"gl_ES";a:8:{s:8:"language";s:5:"gl_ES";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 23:34:00";s:12:"english_name";s:8:"Galician";s:11:"native_name";s:6:"Galego";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/gl_ES.zip";s:3:"iso";a:2:{i:1;s:2:"gl";i:2;s:3:"glg";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuar";}}s:3:"haz";a:8:{s:8:"language";s:3:"haz";s:7:"version";s:5:"4.1.8";s:7:"updated";s:19:"2015-03-26 15:20:27";s:12:"english_name";s:8:"Hazaragi";s:11:"native_name";s:15:"هزاره گی";s:7:"package";s:62:"https://downloads.wordpress.org/translation/core/4.1.8/haz.zip";s:3:"iso";a:1:{i:3;s:3:"haz";}s:7:"strings";a:1:{s:8:"continue";s:10:"ادامه";}}s:5:"he_IL";a:8:{s:8:"language";s:5:"he_IL";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-10-03 20:07:26";s:12:"english_name";s:6:"Hebrew";s:11:"native_name";s:16:"עִבְרִית";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/he_IL.zip";s:3:"iso";a:1:{i:1;s:2:"he";}s:7:"strings";a:1:{s:8:"continue";s:12:"להמשיך";}}s:2:"hr";a:8:{s:8:"language";s:2:"hr";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-10-01 20:42:02";s:12:"english_name";s:8:"Croatian";s:11:"native_name";s:8:"Hrvatski";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/hr.zip";s:3:"iso";a:2:{i:1;s:2:"hr";i:2;s:3:"hrv";}s:7:"strings";a:1:{s:8:"continue";s:7:"Nastavi";}}s:5:"hu_HU";a:8:{s:8:"language";s:5:"hu_HU";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-10-05 22:01:59";s:12:"english_name";s:9:"Hungarian";s:11:"native_name";s:6:"Magyar";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/hu_HU.zip";s:3:"iso";a:2:{i:1;s:2:"hu";i:2;s:3:"hun";}s:7:"strings";a:1:{s:8:"continue";s:7:"Tovább";}}s:2:"hy";a:8:{s:8:"language";s:2:"hy";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-17 13:36:47";s:12:"english_name";s:8:"Armenian";s:11:"native_name";s:14:"Հայերեն";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/hy.zip";s:3:"iso";a:2:{i:1;s:2:"hy";i:2;s:3:"hye";}s:7:"strings";a:1:{s:8:"continue";s:20:"Շարունակել";}}s:5:"id_ID";a:8:{s:8:"language";s:5:"id_ID";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-08 17:47:38";s:12:"english_name";s:10:"Indonesian";s:11:"native_name";s:16:"Bahasa Indonesia";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/id_ID.zip";s:3:"iso";a:2:{i:1;s:2:"id";i:2;s:3:"ind";}s:7:"strings";a:1:{s:8:"continue";s:9:"Lanjutkan";}}s:5:"is_IS";a:8:{s:8:"language";s:5:"is_IS";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-22 13:47:37";s:12:"english_name";s:9:"Icelandic";s:11:"native_name";s:9:"Íslenska";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/is_IS.zip";s:3:"iso";a:2:{i:1;s:2:"is";i:2;s:3:"isl";}s:7:"strings";a:1:{s:8:"continue";s:6:"Áfram";}}s:5:"it_IT";a:8:{s:8:"language";s:5:"it_IT";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-22 11:59:17";s:12:"english_name";s:7:"Italian";s:11:"native_name";s:8:"Italiano";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/it_IT.zip";s:3:"iso";a:2:{i:1;s:2:"it";i:2;s:3:"ita";}s:7:"strings";a:1:{s:8:"continue";s:8:"Continua";}}s:2:"ja";a:8:{s:8:"language";s:2:"ja";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-30 16:23:05";s:12:"english_name";s:8:"Japanese";s:11:"native_name";s:9:"日本語";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/ja.zip";s:3:"iso";a:1:{i:1;s:2:"ja";}s:7:"strings";a:1:{s:8:"continue";s:9:"続ける";}}s:5:"ko_KR";a:8:{s:8:"language";s:5:"ko_KR";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-17 22:59:51";s:12:"english_name";s:6:"Korean";s:11:"native_name";s:9:"한국어";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/ko_KR.zip";s:3:"iso";a:2:{i:1;s:2:"ko";i:2;s:3:"kor";}s:7:"strings";a:1:{s:8:"continue";s:6:"계속";}}s:5:"lt_LT";a:8:{s:8:"language";s:5:"lt_LT";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 07:48:28";s:12:"english_name";s:10:"Lithuanian";s:11:"native_name";s:15:"Lietuvių kalba";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/lt_LT.zip";s:3:"iso";a:2:{i:1;s:2:"lt";i:2;s:3:"lit";}s:7:"strings";a:1:{s:8:"continue";s:6:"Tęsti";}}s:5:"my_MM";a:8:{s:8:"language";s:5:"my_MM";s:7:"version";s:5:"4.1.8";s:7:"updated";s:19:"2015-03-26 15:57:42";s:12:"english_name";s:17:"Myanmar (Burmese)";s:11:"native_name";s:15:"ဗမာစာ";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.1.8/my_MM.zip";s:3:"iso";a:2:{i:1;s:2:"my";i:2;s:3:"mya";}s:7:"strings";a:1:{s:8:"continue";s:54:"ဆက်လက်လုပ်ေဆာင်ပါ။";}}s:5:"nb_NO";a:8:{s:8:"language";s:5:"nb_NO";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-17 18:45:19";s:12:"english_name";s:19:"Norwegian (Bokmål)";s:11:"native_name";s:13:"Norsk bokmål";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/nb_NO.zip";s:3:"iso";a:2:{i:1;s:2:"nb";i:2;s:3:"nob";}s:7:"strings";a:1:{s:8:"continue";s:8:"Fortsett";}}s:5:"nl_NL";a:8:{s:8:"language";s:5:"nl_NL";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-30 10:30:52";s:12:"english_name";s:5:"Dutch";s:11:"native_name";s:10:"Nederlands";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/nl_NL.zip";s:3:"iso";a:2:{i:1;s:2:"nl";i:2;s:3:"nld";}s:7:"strings";a:1:{s:8:"continue";s:8:"Doorgaan";}}s:5:"nn_NO";a:8:{s:8:"language";s:5:"nn_NO";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-17 18:56:13";s:12:"english_name";s:19:"Norwegian (Nynorsk)";s:11:"native_name";s:13:"Norsk nynorsk";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/nn_NO.zip";s:3:"iso";a:2:{i:1;s:2:"nn";i:2;s:3:"nno";}s:7:"strings";a:1:{s:8:"continue";s:9:"Hald fram";}}s:3:"oci";a:8:{s:8:"language";s:3:"oci";s:7:"version";s:6:"4.3-RC";s:7:"updated";s:19:"2015-08-02 07:53:33";s:12:"english_name";s:7:"Occitan";s:11:"native_name";s:7:"Occitan";s:7:"package";s:63:"https://downloads.wordpress.org/translation/core/4.3-RC/oci.zip";s:3:"iso";a:2:{i:1;s:2:"oc";i:2;s:3:"oci";}s:7:"strings";a:1:{s:8:"continue";s:9:"Contunhar";}}s:5:"pl_PL";a:8:{s:8:"language";s:5:"pl_PL";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-27 13:38:57";s:12:"english_name";s:6:"Polish";s:11:"native_name";s:6:"Polski";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/pl_PL.zip";s:3:"iso";a:2:{i:1;s:2:"pl";i:2;s:3:"pol";}s:7:"strings";a:1:{s:8:"continue";s:9:"Kontynuuj";}}s:2:"ps";a:8:{s:8:"language";s:2:"ps";s:7:"version";s:5:"4.1.8";s:7:"updated";s:19:"2015-03-29 22:19:48";s:12:"english_name";s:6:"Pashto";s:11:"native_name";s:8:"پښتو";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.1.8/ps.zip";s:3:"iso";a:2:{i:1;s:2:"ps";i:2;s:3:"pus";}s:7:"strings";a:1:{s:8:"continue";s:8:"دوام";}}s:5:"pt_BR";a:8:{s:8:"language";s:5:"pt_BR";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-20 02:24:55";s:12:"english_name";s:19:"Portuguese (Brazil)";s:11:"native_name";s:20:"Português do Brasil";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/pt_BR.zip";s:3:"iso";a:2:{i:1;s:2:"pt";i:2;s:3:"por";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuar";}}s:5:"pt_PT";a:8:{s:8:"language";s:5:"pt_PT";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-10-02 08:35:41";s:12:"english_name";s:21:"Portuguese (Portugal)";s:11:"native_name";s:10:"Português";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/pt_PT.zip";s:3:"iso";a:1:{i:1;s:2:"pt";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuar";}}s:5:"ro_RO";a:8:{s:8:"language";s:5:"ro_RO";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 16:44:05";s:12:"english_name";s:8:"Romanian";s:11:"native_name";s:8:"Română";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/ro_RO.zip";s:3:"iso";a:2:{i:1;s:2:"ro";i:2;s:3:"ron";}s:7:"strings";a:1:{s:8:"continue";s:9:"Continuă";}}s:5:"ru_RU";a:8:{s:8:"language";s:5:"ru_RU";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-03 10:08:50";s:12:"english_name";s:7:"Russian";s:11:"native_name";s:14:"Русский";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/ru_RU.zip";s:3:"iso";a:2:{i:1;s:2:"ru";i:2;s:3:"rus";}s:7:"strings";a:1:{s:8:"continue";s:20:"Продолжить";}}s:5:"sk_SK";a:8:{s:8:"language";s:5:"sk_SK";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-30 13:29:00";s:12:"english_name";s:6:"Slovak";s:11:"native_name";s:11:"Slovenčina";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/sk_SK.zip";s:3:"iso";a:2:{i:1;s:2:"sk";i:2;s:3:"slk";}s:7:"strings";a:1:{s:8:"continue";s:12:"Pokračovať";}}s:5:"sl_SI";a:8:{s:8:"language";s:5:"sl_SI";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-06 16:10:24";s:12:"english_name";s:9:"Slovenian";s:11:"native_name";s:13:"Slovenščina";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/sl_SI.zip";s:3:"iso";a:2:{i:1;s:2:"sl";i:2;s:3:"slv";}s:7:"strings";a:1:{s:8:"continue";s:10:"Nadaljujte";}}s:2:"sq";a:8:{s:8:"language";s:2:"sq";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 17:16:31";s:12:"english_name";s:8:"Albanian";s:11:"native_name";s:5:"Shqip";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/sq.zip";s:3:"iso";a:2:{i:1;s:2:"sq";i:2;s:3:"sqi";}s:7:"strings";a:1:{s:8:"continue";s:6:"Vazhdo";}}s:5:"sr_RS";a:8:{s:8:"language";s:5:"sr_RS";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-17 18:31:56";s:12:"english_name";s:7:"Serbian";s:11:"native_name";s:23:"Српски језик";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/sr_RS.zip";s:3:"iso";a:2:{i:1;s:2:"sr";i:2;s:3:"srp";}s:7:"strings";a:1:{s:8:"continue";s:14:"Настави";}}s:5:"sv_SE";a:8:{s:8:"language";s:5:"sv_SE";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-19 10:43:45";s:12:"english_name";s:7:"Swedish";s:11:"native_name";s:7:"Svenska";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/sv_SE.zip";s:3:"iso";a:2:{i:1;s:2:"sv";i:2;s:3:"swe";}s:7:"strings";a:1:{s:8:"continue";s:9:"Fortsätt";}}s:2:"th";a:8:{s:8:"language";s:2:"th";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-18 14:10:42";s:12:"english_name";s:4:"Thai";s:11:"native_name";s:9:"ไทย";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/th.zip";s:3:"iso";a:2:{i:1;s:2:"th";i:2;s:3:"tha";}s:7:"strings";a:1:{s:8:"continue";s:15:"ต่อไป";}}s:2:"tl";a:8:{s:8:"language";s:2:"tl";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-20 03:52:15";s:12:"english_name";s:7:"Tagalog";s:11:"native_name";s:7:"Tagalog";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/tl.zip";s:3:"iso";a:2:{i:1;s:2:"tl";i:2;s:3:"tgl";}s:7:"strings";a:1:{s:8:"continue";s:10:"Magpatuloy";}}s:5:"tr_TR";a:8:{s:8:"language";s:5:"tr_TR";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-28 11:00:22";s:12:"english_name";s:7:"Turkish";s:11:"native_name";s:8:"Türkçe";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/tr_TR.zip";s:3:"iso";a:2:{i:1;s:2:"tr";i:2;s:3:"tur";}s:7:"strings";a:1:{s:8:"continue";s:5:"Devam";}}s:5:"ug_CN";a:8:{s:8:"language";s:5:"ug_CN";s:7:"version";s:5:"4.1.8";s:7:"updated";s:19:"2015-03-26 16:45:38";s:12:"english_name";s:6:"Uighur";s:11:"native_name";s:9:"Uyƣurqə";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.1.8/ug_CN.zip";s:3:"iso";a:2:{i:1;s:2:"ug";i:2;s:3:"uig";}s:7:"strings";a:1:{s:8:"continue";s:26:"داۋاملاشتۇرۇش";}}s:2:"uk";a:8:{s:8:"language";s:2:"uk";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-10-04 22:25:50";s:12:"english_name";s:9:"Ukrainian";s:11:"native_name";s:20:"Українська";s:7:"package";s:61:"https://downloads.wordpress.org/translation/core/4.3.1/uk.zip";s:3:"iso";a:2:{i:1;s:2:"uk";i:2;s:3:"ukr";}s:7:"strings";a:1:{s:8:"continue";s:20:"Продовжити";}}s:5:"zh_CN";a:8:{s:8:"language";s:5:"zh_CN";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-08-20 19:10:20";s:12:"english_name";s:15:"Chinese (China)";s:11:"native_name";s:12:"简体中文";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/zh_CN.zip";s:3:"iso";a:2:{i:1;s:2:"zh";i:2;s:3:"zho";}s:7:"strings";a:1:{s:8:"continue";s:6:"继续";}}s:5:"zh_TW";a:8:{s:8:"language";s:5:"zh_TW";s:7:"version";s:5:"4.3.1";s:7:"updated";s:19:"2015-09-21 11:18:12";s:12:"english_name";s:16:"Chinese (Taiwan)";s:11:"native_name";s:12:"繁體中文";s:7:"package";s:64:"https://downloads.wordpress.org/translation/core/4.3.1/zh_TW.zip";s:3:"iso";a:2:{i:1;s:2:"zh";i:2;s:3:"zho";}s:7:"strings";a:1:{s:8:"continue";s:6:"繼續";}}}', 'yes'),
-(323, '_transient_pll_languages_list', 'a:2:{i:0;a:20:{s:7:"term_id";i:4;s:4:"name";s:8:"Español";s:4:"slug";s:2:"es";s:10:"term_group";s:1:"0";s:16:"term_taxonomy_id";i:4;s:8:"taxonomy";s:8:"language";s:11:"description";s:5:"es_ES";s:6:"parent";s:1:"0";s:5:"count";i:9;s:10:"tl_term_id";i:5;s:19:"tl_term_taxonomy_id";i:5;s:8:"tl_count";i:1;s:6:"locale";R:9;s:6:"is_rtl";i:0;s:8:"flag_url";s:72:"http://localhost/thomas-more/wp-content/plugins/polylang/flags/es_ES.png";s:4:"flag";s:696:"<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFnSURBVHjaYvzPgAD/UNlYEUAAmuTYAAAQhAEYqF/zFbe50RZ1cMmS9TLi0pJLRjZohAMTGFUN9HdnHgEE1sDw//+Tp0ClINW/f0NIKPoFJH/9//ULyGaUlQXaABBALAx/Gf4zAt31F4i+ffj3/cN/XrFfzOx//v///f//LzACM/79ZmD8/e8TA0AAMYHdDVT958vXP38nMDB0s3x94/Tj5y+YahhiAKLfQKUAAcQEdtJfoDHMF2L+vPzDmFXLelf551tGFOOhev4A/QgQQExgHwAd8IdFT/Wz6j+GhlpmXSOW/2z///8Eq/sJ18Dw/zdQA0AAMQExxJjjdy9x2/76EfLz4MXdP/i+wsyGkkA3Aw3984cBIIAYfzIwMKel/bt3jwEaLNAwgZIQxp/fDH/+MqqovL14ESCAWICeZvr9h0FSEhSgwBgAygFDEMT+wwAhgQgc4kAEVAwQQIxfUSMSTxxDAECAAQAJWke8v4u1tAAAAABJRU5ErkJggg==" title="Español" alt="Español" />";s:8:"home_url";s:32:"http://localhost/thomas-more/es/";s:10:"search_url";s:32:"http://localhost/thomas-more/es/";s:4:"host";N;s:5:"mo_id";s:2:"15";}i:1;a:20:{s:7:"term_id";i:7;s:4:"name";s:7:"English";s:4:"slug";s:2:"en";s:10:"term_group";s:1:"0";s:16:"term_taxonomy_id";i:7;s:8:"taxonomy";s:8:"language";s:11:"description";s:5:"en_US";s:6:"parent";s:1:"0";s:5:"count";i:6;s:10:"tl_term_id";i:8;s:19:"tl_term_taxonomy_id";i:8;s:8:"tl_count";i:1;s:6:"locale";R:29;s:6:"is_rtl";i:0;s:8:"flag_url";s:72:"http://localhost/thomas-more/wp-content/plugins/polylang/flags/en_US.png";s:4:"flag";s:878:"<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHzSURBVHjaYkxOP8IAB//+Mfz7w8Dwi4HhP5CcJb/n/7evb16/APL/gRFQDiAAw3JuAgAIBEDQ/iswEERjGzBQLEru97ll0g0+3HvqMn1SpqlqGsZMsZsIe0SICA5gt5a/AGIEarCPtFh+6N/ffwxA9OvP/7//QYwff/6fZahmePeB4dNHhi+fGb59Y4zyvHHmCEAAAW3YDzQYaJJ93a+vX79aVf58//69fvEPlpIfnz59+vDhw7t37968efP3b/SXL59OnjwIEEAsDP+YgY53b2b89++/awvLn98MDi2cVxl+/vl6mituCtBghi9f/v/48e/XL86krj9XzwEEEENy8g6gu22rfn78+NGs5Ofr16+ZC58+fvyYwX8rxOxXr169fPny+fPn1//93bJlBUAAsQADZMEBxj9/GBxb2P/9+S/R8u3vzxuyaX8ZHv3j8/YGms3w8ycQARmi2eE37t4ACCDGR4/uSkrKAS35B3TT////wADOgLOBIaXIyjBlwxKAAGKRXjCB0SOEaeu+/y9fMnz4AHQxCP348R/o+l+//sMZQBNLEvif3AcIIMZbty7Ly6t9ZmXl+fXj/38GoHH/UcGfP79//BBiYHjy9+8/oUkNAAHEwt1V/vI/KBY/QSISFqM/GBg+MzB8A6PfYC5EFiDAABqgW776MP0rAAAAAElFTkSuQmCC" title="English" alt="English" />";s:8:"home_url";s:32:"http://localhost/thomas-more/en/";s:10:"search_url";s:32:"http://localhost/thomas-more/en/";s:4:"host";N;s:5:"mo_id";s:2:"16";}}', 'yes'),
-(326, '_site_transient_timeout_theme_roots', '1444524837', 'yes'),
-(327, '_site_transient_theme_roots', 'a:2:{s:11:"thomas-more";s:7:"/themes";s:13:"twentyfifteen";s:7:"/themes";}', 'yes'),
-(330, '_site_transient_update_themes', 'O:8:"stdClass":4:{s:12:"last_checked";i:1444523043;s:7:"checked";a:2:{s:11:"thomas-more";s:3:"1.0";s:13:"twentyfifteen";s:3:"1.2";}s:8:"response";a:1:{s:13:"twentyfifteen";a:4:{s:5:"theme";s:13:"twentyfifteen";s:11:"new_version";s:3:"1.3";s:3:"url";s:43:"https://wordpress.org/themes/twentyfifteen/";s:7:"package";s:59:"https://downloads.wordpress.org/theme/twentyfifteen.1.3.zip";}}s:12:"translations";a:0:{}}', 'yes');
+(330, '_site_transient_update_themes', 'O:8:"stdClass":4:{s:12:"last_checked";i:1444607526;s:7:"checked";a:4:{s:11:"thomas-more";s:3:"1.0";s:13:"twentyfifteen";s:3:"1.3";s:14:"twentyfourteen";s:3:"1.5";s:14:"twentythirteen";s:3:"1.6";}s:8:"response";a:0:{}s:12:"translations";a:0:{}}', 'yes'),
+(333, '_site_transient_timeout_theme_roots', '1444609320', 'yes'),
+(334, '_site_transient_theme_roots', 'a:4:{s:11:"thomas-more";s:7:"/themes";s:13:"twentyfifteen";s:7:"/themes";s:14:"twentyfourteen";s:7:"/themes";s:14:"twentythirteen";s:7:"/themes";}', 'yes'),
+(336, '_site_transient_update_plugins', 'O:8:"stdClass":4:{s:12:"last_checked";i:1444607565;s:8:"response";a:0:{}s:12:"translations";a:0:{}s:9:"no_update";a:4:{s:30:"advanced-custom-fields/acf.php";O:8:"stdClass":6:{s:2:"id";s:5:"21367";s:4:"slug";s:22:"advanced-custom-fields";s:6:"plugin";s:30:"advanced-custom-fields/acf.php";s:11:"new_version";s:5:"4.4.3";s:3:"url";s:53:"https://wordpress.org/plugins/advanced-custom-fields/";s:7:"package";s:71:"https://downloads.wordpress.org/plugin/advanced-custom-fields.4.4.3.zip";}s:19:"akismet/akismet.php";O:8:"stdClass":6:{s:2:"id";s:2:"15";s:4:"slug";s:7:"akismet";s:6:"plugin";s:19:"akismet/akismet.php";s:11:"new_version";s:5:"3.1.4";s:3:"url";s:38:"https://wordpress.org/plugins/akismet/";s:7:"package";s:56:"https://downloads.wordpress.org/plugin/akismet.3.1.4.zip";}s:9:"hello.php";O:8:"stdClass":6:{s:2:"id";s:4:"3564";s:4:"slug";s:11:"hello-dolly";s:6:"plugin";s:9:"hello.php";s:11:"new_version";s:3:"1.6";s:3:"url";s:42:"https://wordpress.org/plugins/hello-dolly/";s:7:"package";s:58:"https://downloads.wordpress.org/plugin/hello-dolly.1.6.zip";}s:21:"polylang/polylang.php";O:8:"stdClass":6:{s:2:"id";s:5:"25780";s:4:"slug";s:8:"polylang";s:6:"plugin";s:21:"polylang/polylang.php";s:11:"new_version";s:6:"1.7.10";s:3:"url";s:39:"https://wordpress.org/plugins/polylang/";s:7:"package";s:58:"https://downloads.wordpress.org/plugin/polylang.1.7.10.zip";}}}', 'yes'),
+(370, '_transient_pll_languages_list', 'a:2:{i:0;a:20:{s:7:"term_id";i:4;s:4:"name";s:8:"Español";s:4:"slug";s:2:"es";s:10:"term_group";s:1:"0";s:16:"term_taxonomy_id";i:4;s:8:"taxonomy";s:8:"language";s:11:"description";s:5:"es_ES";s:6:"parent";s:1:"0";s:5:"count";i:15;s:10:"tl_term_id";i:5;s:19:"tl_term_taxonomy_id";i:5;s:8:"tl_count";i:1;s:6:"locale";R:9;s:6:"is_rtl";i:0;s:8:"flag_url";s:72:"http://localhost/thomas-more/wp-content/plugins/polylang/flags/es_ES.png";s:4:"flag";s:696:"<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFnSURBVHjaYvzPgAD/UNlYEUAAmuTYAAAQhAEYqF/zFbe50RZ1cMmS9TLi0pJLRjZohAMTGFUN9HdnHgEE1sDw//+Tp0ClINW/f0NIKPoFJH/9//ULyGaUlQXaABBALAx/Gf4zAt31F4i+ffj3/cN/XrFfzOx//v///f//LzACM/79ZmD8/e8TA0AAMYHdDVT958vXP38nMDB0s3x94/Tj5y+YahhiAKLfQKUAAcQEdtJfoDHMF2L+vPzDmFXLelf551tGFOOhev4A/QgQQExgHwAd8IdFT/Wz6j+GhlpmXSOW/2z///8Eq/sJ18Dw/zdQA0AAMQExxJjjdy9x2/76EfLz4MXdP/i+wsyGkkA3Aw3984cBIIAYfzIwMKel/bt3jwEaLNAwgZIQxp/fDH/+MqqovL14ESCAWICeZvr9h0FSEhSgwBgAygFDEMT+wwAhgQgc4kAEVAwQQIxfUSMSTxxDAECAAQAJWke8v4u1tAAAAABJRU5ErkJggg==" title="Español" alt="Español" />";s:8:"home_url";s:32:"http://localhost/thomas-more/es/";s:10:"search_url";s:32:"http://localhost/thomas-more/es/";s:4:"host";N;s:5:"mo_id";s:2:"15";}i:1;a:20:{s:7:"term_id";i:7;s:4:"name";s:7:"English";s:4:"slug";s:2:"en";s:10:"term_group";s:1:"0";s:16:"term_taxonomy_id";i:7;s:8:"taxonomy";s:8:"language";s:11:"description";s:5:"en_US";s:6:"parent";s:1:"0";s:5:"count";i:10;s:10:"tl_term_id";i:8;s:19:"tl_term_taxonomy_id";i:8;s:8:"tl_count";i:1;s:6:"locale";R:29;s:6:"is_rtl";i:0;s:8:"flag_url";s:72:"http://localhost/thomas-more/wp-content/plugins/polylang/flags/en_US.png";s:4:"flag";s:878:"<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHzSURBVHjaYkxOP8IAB//+Mfz7w8Dwi4HhP5CcJb/n/7evb16/APL/gRFQDiAAw3JuAgAIBEDQ/iswEERjGzBQLEru97ll0g0+3HvqMn1SpqlqGsZMsZsIe0SICA5gt5a/AGIEarCPtFh+6N/ffwxA9OvP/7//QYwff/6fZahmePeB4dNHhi+fGb59Y4zyvHHmCEAAAW3YDzQYaJJ93a+vX79aVf58//69fvEPlpIfnz59+vDhw7t37968efP3b/SXL59OnjwIEEAsDP+YgY53b2b89++/awvLn98MDi2cVxl+/vl6mituCtBghi9f/v/48e/XL86krj9XzwEEEENy8g6gu22rfn78+NGs5Ofr16+ZC58+fvyYwX8rxOxXr169fPny+fPn1//93bJlBUAAsQADZMEBxj9/GBxb2P/9+S/R8u3vzxuyaX8ZHv3j8/YGms3w8ycQARmi2eE37t4ACCDGR4/uSkrKAS35B3TT////wADOgLOBIaXIyjBlwxKAAGKRXjCB0SOEaeu+/y9fMnz4AHQxCP348R/o+l+//sMZQBNLEvif3AcIIMZbty7Ly6t9ZmXl+fXj/38GoHH/UcGfP79//BBiYHjy9+8/oUkNAAHEwt1V/vI/KBY/QSISFqM/GBg+MzB8A6PfYC5EFiDAABqgW776MP0rAAAAAElFTkSuQmCC" title="English" alt="English" />";s:8:"home_url";s:32:"http://localhost/thomas-more/en/";s:10:"search_url";s:32:"http://localhost/thomas-more/en/";s:4:"host";N;s:5:"mo_id";s:2:"16";}}', 'yes');
 
 -- --------------------------------------------------------
 
@@ -274,11 +287,14 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 
 DROP TABLE IF EXISTS `wp_postmeta`;
 CREATE TABLE IF NOT EXISTS `wp_postmeta` (
-`meta_id` bigint(20) unsigned NOT NULL,
+  `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB AUTO_INCREMENT=393 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `post_id` (`post_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=462 ;
 
 --
 -- Dumping data for table `wp_postmeta`
@@ -328,7 +344,7 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (52, 9, '_menu_item_classes', 'a:1:{i:0;s:0:"";}'),
 (53, 9, '_menu_item_xfn', ''),
 (54, 9, '_menu_item_url', 'http://localhost/thomas-more/#servicios'),
-(56, 2, '_edit_lock', '1444230187:1'),
+(56, 2, '_edit_lock', '1444609837:1'),
 (57, 2, '_edit_last', '1'),
 (58, 11, '_edit_last', '1'),
 (59, 11, '_edit_lock', '1444106632:1'),
@@ -382,7 +398,7 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (140, 23, '_menu_item_url', 'http://localhost/thomas-more/en/#ubicanos'),
 (152, 25, '_wp_page_template', 'default'),
 (153, 25, '_edit_last', '1'),
-(154, 25, '_edit_lock', '1444523140:1'),
+(154, 25, '_edit_lock', '1444608644:1'),
 (155, 27, '_edit_last', '1'),
 (156, 27, '_edit_lock', '1444107078:1'),
 (157, 30, '_edit_last', '1'),
@@ -396,14 +412,14 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (167, 31, 'position', 'normal'),
 (168, 31, 'layout', 'no_box'),
 (169, 31, 'hide_on_screen', 'a:1:{i:0;s:11:"the_content";}'),
-(170, 31, '_edit_lock', '1444522993:1'),
+(170, 31, '_edit_lock', '1444608681:1'),
 (172, 32, 'nosotros', 'Thomas more bla bla'),
 (173, 32, '_nosotros', 'field_5613562904d30'),
 (174, 2, 'nosotros', '<h5>“MUERO SIENDO SIERVO DEL REY, PERO PRIMERO DE DIOS”</h5>\r\n<h6>Thomas More (1478-1535)</h6>\r\nLos principios de TMC están inspirados en la vida y obra de Thomas More, teólogo, humanista y político inglés, beatificado por el Papa León XIII el 29 de diciembre de 1886 y canonizado como Santo por el Papa Pío XI en 1935. Su testimonio que le costó la pérdida de su vida y bienes. Fue un hombre íntegro hasta el final de sus días, fiel a sus convicciones y libre, a pesar de encontrarse preso, porque no claudicó a sus principios. Fue además instruido y se caracterizó por su vocación de servicio.\r\n\r\nSu obra más famosa es Utopía que relata la organización de una sociedad ideal, asentada en una nación en forma de isla del mismo nombre. Moro fue un importante detractor de la Reforma Protestante y, en especial, de Martín Lutero y William Tyndale.'),
 (175, 2, '_nosotros', 'field_5613562904d30'),
 (176, 33, 'about_us', 'Thomas About'),
 (177, 33, '_about_us', 'field_561356630122d'),
-(178, 25, 'about_us', 'Thomas About'),
+(178, 25, 'about_us', '<h5>¨I DIE THE KING´S FAITHFUL SERVANT, BUT GOD´S FIRST.¨</h5>\r\n<h6>Thomas More (1478-1535)</h6>\r\nThe principles of TMC are inspired by the life and work of Thomas More, humanist and British public official, beatified by Pope Leo XIII on December 29, 1886 and canonized by Pope Pius XI in 1935.  His values and principles cost him his life and possessions.  He was an honest man until the end of his days, loyal to his thoughts and free, even when in jail, because he did not betrayed his principles.  He was an academic and well-educated man and had an amazing vocation to serve others.\r\n\r\nHe also wrote Utopia, published in 1516, a story about the political system of an imaginary ideal island nation with the same name.  Moro opposed the Protestant Reformation, in particular the theology of Martin Luther and William Tyndale.'),
 (179, 25, '_about_us', 'field_561356630122d'),
 (180, 34, '_menu_item_type', 'post_type'),
 (181, 34, '_menu_item_menu_item_parent', '0'),
@@ -432,11 +448,11 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (209, 42, '_edit_lock', '1444255993:1'),
 (210, 41, 'rule', 'a:5:{s:5:"param";s:9:"post_type";s:8:"operator";s:2:"==";s:5:"value";s:6:"equipo";s:8:"order_no";i:0;s:8:"group_no";i:0;}'),
 (211, 44, '_edit_last', '1'),
-(212, 44, '_edit_lock', '1444345068:1'),
+(212, 44, '_edit_lock', '1444613294:1'),
 (213, 44, 'cargo', 'MANAGING PARTNER'),
 (214, 44, '_cargo', 'field_561431bd04a54'),
 (215, 45, '_edit_last', '1'),
-(216, 45, '_edit_lock', '1444164411:1'),
+(216, 45, '_edit_lock', '1444615065:1'),
 (217, 45, 'cargo', 'CONSULTANT'),
 (218, 45, '_cargo', 'field_561431bd04a54'),
 (219, 46, '_edit_last', '1'),
@@ -550,61 +566,124 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (333, 61, 'hide_on_screen', ''),
 (334, 61, '_edit_lock', '1444341696:1'),
 (335, 62, '_edit_last', '1'),
-(336, 62, '_edit_lock', '1444253198:1'),
+(336, 62, '_edit_lock', '1444610013:1'),
 (337, 62, 'icono', ''),
 (338, 62, '_icono', 'field_5615677192d6a'),
 (339, 63, 'icono', ''),
 (340, 64, 'icono', ''),
 (341, 64, '_edit_last', '1'),
-(342, 64, '_edit_lock', '1444253925:1'),
+(342, 64, '_edit_lock', '1444609995:1'),
 (343, 64, '_icono', 'field_5615677192d6a'),
 (344, 38, '_wp_trash_meta_status', 'publish'),
 (345, 38, '_wp_trash_meta_time', '1444253906'),
 (346, 65, '_edit_last', '1'),
-(347, 65, '_edit_lock', '1444253878:1'),
+(347, 65, '_edit_lock', '1444609979:1'),
 (348, 65, 'icono', ''),
 (349, 65, '_icono', 'field_5615677192d6a'),
 (350, 66, 'icono', ''),
 (351, 66, '_edit_last', '1'),
-(352, 66, '_edit_lock', '1444253942:1'),
+(352, 66, '_edit_lock', '1444609957:1'),
 (353, 66, '_icono', 'field_5615677192d6a'),
 (354, 37, '_wp_trash_meta_status', 'publish'),
 (355, 37, '_wp_trash_meta_time', '1444254078'),
 (356, 68, '_edit_last', '1'),
-(357, 68, '_edit_lock', '1444341748:1'),
+(357, 68, '_edit_lock', '1444609936:1'),
 (358, 68, 'icono', '72'),
 (359, 68, '_icono', 'field_5615677192d6a'),
 (360, 69, 'icono', ''),
 (361, 69, '_edit_last', '1'),
-(362, 69, '_edit_lock', '1444254024:1'),
+(362, 69, '_edit_lock', '1444609917:1'),
 (363, 69, '_icono', 'field_5615677192d6a'),
 (364, 36, '_wp_trash_meta_status', 'publish'),
 (365, 36, '_wp_trash_meta_time', '1444254156'),
 (366, 70, '_edit_last', '1'),
-(367, 70, '_edit_lock', '1444254048:1'),
+(367, 70, '_edit_lock', '1444609880:1'),
 (368, 70, 'icono', ''),
 (369, 70, '_icono', 'field_5615677192d6a'),
 (370, 71, 'icono', ''),
 (371, 71, '_edit_last', '1'),
-(372, 71, '_edit_lock', '1444256215:1'),
+(372, 71, '_edit_lock', '1444609896:1'),
 (373, 71, '_icono', 'field_5615677192d6a'),
 (374, 35, '_wp_trash_meta_status', 'publish'),
 (375, 35, '_wp_trash_meta_time', '1444254215'),
 (376, 42, '_wp_trash_meta_status', 'draft'),
 (377, 42, '_wp_trash_meta_time', '1444256137'),
-(378, 72, '_wp_attached_file', '2015/10/icono-servicio.png'),
-(379, 72, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:45;s:6:"height";i:50;s:4:"file";s:26:"2015/10/icono-servicio.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}'),
 (380, 61, 'rule', 'a:5:{s:5:"param";s:9:"post_type";s:8:"operator";s:2:"==";s:5:"value";s:7:"valores";s:8:"order_no";i:0;s:8:"group_no";i:0;}'),
-(381, 68, 'icono-valores', '72'),
+(381, 68, 'icono-valores', '81'),
 (382, 68, '_icono-valores', 'field_5615677192d6a'),
-(383, 73, '_wp_attached_file', '2015/10/FOTO-FEDERICO-LOPEZ-e1444343377264.jpg'),
-(384, 73, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:900;s:6:"height";i:842;s:4:"file";s:46:"2015/10/FOTO-FEDERICO-LOPEZ-e1444343377264.jpg";s:5:"sizes";a:3:{s:9:"thumbnail";a:4:{s:4:"file";s:31:"FOTO-FEDERICO-LOPEZ-150x150.jpg";s:5:"width";i:150;s:6:"height";i:150;s:9:"mime-type";s:10:"image/jpeg";}s:6:"medium";a:4:{s:4:"file";s:31:"FOTO-FEDERICO-LOPEZ-300x281.jpg";s:5:"width";i:300;s:6:"height";i:281;s:9:"mime-type";s:10:"image/jpeg";}s:5:"large";a:4:{s:4:"file";s:32:"FOTO-FEDERICO-LOPEZ-1024x958.jpg";s:5:"width";i:1024;s:6:"height";i:958;s:9:"mime-type";s:10:"image/jpeg";}}s:10:"image_meta";a:11:{s:8:"aperture";d:20;s:6:"credit";s:0:"";s:6:"camera";s:20:"Canon EOS 5D Mark II";s:7:"caption";s:0:"";s:17:"created_timestamp";i:1407369600;s:9:"copyright";s:0:"";s:12:"focal_length";s:3:"175";s:3:"iso";s:3:"400";s:13:"shutter_speed";s:4:"0.01";s:5:"title";s:0:"";s:11:"orientation";i:1;}}'),
-(385, 73, '_wp_attachment_backup_sizes', 'a:1:{s:9:"full-orig";a:3:{s:5:"width";i:4134;s:6:"height";i:3866;s:4:"file";s:23:"FOTO-FEDERICO-LOPEZ.jpg";}}'),
-(386, 44, '_thumbnail_id', '73'),
 (388, 31, 'field_5619ac49cca2b', 'a:11:{s:3:"key";s:19:"field_5619ac49cca2b";s:5:"label";s:10:"WHAT WE DO";s:4:"name";s:10:"what_we_do";s:4:"type";s:7:"wysiwyg";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:7:"toolbar";s:4:"full";s:12:"media_upload";s:3:"yes";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:4:"null";s:8:"operator";s:2:"==";s:5:"value";s:0:"";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:3;}'),
 (389, 31, 'field_5619ac5ccca2c', 'a:14:{s:3:"key";s:19:"field_5619ac5ccca2c";s:5:"label";s:6:"Slogan";s:4:"name";s:6:"slogan";s:4:"type";s:4:"text";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:10:"formatting";s:4:"html";s:9:"maxlength";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:4:"null";s:8:"operator";s:2:"==";s:5:"value";s:0:"";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:0;}'),
-(390, 31, 'field_5619ac66cca2d', 'a:14:{s:3:"key";s:19:"field_5619ac66cca2d";s:5:"label";s:17:"Background Slogan";s:4:"name";s:17:"background_slogan";s:4:"type";s:4:"text";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:10:"formatting";s:4:"html";s:9:"maxlength";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:4:"null";s:8:"operator";s:2:"==";s:5:"value";s:0:"";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:1;}'),
-(392, 31, 'rule', 'a:5:{s:5:"param";s:4:"page";s:8:"operator";s:2:"==";s:5:"value";s:2:"25";s:8:"order_no";i:0;s:8:"group_no";i:0;}');
+(390, 31, 'field_5619ac66cca2d', 'a:11:{s:3:"key";s:19:"field_5619ac66cca2d";s:5:"label";s:17:"Background Slogan";s:4:"name";s:17:"background_slogan";s:4:"type";s:5:"image";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:11:"save_format";s:3:"url";s:12:"preview_size";s:9:"thumbnail";s:7:"library";s:3:"all";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:2:{s:5:"field";s:4:"null";s:8:"operator";s:2:"==";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:1;}'),
+(393, 74, 'slogan', ''),
+(394, 74, '_slogan', 'field_5619ac5ccca2c'),
+(395, 74, 'background_slogan', ''),
+(396, 74, '_background_slogan', 'field_5619ac66cca2d'),
+(397, 74, 'about_us', '<h5>¨I DIE THE KING´S FAITHFUL SERVANT, BUT GOD´S FIRST.¨</h5>\r\n<h6>Thomas More (1478-1535)</h6>\r\nThe principles of TMC are inspired by the life and work of Thomas More, humanist and British public official, beatified by Pope Leo XIII on December 29, 1886 and canonized by Pope Pius XI in 1935.  His values and principles cost him his life and possessions.  He was an honest man until the end of his days, loyal to his thoughts and free, even when in jail, because he did not betrayed his principles.  He was an academic and well-educated man and had an amazing vocation to serve others.\r\n\r\nHe also wrote Utopia, published in 1516, a story about the political system of an imaginary ideal island nation with the same name.  Moro opposed the Protestant Reformation, in particular the theology of Martin Luther and William Tyndale.'),
+(398, 74, '_about_us', 'field_561356630122d'),
+(399, 74, 'what_we_do', 'TMC is a strategic consultant firm with global experience, a pioneer in research and development of methodologies and tools for Directive and Executive Sales Compensation, Total Rewards measurement applied to management of human talent.  We are able to act as consultants in projects for different sectors globally.  Our multidisciplinary team guarantees excellence in the design and execution of projects oriented to generate value in the customer business.\r\n\r\nWe offer more than 12 years of experience developing and applying innovative and efficient methodologies for measuring Total Rewards: Conjoint Analysis and Maximum Difference Scaling. We have implemented projects with over 100 customers in four continents, both at national and multinational sectors.  From our foundation, in 2003, we are innovative in Sales Compensation.\r\n\r\nPersonalized service, confidentiality, integrity, innovation and professionalism are some of our strongest features.  We adapt to any company requirements for our plans are tailor made for each customer.'),
+(400, 74, '_what_we_do', 'field_5619ac49cca2b'),
+(401, 25, 'slogan', 'CONVERTING UTOPIAS INTO REALITY'),
+(402, 25, '_slogan', 'field_5619ac5ccca2c'),
+(403, 25, 'background_slogan', ''),
+(404, 25, '_background_slogan', 'field_5619ac66cca2d'),
+(405, 25, 'what_we_do', 'TMC is a strategic consultant firm with global experience, a pioneer in research and development of methodologies and tools for Directive and Executive Sales Compensation, Total Rewards measurement applied to management of human talent.  We are able to act as consultants in projects for different sectors globally.  Our multidisciplinary team guarantees excellence in the design and execution of projects oriented to generate value in the customer business.\r\n\r\nWe offer more than 12 years of experience developing and applying innovative and efficient methodologies for measuring Total Rewards: Conjoint Analysis and Maximum Difference Scaling. We have implemented projects with over 100 customers in four continents, both at national and multinational sectors.  From our foundation, in 2003, we are innovative in Sales Compensation.\r\n\r\nPersonalized service, confidentiality, integrity, innovation and professionalism are some of our strongest features.  We adapt to any company requirements for our plans are tailor made for each customer.'),
+(406, 25, '_what_we_do', 'field_5619ac49cca2b'),
+(407, 75, 'slogan', 'CONVIRTIENDO UTOPÍAS EN REALIDADES'),
+(408, 75, '_slogan', 'field_56143c88b44fc'),
+(409, 75, 'fondo_slogan', ''),
+(410, 75, '_fondo_slogan', 'field_56143cc0ed262'),
+(411, 75, 'nosotros', '<h5>“MUERO SIENDO SIERVO DEL REY, PERO PRIMERO DE DIOS”</h5>\r\n<h6>Thomas More (1478-1535)</h6>\r\nLos principios de TMC están inspirados en la vida y obra de Thomas More, teólogo, humanista y político inglés, beatificado por el Papa León XIII el 29 de diciembre de 1886 y canonizado como Santo por el Papa Pío XI en 1935. Su testimonio que le costó la pérdida de su vida y bienes. Fue un hombre íntegro hasta el final de sus días, fiel a sus convicciones y libre, a pesar de encontrarse preso, porque no claudicó a sus principios. Fue además instruido y se caracterizó por su vocación de servicio.\r\n\r\nSu obra más famosa es Utopía que relata la organización de una sociedad ideal, asentada en una nación en forma de isla del mismo nombre. Moro fue un importante detractor de la Reforma Protestante y, en especial, de Martín Lutero y William Tyndale.'),
+(412, 75, '_nosotros', 'field_5613562904d30'),
+(413, 75, 'que-hacemos', 'Somos una firma de consultoría estratégica con experiencia global, pionera en la investigación y desarrollo de metodologías y herramientas en Compensación de Ventas, Directiva y Ejecutiva, medición de Recompensa Total y su aplicación en la Gestión del Talento. Estamos en capacidad de atender proyectos con calidad global en diferentes sectores. Nuestro equipo multidisciplinario garantiza la excelencia en el diseño y ejecución de proyectos totalmente orientados a la generación de valor en el negocio del cliente.\r\n\r\nOfrecemos nuestra experiencia de más de 10 años en el desarrollo y aplicación de metodologías innovadoras y eficaces en la medición de Recompensa Total: Conjoint Analysis y Maximun Difference Scaling. Hemos instrumentado e implementado proyectos con más de 100 clientes en cuatro continentes, en empresas nacionales y multinacionales de diferentes sectores. Desde nuestra fundación, en el año 2003, estamos en la vanguardia en el área de Compensación de Ventas.\r\n\r\nAtención personalizada, confidencialidad, integridad, innovación y profesionalismo son nuestras fortalezas. Nos adaptamos a las necesidades de cada empresa y su entorno. Nuestros planes son únicos para cada cliente.'),
+(414, 75, '_que-hacemos', 'field_561427241e575'),
+(415, 76, 'slogan', 'CONVERTING UTOPIAS INTO REALITY'),
+(416, 76, '_slogan', 'field_5619ac5ccca2c'),
+(417, 76, 'background_slogan', ''),
+(418, 76, '_background_slogan', 'field_5619ac66cca2d'),
+(419, 76, 'about_us', '<h5>¨I DIE THE KING´S FAITHFUL SERVANT, BUT GOD´S FIRST.¨</h5>\r\n<h6>Thomas More (1478-1535)</h6>\r\nThe principles of TMC are inspired by the life and work of Thomas More, humanist and British public official, beatified by Pope Leo XIII on December 29, 1886 and canonized by Pope Pius XI in 1935.  His values and principles cost him his life and possessions.  He was an honest man until the end of his days, loyal to his thoughts and free, even when in jail, because he did not betrayed his principles.  He was an academic and well-educated man and had an amazing vocation to serve others.\r\n\r\nHe also wrote Utopia, published in 1516, a story about the political system of an imaginary ideal island nation with the same name.  Moro opposed the Protestant Reformation, in particular the theology of Martin Luther and William Tyndale.'),
+(420, 76, '_about_us', 'field_561356630122d'),
+(421, 76, 'what_we_do', 'TMC is a strategic consultant firm with global experience, a pioneer in research and development of methodologies and tools for Directive and Executive Sales Compensation, Total Rewards measurement applied to management of human talent.  We are able to act as consultants in projects for different sectors globally.  Our multidisciplinary team guarantees excellence in the design and execution of projects oriented to generate value in the customer business.\r\n\r\nWe offer more than 12 years of experience developing and applying innovative and efficient methodologies for measuring Total Rewards: Conjoint Analysis and Maximum Difference Scaling. We have implemented projects with over 100 customers in four continents, both at national and multinational sectors.  From our foundation, in 2003, we are innovative in Sales Compensation.\r\n\r\nPersonalized service, confidentiality, integrity, innovation and professionalism are some of our strongest features.  We adapt to any company requirements for our plans are tailor made for each customer.'),
+(422, 76, '_what_we_do', 'field_5619ac49cca2b'),
+(423, 31, 'rule', 'a:5:{s:5:"param";s:4:"page";s:8:"operator";s:2:"==";s:5:"value";s:2:"25";s:8:"order_no";i:0;s:8:"group_no";i:0;}'),
+(424, 71, 'icono-valores', '79'),
+(425, 71, '_icono-valores', 'field_5615677192d6a'),
+(426, 69, 'icono-valores', '80'),
+(427, 69, '_icono-valores', 'field_5615677192d6a'),
+(428, 66, 'icono-valores', '82'),
+(429, 66, '_icono-valores', 'field_5615677192d6a'),
+(430, 62, 'icono-valores', '85'),
+(431, 62, '_icono-valores', 'field_5615677192d6a'),
+(432, 78, '_wp_attached_file', '2015/10/innovacion.png'),
+(433, 78, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:47;s:6:"height";i:66;s:4:"file";s:22:"2015/10/innovacion.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}'),
+(434, 70, 'icono-valores', '78'),
+(435, 70, '_icono-valores', 'field_5615677192d6a'),
+(436, 79, '_wp_attached_file', '2015/10/innovacion1.png'),
+(437, 79, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:47;s:6:"height";i:66;s:4:"file";s:23:"2015/10/innovacion1.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}'),
+(438, 80, '_wp_attached_file', '2015/10/servicio.png'),
+(439, 80, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:45;s:6:"height";i:50;s:4:"file";s:20:"2015/10/servicio.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}'),
+(440, 81, '_wp_attached_file', '2015/10/servicio1.png'),
+(441, 81, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:45;s:6:"height";i:50;s:4:"file";s:21:"2015/10/servicio1.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}');
+INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES
+(442, 82, '_wp_attached_file', '2015/10/conocimiento.png'),
+(443, 82, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:40;s:6:"height";i:60;s:4:"file";s:24:"2015/10/conocimiento.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}'),
+(444, 83, '_wp_attached_file', '2015/10/conocimiento1.png'),
+(445, 83, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:40;s:6:"height";i:60;s:4:"file";s:25:"2015/10/conocimiento1.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}'),
+(446, 65, 'icono-valores', '83'),
+(447, 65, '_icono-valores', 'field_5615677192d6a'),
+(448, 84, '_wp_attached_file', '2015/10/integridad.png'),
+(449, 84, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:75;s:6:"height";i:44;s:4:"file";s:22:"2015/10/integridad.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}'),
+(450, 64, 'icono-valores', '84'),
+(451, 64, '_icono-valores', 'field_5615677192d6a'),
+(452, 85, '_wp_attached_file', '2015/10/integridad1.png'),
+(453, 85, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:75;s:6:"height";i:44;s:4:"file";s:23:"2015/10/integridad1.png";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";i:0;s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";i:0;s:9:"copyright";s:0:"";s:12:"focal_length";i:0;s:3:"iso";i:0;s:13:"shutter_speed";i:0;s:5:"title";s:0:"";s:11:"orientation";i:0;}}'),
+(454, 86, '_wp_attached_file', '2015/10/FOTO-FEDERICO-LOPEZ-e1444611983524.jpg'),
+(455, 86, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:320;s:6:"height";i:247;s:4:"file";s:46:"2015/10/FOTO-FEDERICO-LOPEZ-e1444611983524.jpg";s:5:"sizes";a:0:{}s:10:"image_meta";a:11:{s:8:"aperture";d:20;s:6:"credit";s:0:"";s:6:"camera";s:20:"Canon EOS 5D Mark II";s:7:"caption";s:0:"";s:17:"created_timestamp";i:1407369600;s:9:"copyright";s:0:"";s:12:"focal_length";s:3:"175";s:3:"iso";s:3:"400";s:13:"shutter_speed";s:4:"0.01";s:5:"title";s:0:"";s:11:"orientation";i:1;}}'),
+(456, 86, '_wp_attachment_backup_sizes', 'a:4:{s:9:"full-orig";a:3:{s:5:"width";i:4134;s:6:"height";i:3866;s:4:"file";s:23:"FOTO-FEDERICO-LOPEZ.jpg";}s:18:"full-1444611878478";a:3:{s:5:"width";i:600;s:6:"height";i:561;s:4:"file";s:38:"FOTO-FEDERICO-LOPEZ-e1444611846368.jpg";}s:18:"full-1444611914470";a:3:{s:5:"width";i:600;s:6:"height";i:561;s:4:"file";s:38:"FOTO-FEDERICO-LOPEZ-e1444611885274.jpg";}s:18:"full-1444611983524";a:3:{s:5:"width";i:486;s:6:"height";i:375;s:4:"file";s:38:"FOTO-FEDERICO-LOPEZ-e1444611914470.jpg";}}'),
+(457, 44, '_thumbnail_id', '86'),
+(458, 88, '_wp_attached_file', '2015/10/FOTO-STEPHANY-e1444613510501.jpg'),
+(459, 88, '_wp_attachment_metadata', 'a:5:{s:5:"width";i:600;s:6:"height";i:591;s:4:"file";s:40:"2015/10/FOTO-STEPHANY-e1444613510501.jpg";s:5:"sizes";a:3:{s:9:"thumbnail";a:4:{s:4:"file";s:40:"FOTO-STEPHANY-e1444613501969-150x150.jpg";s:5:"width";i:150;s:6:"height";i:150;s:9:"mime-type";s:10:"image/jpeg";}s:6:"medium";a:4:{s:4:"file";s:40:"FOTO-STEPHANY-e1444613501969-300x295.jpg";s:5:"width";i:300;s:6:"height";i:295;s:9:"mime-type";s:10:"image/jpeg";}s:5:"large";a:4:{s:4:"file";s:42:"FOTO-STEPHANY-e1444613501969-1024x1008.jpg";s:5:"width";i:1024;s:6:"height";i:1008;s:9:"mime-type";s:10:"image/jpeg";}}s:10:"image_meta";a:11:{s:8:"aperture";d:14;s:6:"credit";s:0:"";s:6:"camera";s:20:"Canon EOS 5D Mark II";s:7:"caption";s:0:"";s:17:"created_timestamp";i:1440088328;s:9:"copyright";s:0:"";s:12:"focal_length";s:3:"146";s:3:"iso";s:3:"400";s:13:"shutter_speed";s:17:"0.016666666666667";s:5:"title";s:0:"";s:11:"orientation";i:1;}}'),
+(460, 88, '_wp_attachment_backup_sizes', 'a:5:{s:9:"full-orig";a:3:{s:5:"width";i:3531;s:6:"height";i:5297;s:4:"file";s:17:"FOTO-STEPHANY.jpg";}s:14:"thumbnail-orig";a:4:{s:4:"file";s:25:"FOTO-STEPHANY-150x150.jpg";s:5:"width";i:150;s:6:"height";i:150;s:9:"mime-type";s:10:"image/jpeg";}s:11:"medium-orig";a:4:{s:4:"file";s:25:"FOTO-STEPHANY-200x300.jpg";s:5:"width";i:200;s:6:"height";i:300;s:9:"mime-type";s:10:"image/jpeg";}s:10:"large-orig";a:4:{s:4:"file";s:26:"FOTO-STEPHANY-683x1024.jpg";s:5:"width";i:683;s:6:"height";i:1024;s:9:"mime-type";s:10:"image/jpeg";}s:18:"full-1444613510501";a:3:{s:5:"width";i:3456;s:6:"height";i:3403;s:4:"file";s:32:"FOTO-STEPHANY-e1444613501969.jpg";}}'),
+(461, 45, '_thumbnail_id', '88');
 
 -- --------------------------------------------------------
 
@@ -614,7 +693,7 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 
 DROP TABLE IF EXISTS `wp_posts`;
 CREATE TABLE IF NOT EXISTS `wp_posts` (
-`ID` bigint(20) unsigned NOT NULL,
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_author` bigint(20) unsigned NOT NULL DEFAULT '0',
   `post_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -636,8 +715,13 @@ CREATE TABLE IF NOT EXISTS `wp_posts` (
   `menu_order` int(11) NOT NULL DEFAULT '0',
   `post_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'post',
   `post_mime_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `comment_count` bigint(20) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `comment_count` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `post_name` (`post_name`(191)),
+  KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
+  KEY `post_parent` (`post_parent`),
+  KEY `post_author` (`post_author`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=89 ;
 
 --
 -- Dumping data for table `wp_posts`
@@ -645,7 +729,7 @@ CREATE TABLE IF NOT EXISTS `wp_posts` (
 
 INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
 (1, 1, '2015-10-05 23:02:25', '2015-10-05 23:02:25', 'Bienvenido a WordPress. Esta es tu primera entrada. Edítala o bórrala, ¡y comienza a publicar!.', '¡Hola mundo!', '', 'publish', 'open', 'open', '', 'hola-mundo', '', '', '2015-10-05 23:02:25', '2015-10-05 23:02:25', '', 0, 'http://localhost/thomas-more/?p=1', 0, 'post', '', 1),
-(2, 1, '2015-10-05 23:02:25', '2015-10-05 23:02:25', '', 'Página Principal', '', 'publish', 'open', 'open', '', 'pagina-principal', '', '', '2015-10-07 01:32:37', '2015-10-07 01:32:37', '', 0, 'http://localhost/thomas-more/?page_id=2', 0, 'page', '', 0),
+(2, 1, '2015-10-05 23:02:25', '2015-10-05 23:02:25', '', 'Página Principal', '', 'publish', 'open', 'open', '', 'pagina-principal', '', '', '2015-10-12 00:04:06', '2015-10-12 00:04:06', '', 0, 'http://localhost/thomas-more/?page_id=2', 0, 'page', '', 0),
 (3, 1, '2015-10-05 23:02:32', '0000-00-00 00:00:00', '', 'Borrador automático', '', 'auto-draft', 'open', 'open', '', '', '', '', '2015-10-05 23:02:32', '0000-00-00 00:00:00', '', 0, 'http://localhost/thomas-more/?p=3', 0, 'post', '', 0),
 (4, 1, '2015-10-06 00:15:22', '0000-00-00 00:00:00', '', 'Inicio', '', 'draft', 'closed', 'closed', '', '', '', '', '2015-10-06 00:15:22', '0000-00-00 00:00:00', '', 0, 'http://localhost/thomas-more/?p=4', 1, 'nav_menu_item', '', 0),
 (5, 1, '2015-10-06 00:15:22', '0000-00-00 00:00:00', ' ', '', '', 'draft', 'closed', 'closed', '', '', '', '', '2015-10-06 00:15:22', '0000-00-00 00:00:00', '', 0, 'http://localhost/thomas-more/?p=5', 1, 'nav_menu_item', '', 0),
@@ -663,13 +747,13 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (20, 1, '2015-10-06 04:43:00', '2015-10-06 04:43:00', '', 'SERVICES', '', 'publish', 'closed', 'closed', '', 'services', '', '', '2015-10-06 20:38:25', '2015-10-06 20:38:25', '', 0, 'http://localhost/thomas-more/?p=20', 3, 'nav_menu_item', '', 0),
 (22, 1, '2015-10-06 04:44:42', '2015-10-06 04:44:42', '', 'NEWS', '', 'publish', 'closed', 'closed', '', 'news', '', '', '2015-10-06 20:38:52', '2015-10-06 20:38:52', '', 0, 'http://localhost/thomas-more/?p=22', 1, 'nav_menu_item', '', 0),
 (23, 1, '2015-10-06 04:44:42', '2015-10-06 04:44:42', '', 'FIND US', '', 'publish', 'closed', 'closed', '', 'location', '', '', '2015-10-06 20:38:52', '2015-10-06 20:38:52', '', 0, 'http://localhost/thomas-more/?p=23', 2, 'nav_menu_item', '', 0),
-(25, 1, '2015-10-06 04:45:58', '2015-10-06 04:45:58', '', 'Home Page', '', 'publish', 'open', 'open', '', 'home-page', '', '', '2015-10-06 05:06:50', '2015-10-06 05:06:50', '', 0, 'http://localhost/thomas-more/?page_id=25', 0, 'page', '', 0),
+(25, 1, '2015-10-06 04:45:58', '2015-10-06 04:45:58', '', 'Home Page', '', 'publish', 'open', 'open', '', 'home-page', '', '', '2015-10-12 00:05:30', '2015-10-12 00:05:30', '', 0, 'http://localhost/thomas-more/?page_id=25', 0, 'page', '', 0),
 (26, 1, '2015-10-06 04:45:58', '2015-10-06 04:45:58', '', 'Home Page', '', 'inherit', 'closed', 'closed', '', '25-revision-v1', '', '', '2015-10-06 04:45:58', '2015-10-06 04:45:58', '', 25, 'http://localhost/thomas-more/25-revision-v1/', 0, 'revision', '', 0),
 (27, 1, '2015-10-06 04:46:28', '2015-10-06 04:46:28', '', 'News', '', 'publish', 'closed', 'closed', '', 'news', '', '', '2015-10-06 04:46:51', '2015-10-06 04:46:51', '', 0, 'http://localhost/thomas-more/?page_id=27', 0, 'page', '', 0),
 (28, 1, '2015-10-06 04:46:28', '2015-10-06 04:46:28', '', 'NEWS', '', 'inherit', 'closed', 'closed', '', '27-revision-v1', '', '', '2015-10-06 04:46:28', '2015-10-06 04:46:28', '', 27, 'http://localhost/thomas-more/27-revision-v1/', 0, 'revision', '', 0),
 (29, 1, '2015-10-06 04:46:51', '2015-10-06 04:46:51', '', 'News', '', 'inherit', 'closed', 'closed', '', '27-revision-v1', '', '', '2015-10-06 04:46:51', '2015-10-06 04:46:51', '', 27, 'http://localhost/thomas-more/27-revision-v1/', 0, 'revision', '', 0),
 (30, 1, '2015-10-06 05:04:01', '2015-10-06 05:04:01', '', 'Página Principal', '', 'publish', 'closed', 'closed', '', 'acf_pagina-principal', '', '', '2015-10-07 01:13:25', '2015-10-07 01:13:25', '', 0, 'http://localhost/thomas-more/?post_type=acf&#038;p=30', 0, 'acf', '', 0),
-(31, 1, '2015-10-06 05:04:50', '2015-10-06 05:04:50', '', 'Home Page', '', 'publish', 'closed', 'closed', '', 'acf_home-page', '', '', '2015-10-11 00:25:30', '2015-10-11 00:25:30', '', 0, 'http://localhost/thomas-more/?post_type=acf&#038;p=31', 0, 'acf', '', 0),
+(31, 1, '2015-10-06 05:04:50', '2015-10-06 05:04:50', '', 'Home Page', '', 'publish', 'closed', 'closed', '', 'acf_home-page', '', '', '2015-10-12 00:06:42', '2015-10-12 00:06:42', '', 0, 'http://localhost/thomas-more/?post_type=acf&#038;p=31', 0, 'acf', '', 0),
 (32, 1, '2015-10-06 05:06:25', '2015-10-06 05:06:25', '', 'Página Principal', '', 'inherit', 'closed', 'closed', '', '2-revision-v1', '', '', '2015-10-06 05:06:25', '2015-10-06 05:06:25', '', 2, 'http://localhost/thomas-more/2-revision-v1/', 0, 'revision', '', 0),
 (33, 1, '2015-10-06 05:06:50', '2015-10-06 05:06:50', '', 'Home Page', '', 'inherit', 'closed', 'closed', '', '25-revision-v1', '', '', '2015-10-06 05:06:50', '2015-10-06 05:06:50', '', 25, 'http://localhost/thomas-more/25-revision-v1/', 0, 'revision', '', 0),
 (34, 1, '2015-10-06 05:18:09', '2015-10-06 05:18:09', '', 'HOME', '', 'publish', 'closed', 'closed', '', 'home', '', '', '2015-10-06 20:38:25', '2015-10-06 20:38:25', '', 0, 'http://localhost/thomas-more/?p=34', 1, 'nav_menu_item', '', 0),
@@ -682,8 +766,8 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (41, 1, '2015-10-06 20:40:53', '2015-10-06 20:40:53', '', 'Equipo', '', 'publish', 'closed', 'closed', '', 'acf_equipo', '', '', '2015-10-06 20:41:34', '2015-10-06 20:41:34', '', 0, 'http://localhost/thomas-more/?post_type=acf&#038;p=41', 0, 'acf', '', 0),
 (42, 1, '2015-10-06 20:41:07', '2015-10-06 20:41:07', '', '', '', 'trash', 'closed', 'closed', '', '42', '', '', '2015-10-07 22:15:37', '2015-10-07 22:15:37', '', 0, 'http://localhost/thomas-more/?post_type=equipo&#038;p=42', 0, 'equipo', '', 0),
 (43, 1, '2015-10-06 20:41:09', '0000-00-00 00:00:00', '', 'Borrador automático', '', 'auto-draft', 'closed', 'closed', '', '', '', '', '2015-10-06 20:41:09', '0000-00-00 00:00:00', '', 0, 'http://localhost/thomas-more/?post_type=equipo&p=43', 0, 'equipo', '', 0),
-(44, 1, '2015-10-06 20:45:07', '2015-10-06 20:45:07', 'Federico López Saavedra tiene 26 años de experiencia y más de 100 clientes atendidos en los ámbitos nacional e internacional. Cursó la Maestría en Estadística y la Maestría de Ampliación en Economía Matemática y Métodos Estadísticos Computarizados en la Universidad Central de Venezuela (UCV), así como el Máster en Política Económica de la Universidad Católica Andrés Bello (UCAB), de donde es egresado en Relaciones Industriales.\r\n\r\nSu experiencia abarca la mayoría de las áreas funcionales en diversas organizaciones multinacionales y nacionales, lo que le ha permitido imprimirle una visión holística a la cultura corporativa de Thomas More Management Consulting, de la que es Managing Partner y fundador (2003). Ocupó cargos claves en IBM Andina y William M. Mercer de Venezuela. Creó la ESC Corporation (1992-2000), empresa pionera en encuestas salariales en línea, con la que desarrolló el I Programa Avanzado en Compensación en Venezuela, en el año 1998.\r\n\r\nDurante 30 años fue profesor en la UCAB y actualmente da clases del Instituto de Estudios Superiores de Administración (IESA Venezuela). Ha participado como conferencista en eventos y charlas de diferentes cámaras, asociaciones e instituciones en el país como VenAmCham, Asociación Bancaria de Venezuela, Cámara Aseguradora de Venezuela, IE España, IESA, UCV y UCAB. También ha sido invitado a países como Irlanda, España, Colombia, México, Brasil, Singapur, Panamá y República Dominicana. Fue miembro del Comité Ejecutivo Global de Actuarial Science International Associates (Asinta). Sus artículos han sido divulgados por diversas publicaciones e instituciones, entre ellas WorldatWork Journal de WorldatWork.', 'FEDERICO L. SAAVEDRA', '', 'publish', 'closed', 'closed', '', 'federico-l-saavedra', '', '', '2015-10-08 22:29:57', '2015-10-08 22:29:57', '', 0, 'http://localhost/thomas-more/?post_type=equipo&#038;p=44', 0, 'equipo', '', 0),
-(45, 1, '2015-10-06 20:49:11', '2015-10-06 20:49:11', 'Egresada de la Universidad Católica Andrés Bello (UCAB) en la Licenciatura de Relaciones Industriales. Su experiencia incluye la realización de diversos proyectos de Medición de Recompensa Total bajo las técnicas de Conjoint Analysis y Maxdiff Scaling, para compañias en Latinoamérica, Asia y USA.\r\n\r\nHa asistido en la elaboración de proyectos de Planes de Incentivos Ejecutivos y de Ventas para empressas en los ámbitos local e internacional en diferentes sectores incluyendo Banca, Consumo Masivo, Telecomunicaciones, Retail y Seguros.', 'STEPHANY KLEIN', '', 'publish', 'closed', 'closed', '', 'stephany-klein', '', '', '2015-10-06 20:49:11', '2015-10-06 20:49:11', '', 0, 'http://localhost/thomas-more/?post_type=equipo&#038;p=45', 0, 'equipo', '', 0),
+(44, 1, '2015-10-06 20:45:07', '2015-10-06 20:45:07', 'Federico López Saavedra tiene 26 años de experiencia y más de 100 clientes atendidos en los ámbitos nacional e internacional. Cursó la Maestría en Estadística y la Maestría de Ampliación en Economía Matemática y Métodos Estadísticos Computarizados en la Universidad Central de Venezuela (UCV), así como el Máster en Política Económica de la Universidad Católica Andrés Bello (UCAB), de donde es egresado en Relaciones Industriales.\r\n\r\nSu experiencia abarca la mayoría de las áreas funcionales en diversas organizaciones multinacionales y nacionales, lo que le ha permitido imprimirle una visión holística a la cultura corporativa de Thomas More Management Consulting, de la que es Managing Partner y fundador (2003). Ocupó cargos claves en IBM Andina y William M. Mercer de Venezuela. Creó la ESC Corporation (1992-2000), empresa pionera en encuestas salariales en línea, con la que desarrolló el I Programa Avanzado en Compensación en Venezuela, en el año 1998.\r\n\r\nDurante 30 años fue profesor en la UCAB y actualmente da clases del Instituto de Estudios Superiores de Administración (IESA Venezuela). Ha participado como conferencista en eventos y charlas de diferentes cámaras, asociaciones e instituciones en el país como VenAmCham, Asociación Bancaria de Venezuela, Cámara Aseguradora de Venezuela, IE España, IESA, UCV y UCAB. También ha sido invitado a países como Irlanda, España, Colombia, México, Brasil, Singapur, Panamá y República Dominicana. Fue miembro del Comité Ejecutivo Global de Actuarial Science International Associates (Asinta). Sus artículos han sido divulgados por diversas publicaciones e instituciones, entre ellas WorldatWork Journal de WorldatWork.', 'FEDERICO L. SAAVEDRA', '', 'publish', 'closed', 'closed', '', 'federico-l-saavedra', '', '', '2015-10-12 01:05:23', '2015-10-12 01:05:23', '', 0, 'http://localhost/thomas-more/?post_type=equipo&#038;p=44', 0, 'equipo', '', 0),
+(45, 1, '2015-10-06 20:49:11', '2015-10-06 20:49:11', 'Egresada de la Universidad Católica Andrés Bello (UCAB) en la Licenciatura de Relaciones Industriales. Su experiencia incluye la realización de diversos proyectos de Medición de Recompensa Total bajo las técnicas de Conjoint Analysis y Maxdiff Scaling, para compañias en Latinoamérica, Asia y USA.\r\n\r\nHa asistido en la elaboración de proyectos de Planes de Incentivos Ejecutivos y de Ventas para empressas en los ámbitos local e internacional en diferentes sectores incluyendo Banca, Consumo Masivo, Telecomunicaciones, Retail y Seguros.', 'STEPHANY KLEIN', '', 'publish', 'closed', 'closed', '', 'stephany-klein', '', '', '2015-10-12 01:32:00', '2015-10-12 01:32:00', '', 0, 'http://localhost/thomas-more/?post_type=equipo&#038;p=45', 0, 'equipo', '', 0),
 (46, 1, '2015-10-06 20:51:49', '2015-10-06 20:51:49', 'Licenciado en Psicología por la Universidad Complutense de Madrid. Certificado en Herramientas de Transformación Cultural por Barrett Values Centre y Roles Equipo Belbin. Tiene conocimientos avanzados en procesos y gestión de Recursos Humanos, captación de talento, formación y desarrollo, compensación y beneficios, capital intelectual y gestión del conocimiento. Su carrera profesional se ha desarrollado en INDRA. En el Departamento de Selección y Servicios Profesionales colaboró con la elaboración de la herramienta LIVELINK de gestión curricular y del conocimiento, y en la creación del Departamento de Staffing. Fue responsable del diseño e implementación de herramientas de formación 2.0 al frente del Departamento de Formación. Formó parte del Departamento de Retribución y Compensación colaborando en la planificación y definición de procesos y procedimientos, análisis de equidad interna y competitividad externa, estudios retributivos, planificación de plantillas y procesos de revisión salarial, entre otras.\r\n\r\nDesde 2010 y hasta el 2015  forma parte del equipo de SyC Consultoría desarrollando proyectos de Consultoría Estratégica de Recursos Humanos; desarrollo, identificación y retención del Talento; transformaciones culturales, etc.\r\n\r\nDesde el 2011 Co-Director del Programa Superior de Dirección Estratégica de Recursos Humanos del IE Business School.', 'JULIO RAMOS', '', 'publish', 'closed', 'closed', '', 'julio-ramos', '', '', '2015-10-06 20:51:49', '2015-10-06 20:51:49', '', 0, 'http://localhost/thomas-more/?post_type=equipo&#038;p=46', 0, 'equipo', '', 0),
 (47, 1, '2015-10-06 20:52:34', '0000-00-00 00:00:00', '', 'Borrador automático', '', 'auto-draft', 'closed', 'closed', '', '', '', '', '2015-10-06 20:52:34', '0000-00-00 00:00:00', '', 0, 'http://localhost/thomas-more/?post_type=servicios&p=47', 0, 'servicios', '', 0),
 (48, 1, '2015-10-06 20:54:02', '2015-10-06 20:54:02', '', 'Productos y Servicios', '', 'publish', 'closed', 'closed', '', 'acf_productos-y-servicios', '', '', '2015-10-06 20:58:13', '2015-10-06 20:58:13', '', 0, 'http://localhost/thomas-more/?post_type=acf&#038;p=48', 0, 'acf', '', 0),
@@ -700,18 +784,31 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (59, 1, '2015-10-07 01:14:52', '2015-10-07 01:14:52', '', 'Página Principal', '', 'inherit', 'closed', 'closed', '', '2-revision-v1', '', '', '2015-10-07 01:14:52', '2015-10-07 01:14:52', '', 2, 'http://localhost/thomas-more/2-revision-v1/', 0, 'revision', '', 0),
 (60, 1, '2015-10-07 01:32:37', '2015-10-07 01:32:37', '', 'Página Principal', '', 'inherit', 'closed', 'closed', '', '2-revision-v1', '', '', '2015-10-07 01:32:37', '2015-10-07 01:32:37', '', 2, 'http://localhost/thomas-more/2-revision-v1/', 0, 'revision', '', 0),
 (61, 1, '2015-10-07 18:42:47', '2015-10-07 18:42:47', '', 'Valores', '', 'publish', 'closed', 'closed', '', 'acf_valores', '', '', '2015-10-08 21:57:24', '2015-10-08 21:57:24', '', 0, 'http://localhost/thomas-more/?post_type=acf&#038;p=61', 0, 'acf', '', 0),
-(62, 1, '2015-10-07 21:28:57', '2015-10-07 21:28:57', 'INTEGRITIIIII', 'INTEGRITY', '', 'publish', 'closed', 'closed', '', 'integrity', '', '', '2015-10-07 21:28:57', '2015-10-07 21:28:57', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=62', 0, 'valores', '', 0),
+(62, 1, '2015-10-07 21:28:57', '2015-10-07 21:28:57', 'We are free to offer the best piece of advice to our customers and commit with their welfare.', 'INTEGRITY', '', 'publish', 'closed', 'closed', '', 'integrity', '', '', '2015-10-12 00:35:55', '2015-10-12 00:35:55', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=62', 0, 'valores', '', 0),
 (63, 1, '2015-10-07 21:29:23', '0000-00-00 00:00:00', '', 'Borrador automático', '', 'auto-draft', 'closed', 'closed', '', '', '', '', '2015-10-07 21:29:23', '0000-00-00 00:00:00', '', 0, 'http://localhost/thomas-more/?post_type=valores&p=63', 0, 'valores', '', 0),
-(64, 1, '2015-10-07 21:38:10', '2015-10-07 21:38:10', 'Tenemos libertad para dar el mejor consejo a nuestros clientes y comprometernos con el bienestar de las partes.', 'INTEGRIDAD', '', 'publish', 'closed', 'closed', '', 'integridad-2', '', '', '2015-10-07 21:38:10', '2015-10-07 21:38:10', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=64', 0, 'valores', '', 0),
-(65, 1, '2015-10-07 21:40:16', '2015-10-07 21:40:16', 'Nos mantenemos en constante formación, lo que nos permite ofrecer soluciones adaptadas a cada empresa.', 'CONOCIMIENTO', '', 'publish', 'closed', 'closed', '', 'conocimiento-2', '', '', '2015-10-07 21:40:16', '2015-10-07 21:40:16', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=65', 0, 'valores', '', 0),
-(66, 1, '2015-10-07 21:40:47', '2015-10-07 21:40:47', 'KNOWLEDGE', 'KNOWLEDGE', '', 'publish', 'closed', 'closed', '', 'knowledge', '', '', '2015-10-07 21:40:47', '2015-10-07 21:40:47', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=66', 0, 'valores', '', 0),
+(64, 1, '2015-10-07 21:38:10', '2015-10-07 21:38:10', 'Tenemos libertad para dar el mejor consejo a nuestros clientes y comprometernos con el bienestar de las partes.', 'INTEGRIDAD', '', 'publish', 'closed', 'closed', '', 'integridad-2', '', '', '2015-10-12 00:35:36', '2015-10-12 00:35:36', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=64', 0, 'valores', '', 0),
+(65, 1, '2015-10-07 21:40:16', '2015-10-07 21:40:16', 'Nos mantenemos en constante formación, lo que nos permite ofrecer soluciones adaptadas a cada empresa.', 'CONOCIMIENTO', '', 'publish', 'closed', 'closed', '', 'conocimiento-2', '', '', '2015-10-12 00:35:20', '2015-10-12 00:35:20', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=65', 0, 'valores', '', 0),
+(66, 1, '2015-10-07 21:40:47', '2015-10-07 21:40:47', 'We are studying constantly and this allows us to adapt to different companies.', 'KNOWLEDGE', '', 'publish', 'closed', 'closed', '', 'knowledge', '', '', '2015-10-12 00:34:59', '2015-10-12 00:34:59', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=66', 0, 'valores', '', 0),
 (67, 1, '2015-10-07 21:41:28', '2015-10-07 21:41:28', 'Nuestro foco es el cliente, buscamos entender sus necesidades específicas y aportamos soluciones a la medida.', 'SERVICIO', '', 'inherit', 'closed', 'closed', '', '36-autosave-v1', '', '', '2015-10-07 21:41:28', '2015-10-07 21:41:28', '', 36, 'http://localhost/thomas-more/36-autosave-v1/', 0, 'revision', '', 0),
-(68, 1, '2015-10-07 21:41:51', '2015-10-07 21:41:51', 'Nuestro foco es el cliente, buscamos entender sus necesidades específicas y aportamos soluciones a la medida.', 'SERVICIO', '', 'publish', 'closed', 'closed', '', 'servicio-2', '', '', '2015-10-08 22:04:23', '2015-10-08 22:04:23', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=68', 0, 'valores', '', 0),
-(69, 1, '2015-10-07 21:42:19', '2015-10-07 21:42:19', 'SERVICE', 'SERVICE', '', 'publish', 'closed', 'closed', '', 'service', '', '', '2015-10-07 21:42:19', '2015-10-07 21:42:19', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=69', 0, 'valores', '', 0),
-(70, 1, '2015-10-07 21:43:02', '2015-10-07 21:43:02', 'Creemos e invertimos en la búsqueda de novedosos métodos y herramientas que generen soluciones inéditas.', 'INNOVACIÓN', '', 'publish', 'closed', 'closed', '', 'innovacion-2', '', '', '2015-10-07 21:43:02', '2015-10-07 21:43:02', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=70', 0, 'valores', '', 0),
-(71, 1, '2015-10-07 21:43:25', '2015-10-07 21:43:25', 'INNOVATION', 'INNOVATION', '', 'publish', 'closed', 'closed', '', 'innovation', '', '', '2015-10-07 21:43:25', '2015-10-07 21:43:25', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=71', 0, 'valores', '', 0),
-(72, 1, '2015-10-08 21:56:02', '2015-10-08 21:56:02', '', 'icono-servicio', '', 'inherit', 'open', 'closed', '', 'icono-servicio', '', '', '2015-10-08 21:56:02', '2015-10-08 21:56:02', '', 0, 'http://localhost/thomas-more/wp-content/uploads/2015/10/icono-servicio.png', 0, 'attachment', 'image/png', 0),
-(73, 1, '2015-10-08 22:28:55', '2015-10-08 22:28:55', '', 'FOTO FEDERICO LOPEZ', '', 'inherit', 'open', 'closed', '', 'foto-federico-lopez', '', '', '2015-10-08 22:28:55', '2015-10-08 22:28:55', '', 44, 'http://localhost/thomas-more/wp-content/uploads/2015/10/FOTO-FEDERICO-LOPEZ.jpg', 0, 'attachment', 'image/jpeg', 0);
+(68, 1, '2015-10-07 21:41:51', '2015-10-07 21:41:51', 'Nuestro foco es el cliente, buscamos entender sus necesidades específicas y aportamos soluciones a la medida.', 'SERVICIO', '', 'publish', 'closed', 'closed', '', 'servicio-2', '', '', '2015-10-12 00:34:37', '2015-10-12 00:34:37', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=68', 0, 'valores', '', 0),
+(69, 1, '2015-10-07 21:42:19', '2015-10-07 21:42:19', 'We focus on our customers, looking for satisfying their specific and general needs.', 'SERVICE', '', 'publish', 'closed', 'closed', '', 'service', '', '', '2015-10-12 00:34:18', '2015-10-12 00:34:18', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=69', 0, 'valores', '', 0),
+(70, 1, '2015-10-07 21:43:02', '2015-10-07 21:43:02', 'Creemos e invertimos en la búsqueda de novedosos métodos y herramientas que generen soluciones inéditas.', 'INNOVACIÓN', '', 'publish', 'closed', 'closed', '', 'innovacion-2', '', '', '2015-10-12 00:33:39', '2015-10-12 00:33:39', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=70', 0, 'valores', '', 0),
+(71, 1, '2015-10-07 21:43:25', '2015-10-07 21:43:25', 'We believe and invest in innovative methods and tools for producing unprecedented solutions.', 'INNOVATION', '', 'publish', 'closed', 'closed', '', 'innovation', '', '', '2015-10-12 00:33:58', '2015-10-12 00:33:58', '', 0, 'http://localhost/thomas-more/?post_type=valores&#038;p=71', 0, 'valores', '', 0),
+(74, 1, '2015-10-12 00:03:38', '2015-10-12 00:03:38', '', 'Home Page', '', 'inherit', 'closed', 'closed', '', '25-revision-v1', '', '', '2015-10-12 00:03:38', '2015-10-12 00:03:38', '', 25, 'http://localhost/thomas-more/25-revision-v1/', 0, 'revision', '', 0),
+(75, 1, '2015-10-12 00:04:06', '2015-10-12 00:04:06', '', 'Página Principal', '', 'inherit', 'closed', 'closed', '', '2-revision-v1', '', '', '2015-10-12 00:04:06', '2015-10-12 00:04:06', '', 2, 'http://localhost/thomas-more/2-revision-v1/', 0, 'revision', '', 0),
+(76, 1, '2015-10-12 00:05:30', '2015-10-12 00:05:30', '', 'Home Page', '', 'inherit', 'closed', 'closed', '', '25-revision-v1', '', '', '2015-10-12 00:05:30', '2015-10-12 00:05:30', '', 25, 'http://localhost/thomas-more/25-revision-v1/', 0, 'revision', '', 0),
+(77, 1, '2015-10-12 00:14:53', '2015-10-12 00:14:53', 'We believe and invest in innovative methods and tools for producing unprecedented solutions.', 'INNOVATION', '', 'inherit', 'closed', 'closed', '', '71-autosave-v1', '', '', '2015-10-12 00:14:53', '2015-10-12 00:14:53', '', 71, 'http://localhost/thomas-more/71-autosave-v1/', 0, 'revision', '', 0),
+(78, 1, '2015-10-12 00:33:34', '2015-10-12 00:33:34', '', 'innovacion', '', 'inherit', 'open', 'closed', '', 'innovacion-3', '', '', '2015-10-12 00:33:34', '2015-10-12 00:33:34', '', 70, 'http://localhost/thomas-more/wp-content/uploads/2015/10/innovacion.png', 0, 'attachment', 'image/png', 0),
+(79, 1, '2015-10-12 00:33:53', '2015-10-12 00:33:53', '', 'innovacion', '', 'inherit', 'open', 'closed', '', 'innovacion-4', '', '', '2015-10-12 00:33:53', '2015-10-12 00:33:53', '', 71, 'http://localhost/thomas-more/wp-content/uploads/2015/10/innovacion1.png', 0, 'attachment', 'image/png', 0),
+(80, 1, '2015-10-12 00:34:14', '2015-10-12 00:34:14', '', 'servicio', '', 'inherit', 'open', 'closed', '', 'servicio-3', '', '', '2015-10-12 00:34:14', '2015-10-12 00:34:14', '', 69, 'http://localhost/thomas-more/wp-content/uploads/2015/10/servicio.png', 0, 'attachment', 'image/png', 0),
+(81, 1, '2015-10-12 00:34:33', '2015-10-12 00:34:33', '', 'servicio', '', 'inherit', 'open', 'closed', '', 'servicio-4', '', '', '2015-10-12 00:34:33', '2015-10-12 00:34:33', '', 68, 'http://localhost/thomas-more/wp-content/uploads/2015/10/servicio1.png', 0, 'attachment', 'image/png', 0),
+(82, 1, '2015-10-12 00:34:55', '2015-10-12 00:34:55', '', 'conocimiento', '', 'inherit', 'open', 'closed', '', 'conocimiento-3', '', '', '2015-10-12 00:34:55', '2015-10-12 00:34:55', '', 66, 'http://localhost/thomas-more/wp-content/uploads/2015/10/conocimiento.png', 0, 'attachment', 'image/png', 0),
+(83, 1, '2015-10-12 00:35:15', '2015-10-12 00:35:15', '', 'conocimiento', '', 'inherit', 'open', 'closed', '', 'conocimiento-4', '', '', '2015-10-12 00:35:15', '2015-10-12 00:35:15', '', 65, 'http://localhost/thomas-more/wp-content/uploads/2015/10/conocimiento1.png', 0, 'attachment', 'image/png', 0),
+(84, 1, '2015-10-12 00:35:33', '2015-10-12 00:35:33', '', 'integridad', '', 'inherit', 'open', 'closed', '', 'integridad-3', '', '', '2015-10-12 00:35:33', '2015-10-12 00:35:33', '', 64, 'http://localhost/thomas-more/wp-content/uploads/2015/10/integridad.png', 0, 'attachment', 'image/png', 0),
+(85, 1, '2015-10-12 00:35:51', '2015-10-12 00:35:51', '', 'integridad', '', 'inherit', 'open', 'closed', '', 'integridad-4', '', '', '2015-10-12 00:35:51', '2015-10-12 00:35:51', '', 62, 'http://localhost/thomas-more/wp-content/uploads/2015/10/integridad1.png', 0, 'attachment', 'image/png', 0),
+(86, 1, '2015-10-12 01:01:08', '2015-10-12 01:01:08', '', 'FOTO FEDERICO LOPEZ', '', 'inherit', 'open', 'closed', '', 'foto-federico-lopez', '', '', '2015-10-12 01:01:08', '2015-10-12 01:01:08', '', 44, 'http://localhost/thomas-more/wp-content/uploads/2015/10/FOTO-FEDERICO-LOPEZ.jpg', 0, 'attachment', 'image/jpeg', 0),
+(87, 1, '2015-10-12 01:29:36', '0000-00-00 00:00:00', '', 'Borrador automático', '', 'auto-draft', 'closed', 'closed', '', '', '', '', '2015-10-12 01:29:36', '0000-00-00 00:00:00', '', 0, 'http://localhost/thomas-more/?post_type=equipo&p=87', 0, 'equipo', '', 0),
+(88, 1, '2015-10-12 01:30:54', '2015-10-12 01:30:54', '', 'FOTO STEPHANY', '', 'inherit', 'open', 'closed', '', 'foto-stephany', '', '', '2015-10-12 01:30:54', '2015-10-12 01:30:54', '', 45, 'http://localhost/thomas-more/wp-content/uploads/2015/10/FOTO-STEPHANY.jpg', 0, 'attachment', 'image/jpeg', 0);
 
 -- --------------------------------------------------------
 
@@ -721,11 +818,14 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 
 DROP TABLE IF EXISTS `wp_terms`;
 CREATE TABLE IF NOT EXISTS `wp_terms` (
-`term_id` bigint(20) unsigned NOT NULL,
+  `term_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `slug` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `term_group` bigint(10) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `term_group` bigint(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`term_id`),
+  KEY `slug` (`slug`(191)),
+  KEY `name` (`name`(191))
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `wp_terms`
@@ -760,7 +860,9 @@ DROP TABLE IF EXISTS `wp_term_relationships`;
 CREATE TABLE IF NOT EXISTS `wp_term_relationships` (
   `object_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `term_taxonomy_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `term_order` int(11) NOT NULL DEFAULT '0'
+  `term_order` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`object_id`,`term_taxonomy_id`),
+  KEY `term_taxonomy_id` (`term_taxonomy_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -798,6 +900,7 @@ INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 (38, 4, 0),
 (42, 4, 0),
 (44, 4, 0),
+(45, 4, 0),
 (62, 7, 0),
 (62, 15, 0),
 (64, 4, 0),
@@ -814,8 +917,16 @@ INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 (70, 18, 0),
 (71, 7, 0),
 (71, 18, 0),
-(72, 4, 0),
-(73, 4, 0);
+(78, 4, 0),
+(79, 7, 0),
+(80, 7, 0),
+(81, 4, 0),
+(82, 7, 0),
+(83, 4, 0),
+(84, 4, 0),
+(85, 7, 0),
+(86, 4, 0),
+(88, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -825,13 +936,16 @@ INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 
 DROP TABLE IF EXISTS `wp_term_taxonomy`;
 CREATE TABLE IF NOT EXISTS `wp_term_taxonomy` (
-`term_taxonomy_id` bigint(20) unsigned NOT NULL,
+  `term_taxonomy_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `term_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `taxonomy` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `count` bigint(20) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `count` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`term_taxonomy_id`),
+  UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
+  KEY `taxonomy` (`taxonomy`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `wp_term_taxonomy`
@@ -841,18 +955,18 @@ INSERT INTO `wp_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `desc
 (1, 1, 'category', '', 0, 1),
 (2, 2, 'nav_menu', '', 0, 3),
 (3, 3, 'nav_menu', '', 0, 2),
-(4, 4, 'language', 'a:2:{s:6:"locale";s:5:"es_ES";s:3:"rtl";i:0;}', 0, 9),
+(4, 4, 'language', 'a:2:{s:6:"locale";s:5:"es_ES";s:3:"rtl";i:0;}', 0, 15),
 (5, 5, 'term_language', '', 0, 1),
 (6, 6, 'term_translations', 'a:2:{s:2:"es";i:1;s:2:"en";i:9;}', 0, 2),
-(7, 7, 'language', 'a:2:{s:6:"locale";s:5:"en_US";s:3:"rtl";i:0;}', 0, 6),
+(7, 7, 'language', 'a:2:{s:6:"locale";s:5:"en_US";s:3:"rtl";i:0;}', 0, 10),
 (8, 8, 'term_language', '', 0, 1),
 (9, 9, 'category', '', 0, 0),
 (11, 11, 'nav_menu', '', 0, 3),
 (12, 12, 'nav_menu', '', 0, 2),
-(13, 13, 'post_translations', 'a:2:{s:2:"es";i:2;s:2:"en";i:25;}', 0, 2),
+(13, 13, 'post_translations', 'a:2:{s:2:"en";i:25;s:2:"es";i:2;}', 0, 2),
 (14, 14, 'post_translations', 'a:2:{s:2:"en";i:27;s:2:"es";i:11;}', 0, 2),
-(15, 15, 'post_translations', 'a:2:{s:2:"es";i:64;s:2:"en";i:62;}', 0, 2),
-(16, 16, 'post_translations', 'a:2:{s:2:"en";i:66;s:2:"es";i:65;}', 0, 2),
+(15, 15, 'post_translations', 'a:2:{s:2:"en";i:62;s:2:"es";i:64;}', 0, 2),
+(16, 16, 'post_translations', 'a:2:{s:2:"es";i:65;s:2:"en";i:66;}', 0, 2),
 (17, 17, 'post_translations', 'a:2:{s:2:"es";i:68;s:2:"en";i:69;}', 0, 2),
 (18, 18, 'post_translations', 'a:2:{s:2:"en";i:71;s:2:"es";i:70;}', 0, 2);
 
@@ -864,11 +978,14 @@ INSERT INTO `wp_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `desc
 
 DROP TABLE IF EXISTS `wp_usermeta`;
 CREATE TABLE IF NOT EXISTS `wp_usermeta` (
-`umeta_id` bigint(20) unsigned NOT NULL,
+  `umeta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`umeta_id`),
+  KEY `user_id` (`user_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `wp_usermeta`
@@ -892,7 +1009,7 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (16, 1, 'managenav-menuscolumnshidden', 'a:5:{i:0;s:11:"link-target";i:1;s:11:"css-classes";i:2;s:3:"xfn";i:3;s:11:"description";i:4;s:15:"title-attribute";}'),
 (17, 1, 'metaboxhidden_nav-menus', 'a:1:{i:0;s:12:"add-post_tag";}'),
 (18, 1, 'nav_menu_recently_edited', '12'),
-(19, 1, 'session_tokens', 'a:1:{s:64:"54b99cab3f2145a44928f8bb4542bbca9eb29dfc4163fc467e8a1d38d717f648";a:4:{s:10:"expiration";i:1444695847;s:2:"ip";s:3:"::1";s:2:"ua";s:85:"Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.2.1";s:5:"login";i:1444523047;}}'),
+(19, 1, 'session_tokens', 'a:2:{s:64:"54b99cab3f2145a44928f8bb4542bbca9eb29dfc4163fc467e8a1d38d717f648";a:4:{s:10:"expiration";i:1444695847;s:2:"ip";s:3:"::1";s:2:"ua";s:85:"Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.2.1";s:5:"login";i:1444523047;}s:64:"bc1291201139a9a9fd4c700f958c387305bebf633a86071b067501f5007ef591";a:4:{s:10:"expiration";i:1444780333;s:2:"ip";s:9:"127.0.0.1";s:2:"ua";s:76:"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0";s:5:"login";i:1444607533;}}'),
 (20, 1, 'wp_user-settings', 'editor=tinymce&hidetb=1&libraryContent=browse'),
 (21, 1, 'wp_user-settings-time', '1444341364');
 
@@ -904,7 +1021,7 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 
 DROP TABLE IF EXISTS `wp_users`;
 CREATE TABLE IF NOT EXISTS `wp_users` (
-`ID` bigint(20) unsigned NOT NULL,
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_login` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_pass` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_nicename` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -913,8 +1030,11 @@ CREATE TABLE IF NOT EXISTS `wp_users` (
   `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_activation_key` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_status` int(11) NOT NULL DEFAULT '0',
-  `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`ID`),
+  KEY `user_login_key` (`user_login`),
+  KEY `user_nicename` (`user_nicename`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `wp_users`
@@ -923,130 +1043,6 @@ CREATE TABLE IF NOT EXISTS `wp_users` (
 INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
 (1, 'admin', '$P$BeaM5v/2CiWEmpdJpS79ZVV7F/Fy15.', 'admin', 'frankjrangel@gmail.com', '', '2015-10-05 23:02:25', '', 0, 'admin');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `wp_commentmeta`
---
-ALTER TABLE `wp_commentmeta`
- ADD PRIMARY KEY (`meta_id`), ADD KEY `comment_id` (`comment_id`), ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `wp_comments`
---
-ALTER TABLE `wp_comments`
- ADD PRIMARY KEY (`comment_ID`), ADD KEY `comment_post_ID` (`comment_post_ID`), ADD KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`), ADD KEY `comment_date_gmt` (`comment_date_gmt`), ADD KEY `comment_parent` (`comment_parent`), ADD KEY `comment_author_email` (`comment_author_email`(10));
-
---
--- Indexes for table `wp_links`
---
-ALTER TABLE `wp_links`
- ADD PRIMARY KEY (`link_id`), ADD KEY `link_visible` (`link_visible`);
-
---
--- Indexes for table `wp_options`
---
-ALTER TABLE `wp_options`
- ADD PRIMARY KEY (`option_id`), ADD UNIQUE KEY `option_name` (`option_name`);
-
---
--- Indexes for table `wp_postmeta`
---
-ALTER TABLE `wp_postmeta`
- ADD PRIMARY KEY (`meta_id`), ADD KEY `post_id` (`post_id`), ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `wp_posts`
---
-ALTER TABLE `wp_posts`
- ADD PRIMARY KEY (`ID`), ADD KEY `post_name` (`post_name`(191)), ADD KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`), ADD KEY `post_parent` (`post_parent`), ADD KEY `post_author` (`post_author`);
-
---
--- Indexes for table `wp_terms`
---
-ALTER TABLE `wp_terms`
- ADD PRIMARY KEY (`term_id`), ADD KEY `slug` (`slug`(191)), ADD KEY `name` (`name`(191));
-
---
--- Indexes for table `wp_term_relationships`
---
-ALTER TABLE `wp_term_relationships`
- ADD PRIMARY KEY (`object_id`,`term_taxonomy_id`), ADD KEY `term_taxonomy_id` (`term_taxonomy_id`);
-
---
--- Indexes for table `wp_term_taxonomy`
---
-ALTER TABLE `wp_term_taxonomy`
- ADD PRIMARY KEY (`term_taxonomy_id`), ADD UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`), ADD KEY `taxonomy` (`taxonomy`);
-
---
--- Indexes for table `wp_usermeta`
---
-ALTER TABLE `wp_usermeta`
- ADD PRIMARY KEY (`umeta_id`), ADD KEY `user_id` (`user_id`), ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `wp_users`
---
-ALTER TABLE `wp_users`
- ADD PRIMARY KEY (`ID`), ADD KEY `user_login_key` (`user_login`), ADD KEY `user_nicename` (`user_nicename`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `wp_commentmeta`
---
-ALTER TABLE `wp_commentmeta`
-MODIFY `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `wp_comments`
---
-ALTER TABLE `wp_comments`
-MODIFY `comment_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `wp_links`
---
-ALTER TABLE `wp_links`
-MODIFY `link_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `wp_options`
---
-ALTER TABLE `wp_options`
-MODIFY `option_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=331;
---
--- AUTO_INCREMENT for table `wp_postmeta`
---
-ALTER TABLE `wp_postmeta`
-MODIFY `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=393;
---
--- AUTO_INCREMENT for table `wp_posts`
---
-ALTER TABLE `wp_posts`
-MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=74;
---
--- AUTO_INCREMENT for table `wp_terms`
---
-ALTER TABLE `wp_terms`
-MODIFY `term_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
---
--- AUTO_INCREMENT for table `wp_term_taxonomy`
---
-ALTER TABLE `wp_term_taxonomy`
-MODIFY `term_taxonomy_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
---
--- AUTO_INCREMENT for table `wp_usermeta`
---
-ALTER TABLE `wp_usermeta`
-MODIFY `umeta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
---
--- AUTO_INCREMENT for table `wp_users`
---
-ALTER TABLE `wp_users`
-MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
