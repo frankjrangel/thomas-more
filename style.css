@@ -187,7 +187,7 @@ p {
     z-index: 500;
     position: relative; }
   #que-hacemos #contenido-que-hacemos {
-    background: url("imagenes/laptop.jpg") center;
+    background: url("imagenes/laptop.png") center;
     background-size: cover; }
     #que-hacemos #contenido-que-hacemos .filtro {
       background: rgba(0, 0, 0, 0.8);
@@ -216,13 +216,17 @@ p {
       padding: 20px 3%;
       min-width: 150px;
       float: left;
-      height: 200px;
       color: #fafafa;
       background: #e7b262; }
       #nuestros-valores #contenido-nuestros-valores .valores-item p {
         color: #fafafa !important; }
+    #nuestros-valores #contenido-nuestros-valores .icono-valores-wrapper {
+      position: relative;
+      height: 80px; }
     #nuestros-valores #contenido-nuestros-valores img {
-      margin-bottom: 15px; }
+      position: absolute;
+      bottom: 15px;
+      left: 0; }
     #nuestros-valores #contenido-nuestros-valores h3 {
       margin-bottom: 5px; }
     #nuestros-valores #contenido-nuestros-valores .flecha {
@@ -230,11 +234,36 @@ p {
       margin-bottom: 20px; }
 
 #equipo {
-  background: #6e6e6e; }
+  background: #1f2438; }
   #equipo .separador {
     margin-top: 10px;
+    margin-bottom: 50px;
+    background: #fafafa; }
+  #equipo h2, #equipo h3, #equipo h4 {
+    color: #fafafa; }
+  #equipo h2 {
     margin-bottom: 30px; }
-  #equipo .equipo-item {
-    background: rgba(0, 0, 0, 0.1); }
+  #equipo h3 {
+    font-size: 1.3rem;
+    font-weight: 200;
+    margin-top: 20px;
+    margin-bottom: 20px; }
+  #equipo h4 {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 10px; }
+
+@media (max-width: 940px) {
+  .valores-item {
+    height: 200px;
+    width: 44% !important; } }
+@media (max-width: 400px) {
+  .valores-item {
+    width: 92% !important;
+    height: auto !important; }
+
+  .equipo-item img {
+    width: 100%;
+    height: auto; } }
 
 /*# sourceMappingURL=style.css.map */
