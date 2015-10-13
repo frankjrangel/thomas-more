@@ -1,5 +1,5 @@
 /*
-Theme Name: Thomas More 
+Theme Name: Thomas More
 Theme URI: http://www.movatic.com/
 Author: Movatic
 Author URI: http://movatic.com/
@@ -234,7 +234,10 @@ p {
       margin-bottom: 20px; }
 
 #equipo {
-  background: #1f2438; }
+  background: #1f2438;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%; }
   #equipo .separador {
     margin-top: 10px;
     margin-bottom: 50px;
@@ -252,6 +255,36 @@ p {
     font-weight: 600;
     font-size: 0.9rem;
     margin-bottom: 10px; }
+  #equipo #equipo-slider {
+    position: relative;
+    width: 100%;
+    padding: 0 10%; }
+  #equipo .equipo-item {
+    width: 100%;
+    height: 100%;
+    text-align: center; }
+    #equipo .equipo-item img {
+      margin: auto; }
+
+#servicios {
+  background: url("imagenes/oficina.jpg") center no-repeat;
+  background-size: cover;
+  padding: 0;
+  width: 100%; }
+  #servicios #servicios-wrapper {
+    background: rgba(185, 185, 185, 0.7);
+    padding: 50px 10%;
+    padding-bottom: 40px; }
+  #servicios h1 {
+    color: #282828;
+    border-color: #282828;
+    margin-bottom: 30px; }
+  #servicios p {
+    color: #282828; }
+  #servicios .slick-dots li {
+    border-color: #282828 !important; }
+  #servicios .slick-dots .slick-active {
+    background: #282828 !important; }
 
 @media (max-width: 940px) {
   .valores-item {
@@ -265,5 +298,94 @@ p {
   .equipo-item img {
     width: 100%;
     height: auto; } }
+.slick-dots {
+  height: 20px;
+  width: 130px;
+  margin: auto;
+  margin-top: 15px; }
+  .slick-dots li {
+    float: left;
+    margin: 0 11.2%;
+    border-radius: 50%;
+    width: 10px !important;
+    height: 10px;
+    background: none;
+    border: solid 2px #fafafa;
+    cursor: pointer; }
+  .slick-dots .slick-active {
+    background: #fafafa; }
+
+.slick-slider {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent; }
+
+.slick-list {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0; }
+  .slick-list:focus {
+    outline: none; }
+  .slick-list.dragging {
+    cursor: pointer;
+    cursor: hand; }
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+
+.slick-track {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: block; }
+  .slick-track:before, .slick-track:after {
+    content: "";
+    display: table; }
+  .slick-track:after {
+    clear: both; }
+  .slick-loading .slick-track {
+    visibility: hidden; }
+
+.slick-slide {
+  float: left;
+  height: 100%;
+  min-height: 1px;
+  display: none; }
+  [dir="rtl"] .slick-slide {
+    float: right; }
+  .slick-slide img {
+    display: block; }
+  .slick-slide.slick-loading img {
+    display: none; }
+  .slick-slide.dragging img {
+    pointer-events: none; }
+  .slick-initialized .slick-slide {
+    display: block; }
+  .slick-loading .slick-slide {
+    visibility: hidden; }
+  .slick-vertical .slick-slide {
+    display: block;
+    height: auto;
+    border: 1px solid transparent; }
+
+.slick-arrow.slick-hidden {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */

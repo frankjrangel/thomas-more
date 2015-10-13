@@ -1,5 +1,5 @@
 /*
-Theme Name: Thomas More 
+Theme Name: Thomas More
 Theme URI: http://www.movatic.com/
 Author: Movatic
 Author URI: http://movatic.com/
@@ -75,6 +75,7 @@ $azul-claro:rgb(55,48,82);
 $blanco:rgb(250,250,250);
 $gris:rgb(177,177,177);
 $gris-oscuro:rgb(140,140,140);
+$negro:rgb(40,40,40);
 $naranja:rgb(231,178,98);
 
 //******* HEADINGS *********
@@ -169,7 +170,7 @@ p
         height:100%;
         color:$blanco;
         text-align:center;
-        
+
         li
         {
             list-style:none;
@@ -194,7 +195,7 @@ p
 {
     height:550px;
     background:rgb(30,30,30);
-    background:url('imagenes/handshake.jpg') 0 -170px; 
+    background:url('imagenes/handshake.jpg') 0 -170px;
     background-size:cover;
 }
 
@@ -243,7 +244,7 @@ p
 }
 
 #que-hacemos{
-   
+
     width:100%;
     padding-left:0;
     padding-right:0;
@@ -273,7 +274,7 @@ p
             color:$blanco;
         }
     }
-    
+
     .separador
     {
         margin-top:60px;
@@ -304,10 +305,10 @@ p
             float:left;
             color:$blanco;
             background:$naranja;
-            
+
             p{color:$blanco !important;}
         }
-   
+
         .icono-valores-wrapper
         {
             position:relative;
@@ -328,21 +329,24 @@ p
             margin-top:-40px;
             margin-bottom:20px;
         }
-    
+
     }
 }
 
 #equipo
 {
     background:rgb(31,36,56);
-    
+    padding-left:0;
+    padding-right:0;
+    width:100%;
+
     .separador
     {
         margin-top:10px;
         margin-bottom:50px;
         background:$blanco;
     }
-   
+
     h2, h3, h4{color:$blanco;}
 
     h2{margin-bottom:30px;}
@@ -362,16 +366,61 @@ p
         margin-bottom:10px;
     }
 
+    #equipo-slider
+    {
+       position:relative;
+       width:100%;
+       padding:0 10%;
+    }
+
     .equipo-item
     {
+       width:100%;
+       height:100%;
+       text-align:center;
+
+       img{margin:auto;}
     }
+}
+
+#servicios
+{
+  background: url('imagenes/oficina.jpg') center no-repeat;
+  background-size:cover;
+  padding:0;
+  width:100%;
+
+  #servicios-wrapper
+  {
+    background:rgba(185,185,185,0.7);
+    padding: 50px 10%;
+    padding-bottom:40px;
+  }
+
+  h1
+  {
+    color:$negro;
+    border-color:$negro;
+    margin-bottom:30px;
+  }
+
+  p{color:$negro;}
+
+  .slick-dots
+  {
+    li{
+      border-color:$negro !important;
+    }
+
+    .slick-active{background:$negro !important;}
+  }
 }
 
 @media (max-width: 940px)
 {
     .valores-item
     {
-        height:200px;    
+        height:200px;
         width:44% !important;
     }
 }
@@ -389,4 +438,126 @@ p
         width:100%;
         height:auto;
     }
+}
+
+//ESTILOS BASE SLIDER
+.slick-dots{
+  height: 20px;
+  width:130px;
+  margin:auto;
+  margin-top:15px;
+
+  li{
+    float:left;
+    margin:0 11.2%;
+    border-radius:50%;
+    width:10px !important;
+    height:10px;
+    background:none;
+    border:solid 2px $blanco;
+    cursor:pointer;
+  }
+
+  .slick-active
+  {
+    background:$blanco;
+  }
+}
+
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+.slick-list {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.dragging {
+        cursor: pointer;
+        cursor: hand;
+    }
+}
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+    position: relative;
+    left: 0;
+    top: 0;
+    display: block;
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    .slick-loading & {
+        visibility: hidden;
+    }
+}
+.slick-slide {
+    float: left;
+    height: 100%;
+    min-height: 1px;
+    [dir="rtl"] & {
+        float: right;
+    }
+    img {
+        display: block;
+    }
+    &.slick-loading img {
+        display: none;
+    }
+
+    display: none;
+
+    &.dragging img {
+        pointer-events: none;
+    }
+
+    .slick-initialized & {
+        display: block;
+    }
+
+    .slick-loading & {
+        visibility: hidden;
+    }
+
+    .slick-vertical & {
+        display: block;
+        height: auto;
+        border: 1px solid transparent;
+    }
+}
+.slick-arrow.slick-hidden {
+    display: none;
 }
