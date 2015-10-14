@@ -286,6 +286,18 @@ p {
   #servicios .slick-dots .slick-active {
     background: #282828 !important; }
 
+#noticias {
+  background: #8c8c8c; }
+  #noticias > div {
+    width: 49.5%;
+    height: 100%;
+    display: inline-block; }
+  #noticias h1 {
+    color: #fafafa;
+    text-align: left; }
+  #noticias .hp-wrap {
+    display: none; }
+
 @media (max-width: 940px) {
   .valores-item {
     height: 200px;

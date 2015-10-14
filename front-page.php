@@ -142,7 +142,34 @@
   </div>
 </div>
 <div id="noticias" class="paneles">
+  <div id="formulario-subscripcion">
+    <?php if( function_exists( 'ninja_forms_display_form' ) )
+          { ninja_forms_display_form( 5 ); } 
+    ?>
+  </div>
+  <div id="feed-noticias">
+    <h1 class="titulo-seccion">
+      <?php
+        if ( pll_current_language() == 'en' )
+          $titulo = 'NEWS';
+        else
+          $titulo = 'NOTICIAS';
 
+        echo $titulo;
+      ?>
+    </h1>
+    <?php
+      $query = new WP_Query( array( 'post_type' => 'post', 'order' => 'ASC' ) );
+      if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
+    ?>
+        <div class="servicios-item">
+          <?php if ( has_post_thumbnail() )
+            the_post_thumbnail('medium'); ?>
+          <h3><?php the_title(); ?></h3>
+          <p><?php the_excerpt(); ?></p>
+        </div>
+    <?php endwhile; endif; wp_reset_query(); ?>
+  </div>
 </div>
 <div id="ubicanos" class="paneles">
 
