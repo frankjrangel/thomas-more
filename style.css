@@ -360,6 +360,32 @@ p {
     #noticias > a:hover {
       background: #e09c36; }
 
+#mapa {
+  height: 300px;
+  width: 100%; }
+
+#ubicanos {
+  width: 60%;
+  padding-left: 20%;
+  padding-right: 20%;
+  background: #fafafa; }
+  #ubicanos h1 {
+    text-align: left;
+    color: #282828;
+    border: none;
+    width: 100%; }
+
+footer {
+  background: #282828;
+  height: 200px; }
+  footer li {
+    float: left; }
+    footer li a {
+      color: #fafafa;
+      text-decoration: none; }
+      footer li a:hover {
+        color: #c7c7c7; }
+
 @media (max-width: 940px) {
   .valores-item {
     height: 200px;

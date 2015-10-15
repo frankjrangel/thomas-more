@@ -1,4 +1,6 @@
 <?php get_header(); ?>
+<?php wp_enqueue_script('mapas-api', 'https://maps.googleapis.com/maps/api/js?sensor=false'); ?>
+<?php wp_enqueue_script('mapa', get_template_directory_uri().'/js/mapa.js', array('mapas-api'), '1.0'); ?>
 <div id="front-welcome">
 
 </div>
@@ -53,7 +55,7 @@
     </div>
   </div>
   <span class="separador"></span>
-<div>
+</div>
 <div id="nuestros-valores" class="paneles">
   <h2 id="titulo-nuestros-valores" class="subtitulo-seccion">
     <?php
@@ -144,7 +146,7 @@
 <div id="noticias" class="paneles">
   <div id="formulario-suscripcion">
     <?php if( function_exists( 'ninja_forms_display_form' ) )
-          { ninja_forms_display_form( 5 ); } 
+          { ninja_forms_display_form( 5 ); }
     ?>
   </div>
   <div id="feed-noticias">
@@ -174,8 +176,39 @@
     MÁS NOTICIAS
   </a>
 </div>
+<div id="mapa"></div>
 <div id="ubicanos" class="paneles">
+  <h1 class="titulo-seccion">
+    <?php
+      if ( pll_current_language() == 'en' )
+        $titulo = 'FIND US';
+      else
+        $titulo = 'UBÍCANOS';
 
+      echo $titulo;
+    ?>
+  </h1>
+  <div id="info-contacto">
+    <?php
+      if ( pll_current_language() == 'en' )
+      {
+        $oficina = 'Office 1';
+        $oficina2 = 'Office 2';
+        $telefonos = 'Telephone numbers';
+      }
+      else
+      {
+        $oficina = 'Sede 1';
+        $oficina2 = 'Sede 2';
+        $telefonos = 'Teléfonos';
+      }
+    ?>
+    <p><h2><?php echo $oficina; ?></h2>: Avenida Francisco de Miranda, Centro Lido, Torre D, piso 4, oficina 41-D, El Rosal, Caracas - Venezuela.</p>
+    <p><h2><?php echo $oficina2; ?></h2>: Centro de Artes Integradas, Montaña Creativa, PB, Office. 5.1.2, Universidad Metropolitana, Urbanización Terrazas del Ávila. Caracas - Venezuela.</p>
+
+    <h2><?php echo $telefonos; ?></h2>
+    <p>+58 212 243 5032 / +58 412 212 3333</p>
+  </div>
 </div>
 <script>
 jQuery(document).ready(function($){

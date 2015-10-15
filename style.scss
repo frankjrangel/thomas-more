@@ -408,7 +408,7 @@ p
 
   .slick-dots
   {
-    width:250px;	
+    width:250px;
 
     li{
       border-color:$negro !important;
@@ -446,9 +446,9 @@ p
     width:100%;
     padding-left:0;
   }
-  
+
   .hp-wrap{display:none;}
- 
+
   label
   {
     color:$blanco;
@@ -466,7 +466,7 @@ p
     background:$gris-oscuro;
     border:none;
     border-bottom:1px solid $blanco;
-    padding:5px;      
+    padding:5px;
     display:inline-block;
     text-align:left;
     width:100%;
@@ -482,16 +482,16 @@ p
       float:right;
       background:$gris-oscuro;
       border:none !important;
-      cursor:pointer; 
+      cursor:pointer;
 
       &:hover{color:darken($blanco, 20%);}
     }
   }
-   
+
   .noticias-item
   {
     text-align:left;
-     
+
     h3
     {
       color:$blanco;
@@ -508,7 +508,7 @@ p
 
   & > a
   {
-    
+
     display:block;
     width:200px;
     margin:auto;
@@ -518,8 +518,51 @@ p
     color:$blanco;
     font-weight:600;
     text-decoration:none;
-    
+
     &:hover{background:darken($naranja, 10%);}
+  }
+
+}
+
+#mapa
+{
+  height:300px;
+  width:100%;
+}
+
+#ubicanos
+{
+  width:60%;
+  padding-left:20%;
+  padding-right:20%;
+  background:$blanco;
+
+  h1
+  {
+    text-align:left;
+    color:$negro;
+    border:none;
+    width:100%;
+  }
+
+}
+
+footer
+{
+  background:$negro;
+  height:200px;
+
+  li
+  {
+    float:left;
+
+    a
+    {
+      color:$blanco;
+      text-decoration:none;
+
+      &:hover{color:darken($blanco, 20%);}
+    }
   }
 }
 

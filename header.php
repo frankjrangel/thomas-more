@@ -12,26 +12,27 @@
 <body>
 <header>
 <div id="header-menu-container">
-  <?php 
-    wp_nav_menu( 
-      array( 
+  <?php
+    wp_nav_menu(
+      array(
         'theme_location' => 'menu-principal-izquierdo',
         'container_class' => '',
         'container_id' => '',
         'menu_id' => '',
-      ) 
+      )
     );
   ?>
-  
+
   <a href="<?php echo esc_url( home_url('/') ); ?>">
     <div id="logo-header"></div>
   </a>
 
-  <?php 
-    wp_nav_menu( array( 'theme_location' => 'menu-principal-derecho' ) ); 
+  <?php
+    wp_nav_menu( array( 'theme_location' => 'menu-principal-derecho' ) );
   ?>
 
   <div id="redes-header">
     <?php pll_the_languages(array( 'display_names_as' => 'slug' )); ?>
   </div>
 </div>
+</header>
