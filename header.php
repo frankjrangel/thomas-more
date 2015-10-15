@@ -32,7 +32,14 @@
   ?>
 
   <div id="redes-header">
-    <?php pll_the_languages(array( 'display_names_as' => 'slug' )); ?>
+    <div class="lang">
+      <?php pll_the_languages(array( 'display_names_as' => 'slug' )); ?>
+    </div>
+    <div class="redes">
+      <a class="red" target="_blank" href="https://www.linkedin.com/company/thomas-more-management-consulting?trk=biz-companies-cym"></a>
+      <a class="red" target="_blank" href="https://www.facebook.com/thomasmoremc"></a>
+      <a class="red" target="_blank" href="https://twitter.com/ThomasMoreMC"></a>
+    </div>
   </div>
 </div>
 </header>

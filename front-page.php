@@ -203,10 +203,10 @@
         $telefonos = 'Teléfonos';
       }
     ?>
-    <p><h2><?php echo $oficina; ?></h2>: Avenida Francisco de Miranda, Centro Lido, Torre D, piso 4, oficina 41-D, El Rosal, Caracas - Venezuela.</p>
-    <p><h2><?php echo $oficina2; ?></h2>: Centro de Artes Integradas, Montaña Creativa, PB, Office. 5.1.2, Universidad Metropolitana, Urbanización Terrazas del Ávila. Caracas - Venezuela.</p>
+    <p><span><?php echo $oficina; ?></span>: Avenida Francisco de Miranda, Centro Lido, Torre D, piso 4, oficina 41-D, El Rosal, Caracas - Venezuela.</p>
+    <p><span><?php echo $oficina2; ?></span>: Centro de Artes Integradas, Montaña Creativa, PB, Office. 5.1.2, Universidad Metropolitana, Urbanización Terrazas del Ávila. Caracas - Venezuela.</p>
 
-    <h2><?php echo $telefonos; ?></h2>
+    <span><?php echo $telefonos; ?></span>
     <p>+58 212 243 5032 / +58 412 212 3333</p>
   </div>
 </div>
