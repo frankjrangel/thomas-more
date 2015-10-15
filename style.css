@@ -281,22 +281,84 @@ p {
     margin-bottom: 30px; }
   #servicios p {
     color: #282828; }
-  #servicios .slick-dots li {
-    border-color: #282828 !important; }
-  #servicios .slick-dots .slick-active {
-    background: #282828 !important; }
+  #servicios .slick-dots {
+    width: 250px; }
+    #servicios .slick-dots li {
+      border-color: #282828 !important;
+      margin: 0 2%; }
+    #servicios .slick-dots .slick-active {
+      background: #282828 !important; }
 
 #noticias {
-  background: #8c8c8c; }
+  background: #8c8c8c;
+  padding-bottom: 0; }
   #noticias > div {
     width: 49.5%;
     height: 100%;
-    display: inline-block; }
+    display: inline-block;
+    vertical-align: top; }
+  #noticias #formulario-suscripcion {
+    width: 40%;
+    padding-right: 9.5%;
+    padding-top: 50px; }
   #noticias h1 {
     color: #fafafa;
-    text-align: left; }
+    text-align: left;
+    width: 100%;
+    padding-left: 0; }
   #noticias .hp-wrap {
     display: none; }
+  #noticias label {
+    color: #fafafa;
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    margin-top: 15px;
+    font-style: italic;
+    font-weight: 600; }
+  #noticias input {
+    color: #fafafa;
+    background: #8c8c8c;
+    border: none;
+    border-bottom: 1px solid #fafafa;
+    padding: 5px;
+    display: inline-block;
+    text-align: left;
+    width: 100%; }
+    #noticias input:focus {
+      outline: none; }
+    #noticias input[type=submit] {
+      width: 110px;
+      padding: 12px;
+      margin-top: 10px;
+      font-weight: 600;
+      float: right;
+      background: #8c8c8c;
+      border: none !important;
+      cursor: pointer; }
+      #noticias input[type=submit]:hover {
+        color: #c7c7c7; }
+  #noticias .noticias-item {
+    text-align: left; }
+    #noticias .noticias-item h3 {
+      color: #fafafa;
+      text-transform: uppercase;
+      line-height: 2.5rem; }
+    #noticias .noticias-item p {
+      color: #fafafa;
+      line-height: 1.9rem; }
+  #noticias > a {
+    display: block;
+    width: 200px;
+    margin: auto;
+    margin-top: 20px;
+    background: #e7b262;
+    padding: 10px;
+    color: #fafafa;
+    font-weight: 600;
+    text-decoration: none; }
+    #noticias > a:hover {
+      background: #e09c36; }
 
 @media (max-width: 940px) {
   .valores-item {

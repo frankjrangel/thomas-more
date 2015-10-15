@@ -408,8 +408,11 @@ p
 
   .slick-dots
   {
+    width:250px;	
+
     li{
       border-color:$negro !important;
+      margin: 0 2%;
     }
 
     .slick-active{background:$negro !important;}
@@ -419,21 +422,105 @@ p
 #noticias
 {
   background:$gris-oscuro;
+  padding-bottom:0;
 
   & > div
   {
     width:49.5%;
     height:100%;
     display:inline-block;
+    vertical-align:top;
+  }
+
+  #formulario-suscripcion
+  {
+    width:40%;
+    padding-right:9.5%;
+    padding-top:50px;
   }
 
   h1
   {
     color:$blanco;
     text-align:left;
+    width:100%;
+    padding-left:0;
+  }
+  
+  .hp-wrap{display:none;}
+ 
+  label
+  {
+    color:$blanco;
+    display:inline-block;
+    text-align:left;
+    width:100%;
+    margin-top:15px;
+    font-style:italic;
+    font-weight:600;
   }
 
-  .hp-wrap{display:none;}
+  input
+  {
+    color:$blanco;
+    background:$gris-oscuro;
+    border:none;
+    border-bottom:1px solid $blanco;
+    padding:5px;      
+    display:inline-block;
+    text-align:left;
+    width:100%;
+
+    &:focus{outline:none;}
+
+    &[type=submit]
+    {
+      width:110px;
+      padding:12px;
+      margin-top:10px;
+      font-weight:600;
+      float:right;
+      background:$gris-oscuro;
+      border:none !important;
+      cursor:pointer; 
+
+      &:hover{color:darken($blanco, 20%);}
+    }
+  }
+   
+  .noticias-item
+  {
+    text-align:left;
+     
+    h3
+    {
+      color:$blanco;
+      text-transform:uppercase;
+      line-height:2.5rem;
+    }
+
+    p
+    {
+      color:$blanco;
+      line-height:1.9rem;
+    }
+  }
+
+  & > a
+  {
+    
+    display:block;
+    width:200px;
+    margin:auto;
+    margin-top:20px;
+    background:$naranja;
+    padding:10px;
+    color:$blanco;
+    font-weight:600;
+    text-decoration:none;
+    
+    &:hover{background:darken($naranja, 10%);}
+  }
 }
 
 @media (max-width: 940px)
