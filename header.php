@@ -3,6 +3,7 @@
 <head>
   <title>Thomas More</title>
   <meta name="viewport" content"width=device-with, initial-scale=1">
+  <meta name="viewport" content"user-scalable = yes">
   <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300">
   <?php wp_enqueue_script("jquery"); ?>

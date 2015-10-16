@@ -2,7 +2,7 @@
 <?php wp_enqueue_script('mapas-api', 'https://maps.googleapis.com/maps/api/js?sensor=false'); ?>
 <?php wp_enqueue_script('mapa', get_template_directory_uri().'/js/mapa.js', array('mapas-api'), '1.0'); ?>
 <div id="front-welcome">
-
+  <h1>CONVERTING UTOPIAS INTO REALITY</h1>
 </div>
 <div id="nosotros" class="paneles">
 
