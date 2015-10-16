@@ -146,7 +146,7 @@
 <div id="noticias" class="paneles">
   <div id="formulario-suscripcion">
     <?php if( function_exists( 'ninja_forms_display_form' ) )
-          { ninja_forms_display_form( 5 ); }
+          { ninja_forms_display_form( 6 ); }
     ?>
   </div>
   <div id="feed-noticias">
@@ -169,6 +169,16 @@
             the_post_thumbnail('medium'); ?>
           <h3><?php the_title(); ?></h3>
           <p><?php the_excerpt(); ?></p>
+          <a href="<?php
+            if ( get_field('link-externo') )
+            {
+              the_field('link-externo');
+            }
+            else
+            {
+              the_permalink();
+            }
+          ?>" <?php if ( get_field('link-externo') ) { echo 'target="_blank"'; } ?>>LEER MÁS</a>
         </div>
     <?php endwhile; endif; wp_reset_query(); ?>
   </div>
