@@ -98,10 +98,13 @@ p {
   color: #8c8c8c; }
 
 #header-menu-container {
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 120px;
   line-height: 120px;
-  background: #191234; }
+  background: #191234;
+  z-index: 1500; }
   #header-menu-container li {
     float: left;
     width: 14%;
@@ -147,18 +150,25 @@ p {
       #header-menu-container #redes-header li a:hover {
         border: none; }
     #header-menu-container #redes-header .lang {
-      height: 20%;
+      height: 40%;
       width: 100%; }
     #header-menu-container #redes-header .redes {
-      height: 20%;
+      height: 50%;
       padding-top: 5%;
       width: 100%; }
-    #header-menu-container #redes-header .red {
-      display: inline-block;
-      height: 40px;
-      width: 30%;
-      background: #fafafa;
-      vertical-align: top; }
+      #header-menu-container #redes-header .redes .red {
+        float: left;
+        height: 40px;
+        width: 40px;
+        background: #fafafa;
+        vertical-align: top; }
+        #header-menu-container #redes-header .redes .red:nth-child(1) {
+          background: url("imagenes/in.png") center no-repeat;
+          margin-left: 10%; }
+        #header-menu-container #redes-header .redes .red:nth-child(2) {
+          background: url("imagenes/fb.png") center no-repeat; }
+        #header-menu-container #redes-header .redes .red:nth-child(3) {
+          background: url("imagenes/tw.png") center no-repeat; }
 
 .paneles {
   width: 80%;
@@ -167,6 +177,7 @@ p {
   text-align: center; }
 
 #front-welcome {
+  margin-top: 120px;
   height: 550px;
   background: #1e1e1e;
   background: url("imagenes/handshake.jpg") 0 -170px;
@@ -437,12 +448,36 @@ footer {
     padding-top: 20px;
     padding-right: 20px;
     font-size: 0.8rem; }
+  footer .redes {
+    height: 50%;
+    padding-top: 30px;
+    width: 28%;
+    float: right; }
+    footer .redes .red {
+      float: left;
+      height: 40px;
+      width: 40px;
+      background: #fafafa;
+      vertical-align: top; }
+      footer .redes .red:nth-child(1) {
+        background: url("imagenes/in.png") center no-repeat;
+        margin-left: 10%; }
+      footer .redes .red:nth-child(2) {
+        background: url("imagenes/fb.png") center no-repeat; }
+      footer .redes .red:nth-child(3) {
+        background: url("imagenes/tw.png") center no-repeat; }
 
 @media (max-width: 1150px) {
+  #front-welcome {
+    background-position: 0 0; }
+
   #header-menu-container li {
     width: 12.2%; }
   #header-menu-container #logo-header {
-    width: 25%; } }
+    width: 25%; }
+
+  #redes-header .red:nth-child(1) {
+    margin-left: 5% !important; } }
 @media (max-width: 940px) {
   #header-menu-container li {
     width: 11.2%; }
@@ -451,12 +486,47 @@ footer {
 
   .valores-item {
     height: 200px;
-    width: 44% !important; } }
+    width: 44% !important; }
+
+  #redes-header .red {
+    width: 35px !important;
+    height: 35px !important; }
+    #redes-header .red:nth-child(1) {
+      margin-left: 3% !important; } }
 @media (max-width: 800px) {
+  #front-welcome {
+    height: 400px; }
+
   #header-menu-container li {
     display: none; }
+    #header-menu-container li.lang-item {
+      display: inline !important; }
   #header-menu-container #logo-header {
-    width: 100%; } }
+    width: 50%;
+    margin-left: 25%; }
+
+  #redes-header {
+    width: 25% !important; }
+
+  footer nav {
+    display: none; }
+
+  footer .redes {
+    margin-bottom: 20px; } }
+@media (max-width: 600px) {
+  header .redes {
+    display: none; }
+
+  #front-welcome {
+    height: 250px; }
+
+  footer {
+    height: 200px; }
+    footer .redes {
+      margin-right: 20px;
+      width: 150px; }
+    footer #copy-footer {
+      padding: 10%; } }
 @media (max-width: 400px) {
   .valores-item {
     width: 92% !important;

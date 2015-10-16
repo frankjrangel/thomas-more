@@ -15,7 +15,11 @@
       ?>
     </nav>
     <div id="redes-footer">
-      <a>F</a>
+      <div class="redes">
+        <a class="red" target="_blank" href="https://www.linkedin.com/company/thomas-more-management-consulting?trk=biz-companies-cym"></a>
+        <a class="red" target="_blank" href="https://www.facebook.com/thomasmoremc"></a>
+        <a class="red" target="_blank" href="https://twitter.com/ThomasMoreMC"></a>
+      </div>
     </div>
   </div>
   <div id="copy-footer">
