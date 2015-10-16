@@ -173,7 +173,14 @@
     <?php endwhile; endif; wp_reset_query(); ?>
   </div>
   <a href="<?php /* link to archive */?>">
-    MÁS NOTICIAS
+    <?php
+      if ( pll_current_language() == 'en' )
+        $titulo = 'MORE NEWS';
+      else
+        $titulo = 'MÁS NOTICIAS';
+
+      echo $titulo;
+    ?>
   </a>
 </div>
 <div id="mapa"></div>
