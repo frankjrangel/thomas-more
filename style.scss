@@ -421,7 +421,7 @@ p
 
     h2, h3, h4{color:$blanco;}
 
-    h2{margin-bottom:30px;text-transform:uppercase;}
+    h2{margin-bottom:30px;}
 
     h3
     {
@@ -437,6 +437,7 @@ p
         font-weight:600;
         font-size:0.9rem;
         margin-bottom:10px;
+        text-transform:uppercase;
     }
 
     #equipo-slider
@@ -475,6 +476,12 @@ p
     color:$negro;
     border-color:$negro;
     margin-bottom:30px;
+  }
+
+  h3
+  {
+    font-size:1.1rem;
+    text-transform:uppercase;
   }
 
   p{color:$negro;}
