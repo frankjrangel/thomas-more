@@ -146,7 +146,12 @@
 <div id="noticias" class="paneles">
   <div id="formulario-suscripcion">
     <?php if( function_exists( 'ninja_forms_display_form' ) )
-          { ninja_forms_display_form( 6 ); }
+          {
+            if ( pll_current_language() == 'en' )
+              ninja_forms_display_form( 5 );
+            else
+              ninja_forms_display_form( 6 );
+          }
     ?>
   </div>
   <div id="feed-noticias">

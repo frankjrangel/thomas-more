@@ -540,6 +540,21 @@ p
     font-weight:600;
   }
 
+  strong{color:$blanco !important;}
+
+  .ninja-forms-field-error
+  {
+    color:$blanco !important;
+    padding-top:5px !important;
+  }
+
+  .genero-wrap
+  {
+    label{width:80px !important;}
+
+    ul label{width:45px !important;}
+  }
+
   input
   {
     color:$blanco;
@@ -555,16 +570,22 @@ p
 
     &[type=submit]
     {
-      width:110px;
+      width:135px;
       padding:12px;
       margin-top:10px;
       font-weight:600;
+      font-size:1.1rem;
       float:right;
       background:$gris-oscuro;
       border:none !important;
       cursor:pointer;
 
       &:hover{color:darken($blanco, 20%);}
+    }
+
+    &[type=radio]
+    {
+      width:15px !important;
     }
   }
 

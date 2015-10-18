@@ -376,6 +376,15 @@ p {
     margin-top: 15px;
     font-style: italic;
     font-weight: 600; }
+  #noticias strong {
+    color: #fafafa !important; }
+  #noticias .ninja-forms-field-error {
+    color: #fafafa !important;
+    padding-top: 5px !important; }
+  #noticias .genero-wrap label {
+    width: 80px !important; }
+  #noticias .genero-wrap ul label {
+    width: 45px !important; }
   #noticias input {
     color: #fafafa;
     background: #8c8c8c;
@@ -388,16 +397,19 @@ p {
     #noticias input:focus {
       outline: none; }
     #noticias input[type=submit] {
-      width: 110px;
+      width: 135px;
       padding: 12px;
       margin-top: 10px;
       font-weight: 600;
+      font-size: 1.1rem;
       float: right;
       background: #8c8c8c;
       border: none !important;
       cursor: pointer; }
       #noticias input[type=submit]:hover {
         color: #c7c7c7; }
+    #noticias input[type=radio] {
+      width: 15px !important; }
   #noticias .noticias-item {
     text-align: left;
     padding-bottom: 20px;
