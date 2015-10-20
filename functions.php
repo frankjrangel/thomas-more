@@ -67,7 +67,7 @@ add_action( 'init', 'tm_productos_servicios' );
 
 add_filter('pll_get_post_types', 'my_pll_get_post_types');
 function my_pll_get_post_types($types) {
-  return array_merge($types, 
+  return array_merge($types,
     array(
       'valores' => 'valores',
       'equipo' => 'equipo',
@@ -75,5 +75,14 @@ function my_pll_get_post_types($types) {
     )
   );
 }
+
+function jptweak_remove_share() {
+    remove_filter( 'the_content', 'sharing_display',19 );
+    remove_filter( 'the_excerpt', 'sharing_display',19 );
+    if ( class_exists( 'Jetpack_Likes' ) ) {
+        remove_filter( 'the_content', array( Jetpack_Likes::init(), 'post_likes' ), 30, 1 );
+    }
+}
+add_action( 'loop_start', 'jptweak_remove_share' );
 
 ?>

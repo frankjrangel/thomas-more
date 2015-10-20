@@ -635,6 +635,12 @@ p
     &:hover{background:darken($naranja, 10%);}
   }
 
+  .sd-content
+  {
+    margin-top:20px;
+    a{padding: 1px 8px 0px 5px;}
+    a:hover{color:$blanco !important;}
+  }
 }
 
 #mapa
@@ -662,6 +668,70 @@ p
 
   span{color:$negro;font-weight: 600;}
 
+  #formulario-contacto
+  {
+    width: 65%;
+  }
+
+  .hp-wrap{display:none;}
+
+  label
+  {
+    //color:$gris-oscuro;
+    display:inline-block;
+    text-align:left;
+    width:100%;
+    margin-top:15px;
+    font-style:italic;
+    font-weight:600;
+  }
+
+  strong{color:$blanco !important;}
+
+  .ninja-forms-field-error
+  {
+    color:$gris-oscuro !important;
+    padding-top:5px !important;
+  }
+
+  textarea
+  {
+    color:$gris-oscuro;
+    border-color:$gris-oscuro;
+    font-size:0.87rem;
+    padding:5px;
+
+    &:hover{outline: none;}
+  }
+
+  input
+  {
+    color:$gris-oscuro;
+    border:none;
+    border-bottom:1px solid $gris-oscuro;
+    padding:5px;
+    display:inline-block;
+    text-align:left;
+    width:100%;
+
+    &:focus{outline:none;}
+
+    &[type=submit]
+    {
+      width:100px;
+      text-align:center;
+      padding:10px;
+      margin-top:10px;
+      font-weight:600;
+      font-size:1.1rem;
+      float:right;
+      background:$blanco;
+      border:solid 2px $gris-oscuro !important;
+      cursor:pointer;
+
+      &:hover{color:darken($gris-oscuro, 20%);}
+    }
+  }
 }
 
 footer

@@ -440,6 +440,12 @@ p {
     text-decoration: none; }
     #noticias > a:hover {
       background: #e09c36; }
+  #noticias .sd-content {
+    margin-top: 20px; }
+    #noticias .sd-content a {
+      padding: 1px 8px 0px 5px; }
+    #noticias .sd-content a:hover {
+      color: #fafafa !important; }
 
 #mapa {
   height: 300px;
@@ -460,6 +466,52 @@ p {
   #ubicanos span {
     color: #282828;
     font-weight: 600; }
+  #ubicanos #formulario-contacto {
+    width: 65%; }
+  #ubicanos .hp-wrap {
+    display: none; }
+  #ubicanos label {
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    margin-top: 15px;
+    font-style: italic;
+    font-weight: 600; }
+  #ubicanos strong {
+    color: #fafafa !important; }
+  #ubicanos .ninja-forms-field-error {
+    color: #8c8c8c !important;
+    padding-top: 5px !important; }
+  #ubicanos textarea {
+    color: #8c8c8c;
+    border-color: #8c8c8c;
+    font-size: 0.87rem;
+    padding: 5px; }
+    #ubicanos textarea:hover {
+      outline: none; }
+  #ubicanos input {
+    color: #8c8c8c;
+    border: none;
+    border-bottom: 1px solid #8c8c8c;
+    padding: 5px;
+    display: inline-block;
+    text-align: left;
+    width: 100%; }
+    #ubicanos input:focus {
+      outline: none; }
+    #ubicanos input[type=submit] {
+      width: 100px;
+      text-align: center;
+      padding: 10px;
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      float: right;
+      background: #fafafa;
+      border: solid 2px #8c8c8c !important;
+      cursor: pointer; }
+      #ubicanos input[type=submit]:hover {
+        color: #595959; }
 
 footer {
   background: #282828;
