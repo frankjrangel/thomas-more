@@ -1006,7 +1006,15 @@ footer
           &:nth-child(1){margin-top:10px !important;}
         }
       }
-      .redes{width:110px !important;}
+      .redes
+      {
+        width:95px !important;
+        a
+        {
+          width:30px !important;
+          height:30px !important;
+        }
+      }
     }
 
     #front-welcome
@@ -1026,6 +1034,8 @@ footer
         width:100%;
         height:auto;
     }
+
+    #mapa{display:none;}
 }
 
 //ESTILOS BASE SLIDER
