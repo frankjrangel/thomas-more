@@ -802,11 +802,14 @@ footer
   }
 }
 
-@media (max-width: 1150px)
+@media handheld, screen and (max-width: 1150px)
 {
+  html, body{max-width: 1150px;}
+
   #front-welcome
   {
     background-position: 0 0;
+    padding-top:200px;
   }
 
   #header-menu-container
@@ -823,10 +826,19 @@ footer
   }
 
   #redes-header .red:nth-child(1){margin-left:5% !important;}
+
+  #ubicanos
+  {
+    width:80%;
+    padding-left:10%;
+    padding-right:10%;
+  }
 }
 
-@media (max-width: 940px)
+@media handheld, screen and (max-width: 940px)
 {
+    html, body{max-width: 940px;}
+
     #header-menu-container
     {
       li
@@ -838,6 +850,11 @@ footer
       {
         width:30%;
       }
+    }
+
+    #front-welcome
+    {
+      padding-top:200px;
     }
 
     .valores-item
@@ -853,13 +870,21 @@ footer
 
       &:nth-child(1){margin-left:3% !important;}
     }
+
+    #mapa
+    {
+      height:200px;
+    }
 }
 
-@media (max-width:800px)
+@media handheld, screen and (max-width:800px)
 {
+  html, body{max-width: 800px;}
+
   #front-welcome
   {
     height:200px;
+    padding-top:120px;
   }
 
   #header-menu-container
@@ -883,18 +908,56 @@ footer
     width:25% !important;
   }
 
+  #ubicanos  #formulario-contacto{width:100%;}
+
   footer nav{display:none;}
   footer .redes{margin-bottom:20px;}
 }
 
-@media (max-width:600px)
+@media handheld, screen and (max-width:600px)
 {
-  header .redes{display:none;}
+  html, body{max-width: 600px;}
+
+  #mapa{height:150px;}
+
+  #redes-header
+  {
+      position:absolute;
+      width:100% !important;
+
+      .lang
+      {
+        height:36px !important;
+        width:30% !important;
+        li
+        {
+          margin: 10px 20px !important;
+          margin-left:5%;
+          padding: 5px;
+
+          &:nth-child(1){margin-top:20px !important;}
+        }
+      }
+
+      .redes
+      {
+        position:absolute;
+        right:0;
+        width:30% !important;
+      }
+  }
 
   #front-welcome
   {
-    height:120px;
-    padding-top:120px;
+    height:140px;
+    padding-top:60px;
+  }
+
+  #noticias > div
+  {
+    width:80% !important;
+    padding-left:10% !important;
+    padding-right:10% !important;
   }
 
   footer
@@ -911,8 +974,47 @@ footer
   }
 }
 
-@media (max-width: 400px)
+@media handheld, screen and (max-width: 400px)
 {
+    html, body{max-width: 400px;}
+
+    #header-menu-container
+    {
+      height:80px;
+
+      #logo-header
+      {
+        background-size:220px;
+      }
+    }
+
+    #redes-header
+    {
+      position:absolute;
+      width:100%;
+
+      .lang
+      {
+        height:16px !important;
+
+        li
+        {
+          margin: 10px !important;
+          margin-left: 15px !important;
+          padding:0;
+
+          &:nth-child(1){margin-top:10px !important;}
+        }
+      }
+      .redes{width:110px !important;}
+    }
+
+    #front-welcome
+    {
+      margin-top:80px;
+      padding-top:20px;
+    }
+
     .valores-item
     {
         width:92% !important;
