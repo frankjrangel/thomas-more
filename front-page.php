@@ -92,9 +92,9 @@
   <h2>
     <?php
       if ( pll_current_language() == 'en' )
-        $titulo = 'OUR TEAM';
+        $titulo = 'OUR LEADERSHIP TEAM';
       else
-        $titulo = 'NUESTRO EQUIPO';
+        $titulo = 'NUESTRO EQUIPO DIRECTIVO';
 
       echo $titulo;
     ?>
