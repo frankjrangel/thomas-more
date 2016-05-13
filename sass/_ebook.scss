@@ -1,0 +1,154 @@
+$color: rgb(230,230,230);
+
+$ebook_fondo: $color;
+$ebook_letras: invert($color);
+
+#noticias.ebook
+{
+    background: $ebook_fondo;
+}
+
+#noticias.ebook .descripcion-ebook
+{
+    width: 100%;
+
+    form
+    {
+        background: $ebook_fondo;
+    }
+
+    h1
+    {
+        text-align: center;
+        line-height: 1.5;
+        padding-bottom: 30px;
+        color: $ebook_letras;
+    }
+
+    h2, h3, p, label
+    {
+        color: $ebook_letras;
+    }
+
+    input
+    {
+         box-sizing: border-box;
+         background: $ebook_fondo;
+         border-bottom: 1px solid $ebook_letras;
+         color: $ebook_letras;
+    }
+
+    div
+    {
+        width: 46%;
+        float: left;
+        padding: 0 2%;
+    }
+
+    .portada img
+    {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        padding-bottom: 30px;
+    }
+
+    .portada, .formulario, #errors
+    {
+        width: 100%;
+        float: none;
+    }
+
+    #errors
+    {
+        padding: 0;
+    }
+
+    button.boton-descarga
+    {
+        display: inline-block;
+        width: 100%;
+        max-width: 250px;
+        margin: auto 2%;
+        height: 40px;
+        text-align: center;
+        cursor: pointer;
+        color: rgb(230,230,230);
+        background: rgb(25,18,52);
+        border-color: rgb(25,18,52);
+    }
+
+    button.boton-descarga:active
+    {
+        background: rgb(15,9,42);
+    }
+
+    .formulario
+    {
+        display: none;
+
+        h3
+        {
+            text-align: center;
+            line-height: 1.5;
+        }
+    }
+
+    .formulario .mc-field-group
+    {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    p
+    {
+        text-align: left;
+        color: $ebook_letras;
+    }
+}
+
+/*Validacion del formulario*/
+
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success
+{
+    color: #468847;
+    background-color: #DFF0D8;
+    border: 1px solid #D6E9C6;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error
+{
+    margin-top: 10px;
+    border: 2px solid $ebook_letras !important;
+}
+
+.parsley-errors-list
+{
+    margin: 2px 0 3px;
+    list-style-type: none;
+    font-size: 0.9em;
+    line-height: 0.9em;
+    opacity: 0;
+
+    transition: all .3s ease-in;
+    -o-transition: all .3s ease-in;
+    -moz-transition: all .3s ease-in;
+    -webkit-transition: all .3s ease-in;
+
+    li
+    {
+        padding: 5px;
+        color: $ebook_letras;
+        font-size: 1.1rem;
+
+    }
+}
+
+.parsley-errors-list.filled
+{
+    opacity: 1;
+}

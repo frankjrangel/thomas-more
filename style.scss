@@ -164,7 +164,7 @@ p
         width:16%;
         height:100%;
         float:left;
-        background:url('imagenes/logo-header.png') center no-repeat;
+        background:url('imagenes/logo-header-big.png') center no-repeat;
     }
 
     #redes-header
@@ -251,8 +251,9 @@ p
     padding-top:230px;
     height:270px;
     background:rgb(30,30,30);
-    background:url('imagenes/handshake.jpg') 0 -170px;
+    background:url('imagenes/hs.png');
     background-size:cover;
+    background-position: center top;
 
     h1
     {
@@ -262,7 +263,7 @@ p
       padding:20px 7%;
       text-align:center;
       color:$blanco;
-      background:rgba(150,150,150,0.3);
+      //background:rgba(150,150,150,0.3);
     }
 }
 
@@ -517,7 +518,7 @@ p
   {
     width:40%;
     padding-right:9.5%;
-    padding-top:50px;
+    padding-top:10px;
   }
 
   h1
@@ -528,7 +529,21 @@ p
     padding-left:0;
   }
 
+  h2{font-weight: bold;}
+
+  h2,h3
+  {
+    color:$blanco;
+    text-align: left;
+    padding:5px 0;
+  }
+
   .hp-wrap{display:none;}
+
+  .mc-field-group
+  {
+    margin:40px 0;
+  }
 
   label
   {
@@ -536,9 +551,39 @@ p
     display:inline-block;
     text-align:left;
     width:100%;
-    margin-top:15px;
     font-style:italic;
     font-weight:600;
+    letter-spacing: normal;
+  }
+
+  .datefield
+  {
+    text-align: left;
+    color:$blanco;
+
+    input{width:24px;text-align: center;}
+    .yearfield input{width:38px;}
+  }
+
+  .genero-wrap
+  {
+    height:14px;
+
+    strong{float:left;}
+
+    ul
+    {
+      margin-left:30px;
+      float:left;
+
+      li{float:left;}
+
+      label,input{margin-top:0;}
+    }
+
+    label{width:80px !important;}
+
+    ul label{width:45px !important;}
   }
 
   strong{color:$blanco !important;}
@@ -547,13 +592,6 @@ p
   {
     color:$blanco !important;
     padding-top:5px !important;
-  }
-
-  .genero-wrap
-  {
-    label{width:80px !important;}
-
-    ul label{width:45px !important;}
   }
 
   input
@@ -573,7 +611,6 @@ p
     {
       width:135px;
       padding:12px;
-      margin-top:10px;
       font-weight:600;
       font-size:1.1rem;
       float:right;
@@ -714,6 +751,7 @@ p
     display:inline-block;
     text-align:left;
     width:100%;
+    background:$blanco;
 
     &:focus{outline:none;}
 
@@ -802,13 +840,17 @@ footer
   }
 }
 
+@media handheld, screen and (min-width: 1600px) {
+  #front-welcome{background-position: center -80px}
+}
+
 @media handheld, screen and (max-width: 1150px)
 {
   html, body{max-width: 1150px;}
 
   #front-welcome
   {
-    background-position: 0 0;
+    background-position: center center;
     padding-top:200px;
   }
 
@@ -835,9 +877,9 @@ footer
   }
 }
 
-@media handheld, screen and (max-width: 940px)
+@media handheld, screen and (max-width: 950px)
 {
-    html, body{max-width: 940px;}
+    html, body{max-width: 950px;}
 
     #header-menu-container
     {
@@ -900,6 +942,7 @@ footer
     {
       width:50%;
       margin-left:25%;
+      background:url('imagenes/logo-header.png') center no-repeat;
     }
   }
 
@@ -951,6 +994,8 @@ footer
   {
     height:140px;
     padding-top:60px;
+
+    h1{text-shadow: 0.5px 0.5px 2px rgb(50,50,50)}
   }
 
   #noticias > div
@@ -1041,7 +1086,8 @@ footer
 //ESTILOS BASE SLIDER
 .slick-dots{
   height: 20px;
-  width:130px;
+  width:130px; //Tres dots
+  width:52px; //Dos dots
   margin:auto;
   margin-top:15px;
 
@@ -1159,3 +1205,5 @@ footer
 .slick-arrow.slick-hidden {
     display: none;
 }
+
+@import "sass/ebook"
