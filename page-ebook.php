@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-
 <div id="front-welcome">
   <h1>CONVERTING UTOPIAS INTO REALITY</h1>
 </div>
