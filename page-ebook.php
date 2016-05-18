@@ -1,98 +1,99 @@
 <?php get_header(); ?>
-<div id="front-welcome">
-  <h1>CONVERTING UTOPIAS INTO REALITY</h1>
+<div id="front-ebook">
+
 </div>
 <div id="noticias" class="paneles ebook">
 
     <div class="descripcion-ebook">
-        <h1>Sales Compensation Ebook</h1>
+        <h1>Sales Compensation</h1>
+        <h3>
+            A theoretical and practical methodology for designing
+            and implementing Sales Incentive Plans for the Sales Force
+        </h3>
+        <div id="portada">
 
-        <?php if ( have_posts() ) :
-            while ( have_posts() ) : the_post() ?>
-            <div>
-                <div class="portada">
-                    <?php the_post_thumbnail('small'); ?>
-                    <?php if ( pll_current_language() == 'en' ) : ?>
-                        <button class="boton-descarga">Download Intro</button>
-                    <?php else: ?>
-                        <button class="boton-descarga">Descargar Introducción</button>
-                    <?php endif; ?>
-                </div>
-            <div class="formulario">
-
-                <div id="errors"></div>
-
-                <?php if ( pll_current_language() == 'en' ) : ?>
-                    <h3>Fill out this form to download the introductory chapter</h3>
-                    <form action="<?php echo get_template_directory_uri(); ?>/process_formulario_ebook.php" method="POST">
-                        <div id="email-group" class="mc-field-group">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" data-parsley-required data-parsley-type="email">
-                        </div>
-                        <div id="name-group" class="mc-field-group">
-                            <label for="fname" id="nombre">First Name</label>
-                            <input type="text" name="fname">
-                        </div>
-                        <div id="lname-group" class="mc-field-group">
-                            <label for="lname">Last Name</label>
-                            <input type="text" name="lname">
-                        </div>
-                        <div id="company-group" class="mc-field-group">
-                            <label for="company">Company</label>
-                            <input type="text" name="company">
-                        </div>
-                        <div id="position-group" class="mc-field-group">
-                            <label for="position">Position</label>
-                            <input type="text" name="position">
-                        </div>
-                        <div id="checkbox-group" class="mc-field-group">
-                            <input type="checkbox" name="subscribe" style="width:30px;" id="subscribe">
-                            <label for="subscribe" style="width:70%">Subscribe to our newsletter</label>
-                        </div>
-                        <input type="submit" class="button" value="SUBMIT" />
-                    </form>
-                    <div style="clear:both;width:100%;"></div>
-
-                <?php else: ?>
-
-                    <h3>Llena este formulario para descargar el capitulo introductorio</h3>
-                    <form action="<?php echo get_template_directory_uri(); ?>/process_formulario_ebook.php" method="POST">
-                        <div id="email-group" class="mc-field-group">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" data-parsley-required data-parsley-type="email">
-                        </div>
-                        <div id="name-group" class="mc-field-group">
-                            <label for="fname" id="nombre">Nombre</label>
-                            <input type="text" name="fname">
-                        </div>
-                        <div id="lname-group" class="mc-field-group">
-                            <label for="lname">Apellido</label>
-                            <input type="text" name="lname">
-                        </div>
-                        <div id="company-group" class="mc-field-group">
-                            <label for="company">Empresa</label>
-                            <input type="text" name="company">
-                        </div>
-                        <div id="position-group" class="mc-field-group">
-                            <label for="position">Cargo</label>
-                            <input type="text" name="position">
-                        </div>
-                        <div id="checkbox-group" class="mc-field-group">
-                            <input type="checkbox" name="subscribe" style="width:30px;" id="subscribe">
-                            <label for="subscribe" style="width:70%">Suscríbete a nuestro newsletter</label>
-                        </div>
-                        <input type="submit" class="button" value="ENVIAR" />
-                    </form>
-                    <div style="clear:both;width:100%;"></div>
-
-                <?php endif; ?>
-            </div><!-- end #formulario -->
         </div>
         <div id="texto-descripcion">
-            <?php the_content(); ?>
+            Sales Compensation is a systematic method for designing sales incentive
+            plans suitable for any level of expertise. This book offers complete, precise
+            and empirical qualities, structure and possible outcomes in relation to
+            Designing Sales Compensation Plans, adapted to specific needs and
+            characteristics of the business, market and sales force requirements.
+            Starting aligning Sales strategies and Incentive plan and ending with the
+            implementation of the plan, the writer guides you throughout the design of
+            a healthy and well balanced compensation plan to achieve the best benefits
+            both for the sales force and the business  results. Sales Compensation is the
+            product of a profound knowledge and López’ 25-year- experience in this
+            field
+
+            <h2>The book covers aspects such as:</h2>
+
+            <ul>
+                <li>
+                    The essential elements to consider to develop an incentive plan for sales
+                    force (“Sales Compensation DNA”)
+                </li>
+                <li>"Sales Compensation Doctor": a guide to resolve cases</li>
+                <li>More than 15 examples applied to specific situations throughout the book</li>
+                <li>A chapter of  practical application with solved cases</li>
+                <li>Rational aspects of each decision constructing sales incentive plans</li>
+                <li>How to measure the intangible aspects of the Total Rewards´ sales force</li>
+            </ul>
         </div>
-        <?php endwhile; endif; ?>
     </div>
+
+    <div class="reviews">
+        <div class="left-fill"></div>
+        <div class="wrapper-review">
+            <div class="review">
+                <p>
+                &laquo;
+                This is a book that sales compensation plan designers will certainly use over and over.
+                While the cases and examples reflect practices in Latin America, the concepts,
+                principles and processes it provides transcends geographies and cultures.
+                It is a valuable contribution to the sales compensation body of knowledge
+                &raquo;
+                </p>
+                <p class="author">Jerome A. Colleti,</p>
+                <p class="position">
+                    Managing Partner &middot; Colletti-Fiss, LLC <br />
+                    Scottsdale, AZ USA
+                </p>
+            </div>
+            <div class="review">
+                <p>
+                &laquo;
+                A robust and continuous revenue growth is paramount to the success and
+                nancial valuation of an enterprise. A well motivated and compensated sales
+                force is an important step towards this objective. Federico López's book, Sales
+                Compensation presents detailed information on several and dierent methods
+                to compensate sales forces that any CEO or entrepreneur should carefully study
+                &raquo;
+                </p>
+                <p class="author">Gustavo Roosen</p>
+                <p class="position">
+                    President. IESA. Caracas.
+                </p>
+            </div>
+            <div class="review">
+                <p>
+                &laquo;
+                Mr. López’s book provides a context and framework for the eld of sales
+                compensation that few others have been able to do so clearly. His philosophy
+                to design, implement and measure incentive plans shines a new light on this
+                topic and should be reviewed by any enterprise compensation team looking to
+                make an impact
+                &raquo;
+                </p>
+                <p class="author">Veronica Ferrante</p>
+                <p class="position">
+                    MBA. Compensation Manager.
+                </p>
+            </div>
+        </div><!-- end wrapper-review -->
+    </div><!-- end reviews -->
+
+
 <div style="width:100%;clear:both;"></div>
 </div>
 <script src="<?php echo get_template_directory_uri(); ?>/js/parsley.min.js"></script>
