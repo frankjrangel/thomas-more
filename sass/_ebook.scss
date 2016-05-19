@@ -8,9 +8,43 @@ $ebook_letras: invert($color);
     background: $ebook_fondo;
 }
 
+#titulo
+{
+    width: 60%;
+    div
+    {
+        float: left;
+    }
+}
+
+.share
+{
+    border:3px solid blue;
+    float:right;
+    padding-bottom:72px;
+}
+
+.libro
+{
+    /*border:3px solid green;*/
+    float:left;
+    padding-bottom:540px;
+    background:url('imagenes/libro-front.png');
+    background-position:center;
+    background-size:contain;
+}
+
+.download
+{
+    border:3px solid green;
+    float:left;
+    padding-bottom:52px;
+    position:relative;
+}
+
 #noticias.ebook .descripcion-ebook
 {
-    width: 100%;
+    width: 50%;
 
     form
     {
@@ -105,6 +139,31 @@ $ebook_letras: invert($color);
         text-align: left;
         color: $ebook_letras;
     }
+    
+}
+
+#noticias.ebook .amazon
+{
+    float:left;
+    border:3px solid green;
+    background:url('imagenes/amazon-logo_transparent.png') center no-repeat;
+    background-position:center;
+    background-size:contain;
+    padding-top:127px;
+    margin-left:100px;
+    position:absolute;
+}
+
+#noticias.ebook .tmc
+{
+    float:left;
+    border:3px solid green;
+    background:url('imagenes/amazon-logo_transparent.png') center no-repeat;
+    background-position:center;
+    background-size:contain;
+    padding-top:127px;
+    margin-left:100px;
+    position:absolute;
 }
 
 /*Validacion del formulario*/
