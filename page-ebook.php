@@ -1,5 +1,17 @@
 <?php get_header(); ?>
-<!-- <meta http-equiv="refresh" content="3"> -->
+<style>
+    header{display:none;}
+    footer{display:none;}
+    #front-ebook{margin-top:0;}
+</style>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div id="front-ebook">
 
 </div>
@@ -12,6 +24,30 @@
                 A theoretical and practical methodology for designing
                 and implementing Sales Incentive Plans for the Sales Force
             </h3>
+        </div>
+        <div class="sharing">
+            <h4>Share</h4>
+            <div class="tw">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://goo.gl/vOL74K" data-text="#SalesCompensation a theoretical and practical methodology for designing and implementing sales incentive plans for the Sales Force" data-size="large" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://goo.gl/vOL74K" data-text="#SalesCompensation a theoretical and practical methodology for designing and implementing sales incentive plans for the Sales Force" data-size="large" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+            <div class="fb">
+                <div class="fb-share-button" data-href="http://www.tmmcinc.com/ebook" data-layout="button" data-mobile-iframe="false"></div>
+                <div class="fb-share-button" data-href="http://www.tmmcinc.com/ebook" data-layout="button" data-mobile-iframe="false"></div>
+                <div class="fb-share-button" data-href="http://www.tmmcinc.com/ebook" data-layout="button" data-mobile-iframe="false"></div>
+            </div>
+            <div class="li">
+                <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+<script type="IN/Share" data-url="http://www.tmmcinc.com/ebook"></script>
+                <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+<script type="IN/Share" data-url="http://www.tmmcinc.com/ebook"></script>
+                <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+<script type="IN/Share" data-url="http://www.tmmcinc.com/ebook"></script>
+            </div>
+            <a href="mailto:?subject=Sales Compensation: A theoretical and practical methodology for designing and implementing sales incentive plans for the Sales Force&amp;body=This is the new book wrote by TMC's CEO, Mr. Federico Lopez and offers complete, precise and empirical qualities, structure and possible outcomes in relation to Designing Sales Compensation Plans, adapted to specific needs and characteristics of the business, market and sales force requirements. https://www.tmmcinc.com/ebook" class="em">
+            </a>
         </div>
         <div class="wrapper-portada">
             <div id="portada"></div>
@@ -53,7 +89,7 @@
                     <div class="amazon"></div>
                 </a>
                 <a href="<?php echo home_url(); ?>" target="_blank">
-
+                    <h4>Find us</h4>
                     <div class="tmc"></div>
                 </a>
             </div>
@@ -114,7 +150,7 @@
         <div class="wrapper-author-info">
             <h2>Contact the author</h2>
             <p>
-                Federico Lopez
+                Federico Lopez:
                 <a href="mailto:federico.lopez@thomasmorecg.net">
                     federico.lopez@thomasmorecg.net
                 </a>
@@ -153,14 +189,10 @@
                 them, WorldatWork Journal of WorldatWork (formerly, American
                 Compensation Association).
             </p>
+            <div id="author-pic-movil"></div>
         </div>
     </div> <!-- end #author -->
 
-<div style="width:100%;clear:both;"></div>
+<div id="filler-footer"></div>
 </div>
-<script src="<?php echo get_template_directory_uri(); ?>/js/parsley.min.js"></script>
-<?php if ( pll_current_language() == 'es' ) : ?>
-    <script src="<?php echo get_template_directory_uri(); ?>/js/es.js"></script>
-<?php endif; ?>
-<script src="<?php echo get_template_directory_uri(); ?>/js/formulario_ebook.js"></script>
 <?php get_footer(); ?>
