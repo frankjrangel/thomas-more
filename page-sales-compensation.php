@@ -1,8 +1,9 @@
 <?php get_header(); ?>
+
 <style>
-    header{display:none;}
+    .lang{display:none;}
+    .redes{margin-top:35px;}
     footer{display:none;}
-    #front-ebook{margin-top:0;}
 </style>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -28,33 +29,35 @@
         <div class="sharing">
             <h4>Share</h4>
             <div class="tw">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://goo.gl/vOL74K" data-text="#SalesCompensation a theoretical and practical methodology for designing and implementing sales incentive plans for the Sales Force" data-size="large" data-dnt="true">Tweet</a>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://goo.gl/VbCU06" data-text="#SalesCompensation a theoretical and practical methodology for designing and implementing sales incentive plans for the Sales Force" data-size="large" data-dnt="true">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://goo.gl/vOL74K" data-text="#SalesCompensation a theoretical and practical methodology for designing and implementing sales incentive plans for the Sales Force" data-size="large" data-dnt="true">Tweet</a>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://goo.gl/VbCU06" data-text="#SalesCompensation a theoretical and practical methodology for designing and implementing sales incentive plans for the Sales Force" data-size="large" data-dnt="true">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
             </div>
             <div class="fb">
-                <div class="fb-share-button" data-href="http://www.tmmcinc.com/ebook" data-layout="button" data-mobile-iframe="false"></div>
-                <div class="fb-share-button" data-href="http://www.tmmcinc.com/ebook" data-layout="button" data-mobile-iframe="false"></div>
-                <div class="fb-share-button" data-href="http://www.tmmcinc.com/ebook" data-layout="button" data-mobile-iframe="false"></div>
+                <div class="fb-share-button" data-href="http://www.tmmcinc.com/sales-compensation" data-layout="button" data-mobile-iframe="false"></div>
+                <div class="fb-share-button" data-href="http://www.tmmcinc.com/sales-compensation" data-layout="button" data-mobile-iframe="false"></div>
+                <div class="fb-share-button" data-href="http://www.tmmcinc.com/sales-compensation" data-layout="button" data-mobile-iframe="false"></div>
             </div>
             <div class="li">
                 <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-<script type="IN/Share" data-url="http://www.tmmcinc.com/ebook"></script>
+<script type="IN/Share" data-url="http://www.tmmcinc.com/sales-compensation"></script>
                 <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-<script type="IN/Share" data-url="http://www.tmmcinc.com/ebook"></script>
+<script type="IN/Share" data-url="http://www.tmmcinc.com/sales-compensation"></script>
                 <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-<script type="IN/Share" data-url="http://www.tmmcinc.com/ebook"></script>
+<script type="IN/Share" data-url="http://www.tmmcinc.com/sales-compensation"></script>
             </div>
             <a href="mailto:?subject=Sales Compensation: A theoretical and practical methodology for designing and implementing sales incentive plans for the Sales Force&amp;body=This is the new book wrote by TMC's CEO, Mr. Federico Lopez and offers complete, precise and empirical qualities, structure and possible outcomes in relation to Designing Sales Compensation Plans, adapted to specific needs and characteristics of the business, market and sales force requirements. https://www.tmmcinc.com/ebook" class="em">
             </a>
         </div>
         <div class="wrapper-portada">
             <div id="portada"></div>
+            <a href="http://tmmcinc.com/wp-content/uploads/2016/04/Sales-Compensation-Introductory-Chapter-by-Federico-Lopez.pdf" target="_blank">
             <button id="descarga">
                 DOWNLOAD
                 <span>introduction</span>
             </button>
+            </a>
         </div>
         <div id="texto-descripcion">
             <p>
@@ -85,7 +88,7 @@
                 </ul>
             </div>
             <div class="reach">
-                <a href="#">
+                <a href="https://www.amazon.com/Sales-Compensation-theoretical-methodology-implementing-ebook/dp/B01FWMGSGK?ie=UTF8&keywords=sales%20compensation&qid=1463689924&ref_=sr_1_4&s=digital-text&sr=1-4">
                     <div class="amazon"></div>
                 </a>
                 <a href="<?php echo home_url(); ?>" target="_blank">

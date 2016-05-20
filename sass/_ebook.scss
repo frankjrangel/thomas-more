@@ -10,6 +10,8 @@ $ebook_fondo_banner: #1C7276;
 $ebook_titulos: rgb(26, 69, 72);
 $ebook_textos: rgb(20, 20, 20);
 
+.fa,i{opacity: 1 !important}
+
 body, html{
     min-width: 320px;
     overflow-x:hidden;
@@ -104,6 +106,11 @@ body, html{
                 opacity: 0;
             }
         }
+
+        .tw{background: url('imagenes/tw-share.png') no-repeat center}
+        .fb{background: url('imagenes/fb-share.png') no-repeat center}
+        .li{background: url('imagenes/in-share.png') no-repeat center}
+        .em{background: url('imagenes/em-share.png') no-repeat center}
     }
 
     .wrapper-portada
@@ -119,6 +126,9 @@ body, html{
             width: 140%;
             float: left;
         }
+
+        a
+        {}
 
         #descarga
         {
@@ -432,9 +442,15 @@ h2
             float: left;
         }
 
+        a
+        {
+            display:block;
+            width: 40%;
+        }
+
         #descarga
         {
-            width: 40%;
+            width: 100%;
             margin-left: 0;
             margin-bottom: 0;
 
